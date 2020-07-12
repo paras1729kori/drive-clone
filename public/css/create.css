@@ -1,0 +1,26 @@
+/* PC VIEW */
+@media(min-width: 893px){
+    #table_mobile{
+        display: none;
+    }
+}
+
+
+
+
+/* CSS MOBILE VIEW*/
+@media(max-width: 892px){
+    #tdata{
+        font-size: 18px;
+    }
+    #fold_on_dash{
+        font-size: 20px;
+    }
+    #table_pc{
+        display: none;
+    }
+    .opt{
+        width: auto;
+    }
+}
+

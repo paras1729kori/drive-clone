@@ -1,0 +1,115 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
+use App\Folder;
+use App\File;
+
+class FoldersController extends Controller
+{
+    public function index($id) {
+        $title = Folder::find($id);
+        $title = $title->name;
+        $fils = File::where('parent_folder', '=', $id)->get();
+        $fols = Folder::where('parent_folder', '=', $id)->get();
+        return view('folders.index', ['title' => $title, 'fils' => $fils, 'fols'=> $fols]);
+    }
+
+    public function create() {
+        return view('pages.create');
+    }
+
+    public function store(Request $request) {
+        //Validator
+        $this->validate($request, [
+            'name' => 'required',
+            'parentid' => 'nullable',
+            'sub' => 'nullable',
+        ]);
+        
+        // Create new Folder
+        $folder = new Folder;
+        $folder->name = $request->input('name');
+        $folder->parent_folder = $request->input('parentid');
+        if($request->input('sub') == 0){
+            $folder->sub_folder = '0';
+        }
+        else{
+            $folder->sub_folder = '1';
+        }
+        $folder->created_by = auth()->user()->id;
+        $folder->save();
+
+        //flash message
+        Session::flash('success', 'Folder Created Successully');
+        
+        return back();
+    }
+
+    public function edit($id) {
+        $fols = Folder::find($id);
+        
+        //Check if post exists before deleting
+        if (!isset($fols)){
+            return back();
+        }
+
+        // Check for correct user
+        if(auth()->user()->id !==$fols->created_by){
+            return back();
+        }
+        return view('folders.edit')->with(['fols' => $fols]);
+    }
+
+    public function update(Request $request, $id) {
+        //Validator
+        $this->validate($request, [
+            'name' => 'required',
+            'parentid' => 'nullable',
+            'val' => 'nullable',
+        ]);
+
+        $folder = Folder::find($id);
+
+        // Update Folder
+        $folder->name = $request->input('name');
+        $folder->parent_folder = $request->input('parentid');
+        if($request->input('val') == 0){
+            $folder->sub_folder = '0';
+        }
+        else{
+            $folder->sub_folder = '1';
+        }
+        $folder->created_by = auth()->user()->id;
+        $folder->save();
+
+        //Flash Messages for the requests
+        Session::flash('info', 'Changes Saved Successfully');
+        
+        return back();
+    }
+
+    public function destroy($id) {
+        $fol = Folder::find($id);
+        
+        //Check if post exists before deleting
+        if (!isset($fol)){
+            return back();
+        }
+
+        // Check for correct user
+        if(auth()->user()->id !==$fol->created_by){
+            return back();
+        }
+
+        $fol->delete();
+
+        //flash message
+        Session::flash('success', 'Folder Deleted Successfully');
+
+        return back();
+    }
+}
