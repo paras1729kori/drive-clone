@@ -13,8 +13,8 @@
                     {{ Auth::user()->name }} <span class="caret"></span>
                 </a>
 
-                <ul class="dropdown-menu" role="menu">
-                    <li><a href="/dashboard">Dashboard</a></li>
+                <ul class="dropdown-menu text-center" role="menu">
+                    <li><a href="/dash">Dashboard</a></li><hr>
                     <li>
                         <a href="{{ route('logout') }}"
                             onclick="event.preventDefault();

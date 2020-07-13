@@ -16,7 +16,7 @@
 
 <!-- Sidebar -->
 <div id="sidebar-wrapper">
-    <div class="list-group list-group-flush bg-light" id="sidenav">
+    <div class="list-group list-group-flush" id="sidenav">
         <a href="javascript:void(0)" class="closebtn close mt-2" onclick="closeNav()">&times;</a>
         <a class="navbar-brand mt-0" href="/"><img src="{{asset('img/mob.jpg')}}" alt=""></a>
         

@@ -54,8 +54,8 @@
                     </tbody>
                 @endforeach
           </table>
-            <a href="/create"><button class="btn btn-success">Create File</button></a>
           @endif
+          <a href="/create"><button class="btn btn-success">Create File</button></a>
     </div>
     
 @endsection
