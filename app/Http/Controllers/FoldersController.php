@@ -10,12 +10,22 @@ use App\File;
 
 class FoldersController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth', ['except' => ['index','show']]);
+    }
+
     public function index($id) {
         $title = Folder::find($id);
         $title = $title->name;
         $fils = File::where('parent_folder', '=', $id)->get();
         $fols = Folder::where('parent_folder', '=', $id)->get();
         return view('folders.index', ['title' => $title, 'fils' => $fils, 'fols'=> $fols]);
+    }
+
+    public function download($id){
+        $download = File::find($id);
+        return response()->download('storage/files/'.$download->name);
     }
 
     public function create() {

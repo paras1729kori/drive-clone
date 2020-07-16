@@ -17,10 +17,10 @@
           <a class="nav-link link" href="/create"><i id="icon" class="fa fa-plus fa-lg icon" aria-hidden="true" class = "icon"></i> Create</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link link" href="/dash"><i id="icon" class="fa fa-home fa-lg icon" aria-hidden="true" class = "icon"></i> Dashboard</a>
+          <a class="nav-link link" href="/home"><i id="icon" class="fa fa-home fa-lg icon" aria-hidden="true" class = "icon"></i> Dashboard</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link link" href="/acc"><i id="icon" class="fa fa-user fa-lg icon" aria-hidden="true" class = "icon"></i> Home</a>
+          <a class="nav-link link" href="/"><i id="icon" class="fa fa-user fa-lg icon" aria-hidden="true" class = "icon"></i> Account</a>
         </li>
       </ul>
       <form class="form-inline mt-2 mt-md-0">

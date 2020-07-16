@@ -21,8 +21,8 @@
         <a class="navbar-brand mt-0" href="/"><img src="{{asset('img/mob.jpg')}}" alt=""></a>
         
         <a class="nav-link links" href="/create"><i id="icon" class="fa fa-plus fa-lg icon" aria-hidden="true" class = "icon"></i> Create</a>
-        <a class="nav-link links" href="/dash"><i id="icon" class="fa fa-home fa-lg icon" aria-hidden="true" class = "icon"></i> Dashboard</a>
-        <a class="nav-link links" href="/acc"><i id="icon" class="fa fa-user fa-lg icon" aria-hidden="true" class = "icon"></i> Home</a>
+        <a class="nav-link links" href="/home"><i id="icon" class="fa fa-home fa-lg icon" aria-hidden="true" class = "icon"></i> Dashboard</a>
+        <a class="nav-link links" href="/"><i id="icon" class="fa fa-user fa-lg icon" aria-hidden="true" class = "icon"></i> Account</a>
 
     </div>
   </div>

@@ -9,8 +9,6 @@
                 <a href="/folders/{{$fol->id}}" style="color: #08417a;"><i class="fa fa-folder pr-2" aria-hidden="true"></i>{{$fol->name}}</a>
                 </div>
             @endforeach
-        @else
-            <a href="/create"><button class="btn btn-success">Create Folder</button></a>
         @endif
         </div>
         <br><br>
@@ -23,7 +21,6 @@
                 <th>Created By</th>
                 <th>last Modified at</th>
                 <th>Size</th>
-                <th>Edit</th>
                 <th>Delete</th>
               </tr>
               <tr id="table_mobile">
@@ -34,11 +31,10 @@
                 @foreach ($fils as $fil)
                     <tbody>
                     <tr id="table_pc">
-                        <td>{{$fil->name}}</td>
+                        <td><a href="{{ route('downloadfileindash', $fil->id) }}" style="text-decoration: none;">{{$fil->name}}</a></td>
                         <td>{{$fil->created_by}}</td>
                         <td>{{$fil->updated_at}}</td>
                         <td>{{$fil->size}}</td>
-                        <td><a href="/files/{{$fil->id}}/edit"><i id="icon" class="fa fa-pencil-square-o fa-lg icon" aria-hidden="true" class = "icon"></i></td>
                         <td>
                             {!! Form::open(['action' => ['FilesController@destroy', $fil->id], 'method' => 'DELETE']) !!}
 					            <button class="btn btn-sm btn-danger" type="submit">Delete</button>
@@ -46,10 +42,40 @@
                         </td>
                     </tr>
                     </tbody>
-                    <tbody>
+                @endforeach
+                
+                @foreach ($fils as $fil)
+                <tbody>
                     <tr id="table_mobile">
-                        <td>{{$fil->name}}</td>
-                        <td class="text-center"><a href="#"><i id="icon" class="fa fa-info-circle fa-lg icon" aria-hidden="true" class = "icon"></i></td>
+                        <td><a href="{{ route('downloadfileindash', $fil->id) }}" style="text-decoration: none;">{{$fil->name}}</a></td>
+                        <td class="text-center">
+                            <!-- Button trigger modal -->
+                            <button type="button" class="btn" data-toggle="modal" data-target="#exampleModal">
+                                <i id="icon" style="font-size: 30px;" class="fa fa-info-circle fa-lg icon" aria-hidden="true" class = "icon"></i>
+                            </button>
+                            
+                            <!-- Modal -->
+                            <div class="modal" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">{{$fil->name}}</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        Created By: {{$fil->created_by}}<br>
+                                        last Modified at: {{$fil->updated_at}}<br>
+                                        Size: {{$fil->size}}                                      
+                                        {!! Form::open(['action' => ['FilesController@destroy', $fil->id], 'method' => 'DELETE']) !!}
+                                            <button class="btn btn-sm btn-danger" type="submit">Delete</button>
+                                        {!! Form::close() !!}                                        
+                                    </div>
+                                </div>
+                                </div>
+                            </div>
+                        </td>
                     </tr>
                     </tbody>
                 @endforeach
@@ -59,3 +85,6 @@
     </div>
     
 @endsection
+
+
+{{-- <i id="icon" class="fa fa-info-circle fa-lg icon" aria-hidden="true" class = "icon"></i> --}}

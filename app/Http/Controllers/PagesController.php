@@ -11,7 +11,7 @@ class PagesController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('auth', ['except' => ['acc']]);
     }
 
     public function index() {
@@ -28,7 +28,12 @@ class PagesController extends Controller
         return view('pages.create', ['title' => $title, 'fols' => $fols]);
     }
     public function acc() {
-        $title = 'Home';
+        $title = 'Account';
         return view('pages.account')->with('title', $title);
+    }
+
+    public function download($id){
+        $download = File::find($id);
+        return response()->download('storage/files/'.$download->name);
     }
 }
