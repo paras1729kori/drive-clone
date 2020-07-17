@@ -14,4 +14,9 @@ class File extends Model
 
     //timestamps
     public $timestamps = true;
+
+    //Relatioship for User
+    public function userfils(){
+        return $this->belongsTo('App\User','created_by','id');
+    }
 }

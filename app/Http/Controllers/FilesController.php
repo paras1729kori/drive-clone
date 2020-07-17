@@ -12,13 +12,12 @@ class FilesController extends Controller
 {    
     public function __construct()
     {
-        $this->middleware('auth', ['except' => ['index']]);
+        $this->middleware('auth');
     }
-    
+
     public function create($id) {
         return view('pages.create');
     }
-
 
     public function store(Request $request){
         //validator

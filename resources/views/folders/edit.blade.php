@@ -21,10 +21,10 @@
               {{Form::label('parentid', 'Where')}}
               {{Form::text('parentid', $fols->parent_folder, ['class' => 'form-control', 'placeholder' => 'parentid'])}}
             </div>
-            <div class="form-group">
+            {{-- <div class="form-group">
               {{Form::label('sub', 'Folder or Subfolder')}}
               {{Form::text('sub', $fols->sub_folder, ['class' => 'form-control', 'placeholder' => 'folder id'])}}
-            </div>
+            </div> --}}
               {{Form::submit('Submit', ['class'=>'btn btn-primary'])}}
               {!! Form::close() !!}
             </div>

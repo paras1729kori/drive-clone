@@ -14,4 +14,9 @@ class Folder extends Model
 
     //timestamps
     public $timestamps = true;
+
+    // Relatioship for Users
+    public function userfols(){
+        return $this->belongsTo('App\User','created_by','id');
+    }
 }

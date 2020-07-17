@@ -3,10 +3,10 @@
 @section('content')
     <div class="container">
     <h4 class="font-weight-bold">Folders</h4>
-        <div class="row no-gutters text-center" style="font-size: 25px ;">
+        <div class="row text-center" style="font-size: 25px ;">
             @if (count($fols) > 0)
                 @foreach ($fols as $fol)
-                        <div class="col-xs-2" id="fold_on_dash">
+                        <div class="col-sm-1" id="fold_on_dash">
                         <a href="/folders/{{$fol->id}}" style="color: #08417a;"><i class="fa fa-folder pr-2" aria-hidden="true"></i>{{$fol->name}}</a>
                         <br>
                         <a class="nav-link link" href="/folders/{{$fol->id}}/edit"><i id="icon" class="fa fa-pencil icon" aria-hidden="true" class = "icon"></i></a>

@@ -2,7 +2,8 @@
 
 @section('content')
     <div class="container">
-        <div class="row text-center mt-5" style="font-size: 30px ;">
+      <h4 class="font-weight-bold">Folders</h4>
+        <div class="row text-center" style="font-size: 30px ;">
             @if (count($fols) > 0)
             @foreach ($fols as $fol) 
                 <div class="col-4 p-3" id="fold_on_dash">
@@ -81,7 +82,6 @@
                 @endforeach
           </table>
           @endif
-          <a href="/create"><button class="btn btn-success">Create File</button></a>
     </div>
     
 @endsection

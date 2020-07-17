@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Session;
 use App\Folder;
 use App\File;
@@ -37,19 +38,14 @@ class FoldersController extends Controller
         $this->validate($request, [
             'name' => 'required',
             'parentid' => 'nullable',
-            'sub' => 'nullable',
+            // 'sub' => 'required|nullable',
         ]);
         
         // Create new Folder
         $folder = new Folder;
         $folder->name = $request->input('name');
         $folder->parent_folder = $request->input('parentid');
-        if($request->input('sub') == 0){
-            $folder->sub_folder = '0';
-        }
-        else{
-            $folder->sub_folder = '1';
-        }
+        $folder->sub_folder = '1';
         $folder->created_by = auth()->user()->id;
         $folder->save();
 
@@ -87,12 +83,7 @@ class FoldersController extends Controller
         // Update Folder
         $folder->name = $request->input('name');
         $folder->parent_folder = $request->input('parentid');
-        if($request->input('val') == 0){
-            $folder->sub_folder = '0';
-        }
-        else{
-            $folder->sub_folder = '1';
-        }
+        $folder->sub_folder = '1';
         $folder->created_by = auth()->user()->id;
         $folder->save();
 
@@ -111,9 +102,11 @@ class FoldersController extends Controller
         }
 
         // Check for correct user
-        if(auth()->user()->id !==$fol->created_by){
-            return back();
-        }
+        // if(auth()->user()->id !==$fol->created_by){
+        //     //flash message
+        //     Session::flash('danger', 'Access Denied');
+        //     return back();
+        // }
 
         $fol->delete();
 

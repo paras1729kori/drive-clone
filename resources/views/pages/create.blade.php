@@ -57,14 +57,14 @@
               @endforeach
             </select>
           </div>
-          <div class="form-group">
+          {{-- <div class="form-group">
             {{Form::label('sub', 'Folder or Subfolder')}}
             <select id="sub" class="form-control opt" name="val">
               <option>Select Folder</option>
                 <option val=0>Folder</option>
                 <option val=1>Sub-Folder</option>
             </select>
-          </div>
+          </div> --}}
             {{Form::submit('Create', ['class'=>'btn btn-primary'])}}
             {!! Form::close() !!}
           </div>

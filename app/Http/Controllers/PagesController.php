@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Input;
 use App\Folder;
 use App\File;
 use DB;
@@ -15,12 +16,11 @@ class PagesController extends Controller
     }
 
     public function index() {
-        $data = array(
-            'title' => 'Dashboard',
-            'fils' => File::where('parent_folder', '=', null)->get(),
-            'fols' => Folder::where('parent_folder', '=', null)->get()
-        );
-        return view('pages.dash')->with($data);
+        $title = 'Home';
+        $fils = File::where('parent_folder', '=', null)->get();
+        $fols = Folder::where('parent_folder', '=', null)->get();
+
+        return view('pages.dash',['title' => $title,'fils' => $fils, 'fols' =>$fols]);
     }
     public function create() {
         $title = 'Create';
@@ -28,12 +28,19 @@ class PagesController extends Controller
         return view('pages.create', ['title' => $title, 'fols' => $fols]);
     }
     public function acc() {
-        $title = 'Account';
+        $title = 'Dashboard';
         return view('pages.account')->with('title', $title);
     }
 
-    public function download($id){
+    public function download($id) {
         $download = File::find($id);
         return response()->download('storage/files/'.$download->name);
+    }
+
+    public function search(Request $request) {
+        $search = $request->get('searching');
+        $fils = File::where('name','like','%'.$search.'%')->get();
+        $fols = Folder::where('name','like','%'.$search.'%')->get();
+        return view('pages.search', ['fils' => $fils, 'fols'=>$fols]);
     }
 }

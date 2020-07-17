@@ -16,12 +16,13 @@ use Illuminate\Support\Facades\Route;
 Route::get('/home', 'PagesController@index')->name('pages.dash');
 Route::get('/create', 'PagesController@create')->name('pages.create');
 Route::get('/', 'PagesController@acc')->name('pages.account');
+Route::get('/search', 'PagesController@search');
 //for downloading files
 Route::get('download/{id}', 'PagesController@download')->name('downloadfileindash');
 
 
 // File Controller Routes
-Route::get('files/{id}', 'FilesController@index');
+// Route::get('files/{id}', 'FilesController@index');
 Route::post('files/store', 'FilesController@store');
 Route::delete('files/{id}/destroy', 'FilesController@destroy');
 
