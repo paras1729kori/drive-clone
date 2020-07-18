@@ -3,23 +3,22 @@
 @section('content')
     <div class="container">
     <h4 class="font-weight-bold">Folders</h4>
-        <div class="row no-gutters text-center" style="font-size: 25px ;">
+        <div class="row text-center" style="font-size: 25px ;">
             @if (count($fols) > 0)
                 @foreach ($fols as $fol)
-                        <div class="col-2 text-center" id="fold_on_dash">
+                        <div class="col-4" id="fold_on_dash">
                         <a href="/folders/{{$fol->id}}" style="color: #08417a;"><i class="fa fa-folder pr-2" aria-hidden="true"></i>{{$fol->name}}</a>
                         <br>
-                        <a href="/folders/{{$fol->id}}/edit" class="btn btn-success btn-sm">Edit</a>
+                        <a class="nav-link link" href="/folders/{{$fol->id}}/edit"><i id="icon" class="fa fa-pencil icon" aria-hidden="true" class = "icon"></i></a>
                         {!!Form::open(['action' => ['FoldersController@destroy', $fol->id], 'method' => 'DELETE'])!!}
-                            {{Form::submit('Delete', ['class' => 'btn btn-danger btn-sm'])}}
+                            <button type="submit" style="border: 0px; background-color:white;"><i id="icon" class="fa fa-trash icon" aria-hidden="true" class = "icon"></i></button>
                         {!!Form::close()!!}
                         <br>
                     </div>
                 @endforeach
-            @else
-                <a href="/create"><button class="btn btn-success">Create Folder</button></a>
             @endif
         </div>
+        <a href="/create"><button class="btn btn-success">Create Folders</button></a>
         <br><br>
         <h4 class="font-weight-bold">Files</h4>
         @if (count($fils) > 0)
@@ -30,7 +29,6 @@
                 <th>Created By</th>
                 <th>last Modified at</th>
                 <th>Size</th>
-                <th>Edit</th>
                 <th>Delete</th>
               </tr>
               <tr id="table_mobile">
@@ -41,11 +39,10 @@
                 @foreach ($fils as $fil)
                     <tbody>
                         <tr id="table_pc">
-                        <td>{{$fil->name}}</td>
-                        <td>{{$fil->created_by}}</td>
+                        <td><a href="{{ route('downloadfileinfols', $fil->id) }}" style="text-decoration: none;">{{$fil->name}}</a></td>
+                        <td>{{$fil->userfils->name}}</td>
                         <td>{{$fil->updated_at}}</td>
                         <td>{{$fil->size}}</td>
-                        <td><a href="/files/{{$fil->id}}/edit"><i id="icon" class="fa fa-pencil-square-o fa-lg icon" aria-hidden="true" class = "icon"></i></td>
                         <td>
                             {!! Form::open(['action' => ['FilesController@destroy', $fil->id], 'method' => 'DELETE']) !!}
 					            <button class="btn btn-sm btn-danger" type="submit">Delete</button>
@@ -53,12 +50,41 @@
                         </td>
                         </tr>
                     </tbody>
+                    
+
                     <tbody>
                         <tr id="table_mobile">
-                            <td>{{$fil->name}}</td>
-                            <td class="text-center"><a href="#"><i id="icon" class="fa fa-info-circle fa-lg icon" aria-hidden="true" class = "icon"></i></td>
+                            <td><a href="{{ route('downloadfileinfols', $fil->id) }}" style="text-decoration: none;">{{$fil->name}}</a></td>
+                            <td class="text-center">
+                                <!-- Button trigger modal -->
+                                <button type="button" class="btn" data-toggle="modal" data-target="#exampleModal">
+                                    <i id="icon" style="font-size: 30px;" class="fa fa-info-circle fa-lg icon" aria-hidden="true" class = "icon"></i>
+                                </button>
+                                
+                                <!-- Modal -->
+                                <div class="modal" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">{{$fil->name}}</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            {{$fil->userfils->name}}<br>
+                                            {{$fil->updated_at}} <br>
+                                            {{$fil->size}}                                      
+                                            {!! Form::open(['action' => ['FilesController@destroy', $fil->id], 'method' => 'DELETE']) !!}
+                                                <button class="btn btn-sm btn-danger" type="submit">Delete</button>
+                                            {!! Form::close() !!}                                            
+                                        </div>
+                                    </div>
+                                    </div>
+                                </div>
+                            </td>
                         </tr>
-                    </tbody>
+                        </tbody>
                 @endforeach
           </table>  
         @endif

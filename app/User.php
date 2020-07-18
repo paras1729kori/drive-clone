@@ -36,4 +36,15 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    //Relationship for files
+    public function files(){
+        return $this->hasMany('App\File');
+    }
+
+    // Relationship for folders
+    public function folders(){
+        return $this->hasMany('App\Folder');
+    }
 }
+

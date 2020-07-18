@@ -14,7 +14,7 @@
                 </a>
 
                 <ul class="dropdown-menu text-center" role="menu">
-                    <li><a href="/dash">Dashboard</a></li><hr>
+                    <li><a href="/home">Dashboard</a></li><hr>
                     <li>
                         <a href="{{ route('logout') }}"
                             onclick="event.preventDefault();
@@ -28,8 +28,25 @@
                     </li>
                 </ul>
             </li>
+            <div class="row justify-content-center mt-5">
+                <div class="col-md-8">
+                    <div class="card">
+                        <div class="card-header">{{ __('Info') }}</div>
+        
+                        <div class="card-body">
+                            @if (session('status'))
+                                <div class="alert alert-success" role="alert">
+                                    {{ session('status') }}
+                                </div>
+                            @endif
+        
+                            {{ __('You are logged in!') }}
+                        </div>
+                    </div>
+                </div>
+            </div>
         @endif
     </ul>
-
 </div>
 @endsection
+

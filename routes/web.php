@@ -13,25 +13,49 @@ use Illuminate\Support\Facades\Route;
 |
 */
 // PAGES ROUTES
-Route::get('/dash', 'PagesController@index')->name('pages.dash');
+// Route::get('/home', 'PagesController@index')->name('pages.dash');
 Route::get('/create', 'PagesController@create')->name('pages.create');
-Route::get('/acc', 'PagesController@acc')->name('pages.account');
+Route::get('/', 'PagesController@acc')->name('pages.account');
+Route::get('/search', 'PagesController@search');
+//for downloading files
+Route::get('download/{id}', 'PagesController@download')->name('downloadfileindash');
 
 
 // File Controller Routes
-Route::get('files/{id}', 'FilesController@index');
+Route::get('/home', 'FilesController@index');
 Route::post('files/store', 'FilesController@store');
-Route::get('files/{id}/edit', 'FilesController@edit');
 Route::delete('files/{id}/destroy', 'FilesController@destroy');
 
 
 //Folder Controller Routes
-Route::get('folders/{id}', 'FoldersController@index');
+Route::get('folders/{id}', 'FoldersController@index')->name('folders.index');
 Route::post('folders/store', 'FoldersController@store');
-Route::get('folders/{id}/edit', 'FoldersController@edit');
+Route::get('folders/{id}/edit', 'FoldersController@edit')->name('folders.edit');
 Route::post('folders/{id}/update', 'FoldersController@update');
 Route::delete('folders/{id}/destroy', 'FoldersController@destroy');
+//for downloading files
+Route::get('folders/download/{id}', 'FoldersController@download')->name('downloadfileinfols');
 
 
 Auth::routes();
-Route::get('/', 'HomeController@index')->name('home');
+// Route::get('/', 'HomeController@index')->name('home');
+
+//Admin Middleware Controller Routes
+Route::group(['middleware' => ['auth', 'admin']], function(){
+    Route::get('/dashboard', function () {
+        return view('admin.dashboard');
+    });
+    Route::get('/dashboard','Admin\AdminController@index');
+    Route::get('/registerrole','Admin\AdminController@register');
+    Route::get('/registeredit/{id}','Admin\AdminController@registeredit');
+    Route::put('/registerupdate/{id}','Admin\AdminController@registerupdate');
+    Route::delete('/registerdelete/{id}','Admin\AdminController@registerdelete');
+
+    Route::get('/tasks','Admin\TasksController@index');
+    Route::post('/savetasks','Admin\TasksController@store');
+    Route::get('/tasks/{id}','Admin\TasksController@edit');
+    Route::put('/tasksupdate/{id}','Admin\TasksController@update');
+    Route::delete('/tasksdelete/{id}','Admin\TasksController@delete');
+
+
+});

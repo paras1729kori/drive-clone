@@ -10,10 +10,19 @@ use App\File;
 
 class FilesController extends Controller
 {    
-    public function index() {
-        $fils = File::where('parent_folder', '=', null)->get();
-        return view('pages.dash')->with('fils', $fils);
+    public function __construct()
+    {
+        $this->middleware('auth');
     }
+
+    // Index for pushing data specially for homepage
+    public function index() {
+        $title = 'Home';
+        $fils = File::where('parent_folder', '=', null)->get();
+        $fols = Folder::where('parent_folder', '=', null)->get();
+        return view('pages.dash',['title' => $title,'fils' => $fils, 'fols' =>$fols]);
+    }
+
     public function create($id) {
         return view('pages.create');
     }
@@ -49,11 +58,6 @@ class FilesController extends Controller
         return back();
     }
 
-    public function edit($id) {
-        $file = File::find($id);
-        return view('files.edit')->with('file', $file);
-    }
-
     public function destroy($id) {
         $fil = File::find($id);
         
@@ -64,6 +68,9 @@ class FilesController extends Controller
 
         // Check for correct user
         if(auth()->user()->id !== $fil->created_by){
+            //Flash Messages for the requests
+            Session::flash('danger', 'Access Denied');
+
             return back();
         }
         
