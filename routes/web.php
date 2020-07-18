@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
 // PAGES ROUTES
 Route::get('/create', 'PagesController@create')->name('pages.create');
 Route::get('/', 'PagesController@acc')->name('pages.account');
@@ -35,10 +36,6 @@ Route::delete('folders/{id}/destroy', 'FoldersController@destroy');
 //for downloading files in folders
 Route::get('folders/download/{id}', 'FoldersController@download')->name('downloadfileinfols');
 Auth::routes();
-
-// Route::get('/', 'HomeController@index')->name('home');
-=======
-// Route::get('/', 'HomeController@index')->name('home');
 
 //Admin Middleware Controller Routes
 Route::group(['middleware' => ['auth', 'admin']], function(){
