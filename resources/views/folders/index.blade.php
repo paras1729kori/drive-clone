@@ -3,16 +3,21 @@
 @section('content')
     <div class="container">
     <h4 class="font-weight-bold">Folders</h4>
-        <div class="row text-center" style="font-size: 25px ;">
+        <div class="row no-gutters text-center" style="font-size: 25px ;">
             @if (count($fols) > 0)
                 @foreach ($fols as $fol)
-                        <div class="col-4" id="fold_on_dash">
+                        <div class="col-xs-3" id="fold_on_dash">
                         <a href="/folders/{{$fol->id}}" style="color: #08417a;"><i class="fa fa-folder pr-2" aria-hidden="true"></i>{{$fol->name}}</a>
-                        <br>
-                        <a class="nav-link link" href="/folders/{{$fol->id}}/edit"><i id="icon" class="fa fa-pencil icon" aria-hidden="true" class = "icon"></i></a>
-                        {!!Form::open(['action' => ['FoldersController@destroy', $fol->id], 'method' => 'DELETE'])!!}
-                            <button type="submit" style="border: 0px; background-color:white;"><i id="icon" class="fa fa-trash icon" aria-hidden="true" class = "icon"></i></button>
-                        {!!Form::close()!!}
+                        <div class="row no-gutters">
+                            <div class="col-xs-6">
+                                <a class="nav-link link" href="/folders/{{$fol->id}}/edit"><i id="icon" class="fa fa-pencil icon" aria-hidden="true" class = "icon"></i></a>
+                            </div>
+                            <div class="col-xs-6">
+                                {!!Form::open(['action' => ['FoldersController@destroy', $fol->id], 'method' => 'DELETE'])!!}
+                                    <button type="submit" style="border: 0px; background-color:white;"><i id="icon" class="fa fa-trash icon" aria-hidden="true" class = "icon"></i></button>
+                                {!!Form::close()!!}
+                            </div>
+                        </div>
                         <br>
                     </div>
                 @endforeach

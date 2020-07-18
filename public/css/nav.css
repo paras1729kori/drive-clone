@@ -18,6 +18,10 @@
     #navbar{
         display: none;
     }
+    .ptitle{
+        font-weight:bold;
+        font-size:24px;
+    }
     #sidenav{
         height: 100%;
         width: 0;
