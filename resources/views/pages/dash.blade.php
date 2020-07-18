@@ -59,7 +59,7 @@
                                       <a href="{{ route('downloadfileindash', $fil->id) }}" style="text-decoration: none;">{{$fil->name}}</a><br>
                                       Created By: {{$fil->userfils->name}} <br>
                                       last modified at: {{$fil->updated_at}} <br>
-                                      Size: {{!! SizeCal::bytesToHuman($fil->size) !!}} <br>
+                                      Size: {{ ($fil->size) }}<br>
                                       {!! Form::open(['action' => ['FilesController@destroy', $fil->id], 'method' => 'DELETE']) !!}
                                         <button class="btn btn-sm btn-danger" type="submit">Delete</button>
                                       {!! Form::close() !!}
