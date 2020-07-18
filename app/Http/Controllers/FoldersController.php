@@ -13,7 +13,7 @@ class FoldersController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth', ['except' => ['index','show']]);
+        $this->middleware('auth');
     }
 
     public function index($id) {
@@ -60,29 +60,30 @@ class FoldersController extends Controller
         
         //Check if post exists before deleting
         if (!isset($fols)){
+            //flash message
+            Session::flash('danger', 'Folder Not Found');
             return back();
         }
 
         // Check for correct user
         if(auth()->user()->id !==$fols->created_by){
+            //flash message
+            Session::flash('danger', 'Access Denied');
             return back();
         }
-        return view('folders.edit')->with(['fols' => $fols]);
+        return view('folders.edit',['fols'=>$fols]);
     }
 
     public function update(Request $request, $id) {
         //Validator
         $this->validate($request, [
             'name' => 'required',
-            'parentid' => 'nullable',
-            'val' => 'nullable',
         ]);
 
         $folder = Folder::find($id);
 
         // Update Folder
         $folder->name = $request->input('name');
-        $folder->parent_folder = $request->input('parentid');
         $folder->sub_folder = '1';
         $folder->created_by = auth()->user()->id;
         $folder->save();
@@ -90,7 +91,7 @@ class FoldersController extends Controller
         //Flash Messages for the requests
         Session::flash('info', 'Changes Saved Successfully');
         
-        return back();
+        return redirect('/home');
     }
 
     public function destroy($id) {

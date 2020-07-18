@@ -23,10 +23,10 @@
                 <th>Size</th>
                 <th>Delete</th>
               </tr>
-              <tr id="table_mobile">
+              {{-- <tr id="table_mobile">
                 <th>File Name</th>
                 <th class="text-center">Info</th>
-              </tr>
+              </tr> --}}
             </thead>
                 @foreach ($fils as $fil)
                     <tbody>
@@ -37,82 +37,43 @@
                         <td>{{$fil->size}}</td>
                         <td>
                             {!! Form::open(['action' => ['FilesController@destroy', $fil->id], 'method' => 'DELETE']) !!}
-					            <button class="btn btn-sm btn-danger" type="submit">Delete</button>
-				            {!! Form::close() !!}
+                              <button class="btn btn-sm btn-danger" type="submit">Delete</button>
+                            {!! Form::close() !!}
                         </td>
                     </tr>
                     </tbody>
-                @endforeach
-                
-                @foreach ($fils as $fil)
                 <tbody>
                     <tr id="table_mobile">
-                        <td><a href="{{ route('downloadfileindash', $fil->id) }}" style="text-decoration: none;">{{$fil->name}}</a></td>
-                            <td class="text-center">
-                                <!-- Button trigger modal -->
-                                <button type="button" class="btn" data-toggle="modal" data-target="#exampleModal">
-                                    <i id="icon" style="font-size: 30px;" class="fa fa-info-circle fa-lg icon" aria-hidden="true" class = "icon"></i>
-                                </button>
-                                
-                                <!-- Modal -->
-                                <div class="modal" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">{{$fil->name}}</h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                        </div>
-                                        <div class="modal-body">
-                                            {{$fil->userfils->name}}<br>
-                                            {{$fil->updated_at}} <br>
-                                            {{$fil->size}}                                      
-                                            {!! Form::open(['action' => ['FilesController@destroy', $fil->id], 'method' => 'DELETE']) !!}
-                                                <button class="btn btn-sm btn-danger" type="submit">Delete</button>
-                                            {!! Form::close() !!}                                            
-                                        </div>
-                                    </div>
-                                    </div>
-                                </div>
-                            </td>
-
-
-                        {{-- <td><a href="{{ route('downloadfileindash', $fil->id) }}" style="text-decoration: none;">{{$fil->name}}</a></td>
                         <td class="text-center">
-                            <!-- Button trigger modal -->
-                            <button type="button" class="btn" data-toggle="modal" data-target="#exampleModal">
-                                <i id="icon" style="font-size: 30px;" class="fa fa-info-circle fa-lg icon" aria-hidden="true" class = "icon"></i>
-                            </button>
-                            
-                            <!-- Modal -->
-                            <div class="modal" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                <div class="modal-dialog" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel">{{$fil->name}}</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
+                            <div id="accordion" role="tablist">
+                                <div class="card">
+                                  <div class="card-header" role="tab" id="headingOne">
+                                    <h5 class="mb-0">
+                                      <a data-toggle="collapse" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                        {{$fil->name}}
+                                      </a>
+                                    </h5>
+                                  </div>                             
+                                  <div id="collapseOne" class="collapse" role="tabpanel" aria-labelledby="headingOne">
+                                    <div class="card-body">
+                                      <a href="{{ route('downloadfileindash', $fil->id) }}" style="text-decoration: none;">{{$fil->name}}</a><br>
+                                      Created By: {{$fil->userfils->name}} <br>
+                                      last modified at: {{$fil->updated_at}} <br>
+                                      Size: {{ ($fil->size) }}<br>
+                                      {!! Form::open(['action' => ['FilesController@destroy', $fil->id], 'method' => 'DELETE']) !!}
+                                        <button class="btn btn-sm btn-danger" type="submit">Delete</button>
+                                      {!! Form::close() !!}
                                     </div>
-                                    <div class="modal-body">
-                                        {{$fil->userfils->name}}<br>
-                                        {{$fil->updated_at}}<br>
-                                        {{$fil->size}}                                      
-                                        {!! Form::open(['action' => ['FilesController@destroy', $fil->id], 'method' => 'DELETE']) !!}
-                                            <button class="btn btn-sm btn-danger" type="submit">Delete</button>
-                                        {!! Form::close() !!}                                        
-                                    </div>
-                                </div>
+                                  </div>
                                 </div>
                             </div>
-                        </td> --}}
+                        </td>
                     </tr>
                     </tbody>
                 @endforeach
           </table>
           @endif
-          <a href="/create"><button class="btn btn-success">Create File</button></a>
+          <a href="/create" class="btn btn-success mb-2">Create File</a>
     </div>
     
 @endsection

@@ -13,11 +13,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 // PAGES ROUTES
-// Route::get('/home', 'PagesController@index')->name('pages.dash');
 Route::get('/create', 'PagesController@create')->name('pages.create');
 Route::get('/', 'PagesController@acc')->name('pages.account');
 Route::get('/search', 'PagesController@search');
-//for downloading files
+//for downloading files on home
 Route::get('download/{id}', 'PagesController@download')->name('downloadfileindash');
 
 
@@ -33,11 +32,12 @@ Route::post('folders/store', 'FoldersController@store');
 Route::get('folders/{id}/edit', 'FoldersController@edit')->name('folders.edit');
 Route::post('folders/{id}/update', 'FoldersController@update');
 Route::delete('folders/{id}/destroy', 'FoldersController@destroy');
-//for downloading files
+//for downloading files in folders
 Route::get('folders/download/{id}', 'FoldersController@download')->name('downloadfileinfols');
-
-
 Auth::routes();
+
+// Route::get('/', 'HomeController@index')->name('home');
+=======
 // Route::get('/', 'HomeController@index')->name('home');
 
 //Admin Middleware Controller Routes

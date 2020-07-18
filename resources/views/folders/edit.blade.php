@@ -10,24 +10,16 @@
                 </a>
               </h5>
             </div>
-            <div id="collapseTwo" class="collapse show" role="tabpanel" aria-labelledby="headingTwo">
-              <div class="card-body">
-              {!! Form::open(['action' => ['FoldersController@update', $fols->id], 'method' => 'POST', 'enctype' => 'multipart/form-data']) !!}
-            <div class="form-group">
-              {{Form::label('name', 'Name')}}
-              {{Form::text('name', $fols->name, ['class' => 'form-control', 'placeholder' => 'folder name'])}}
-            </div>
-            <div class="form-group">
-              {{Form::label('parentid', 'Where')}}
-              {{Form::text('parentid', $fols->parent_folder, ['class' => 'form-control', 'placeholder' => 'parentid'])}}
-            </div>
-            {{-- <div class="form-group">
-              {{Form::label('sub', 'Folder or Subfolder')}}
-              {{Form::text('sub', $fols->sub_folder, ['class' => 'form-control', 'placeholder' => 'folder id'])}}
-            </div> --}}
-              {{Form::submit('Submit', ['class'=>'btn btn-primary'])}}
-              {!! Form::close() !!}
-            </div>
+              <div id="collapseTwo" class="collapse show" role="tabpanel" aria-labelledby="headingTwo">
+                <div class="card-body">
+                {!! Form::open(['action' => ['FoldersController@update', $fols->id], 'method' => 'POST', 'enctype' => 'multipart/form-data']) !!}
+                  <div class="form-group">
+                  {{Form::label('name', 'Name')}}
+                  {{Form::text('name', $fols->name, ['class' => 'form-control', 'placeholder' => 'folder name'])}}
+                </div>
+                {{Form::submit('Submit', ['class'=>'btn btn-primary'])}}
+                {!! Form::close() !!}
+              </div>
             </div>
           </div>
     </div>

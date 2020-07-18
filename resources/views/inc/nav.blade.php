@@ -9,7 +9,7 @@
 </style>
 
 <nav class="navbar navbar-expand-lg mt-2" id="navbar">
-    <a class="navbar-brand" href="/"><img src="{{asset('img/co.jpg')}}" alt="This is an image of logo"></a>
+    <a class="navbar-brand" href="/home"><img src="{{asset('img/co.jpg')}}" alt="This is an image of logo"></a>
   
     <div class="collapse navbar-collapse">
       <ul class="navbar-nav ml-auto">
@@ -30,7 +30,7 @@
     </div>
   </nav>
   
-  <div class="nobody d-flex flex-row">
+  <div class="d-flex flex-row">
   <button class="ml-3 mt-2" id = "sidebar-btn" onclick="openNav()"><i class="fa fa-bars fa-2x" aria-hidden="true"></i></button>
   
   {{-- for titles on each page --}}

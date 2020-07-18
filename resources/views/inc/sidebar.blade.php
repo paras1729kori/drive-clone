@@ -18,7 +18,7 @@
 <div id="sidebar-wrapper">
     <div class="list-group list-group-flush" id="sidenav">
         <a href="javascript:void(0)" class="closebtn close mt-2" onclick="closeNav()">&times;</a>
-        <a class="navbar-brand mt-0" href="/"><img src="{{asset('img/mob.jpg')}}" alt=""></a>
+        <a class="navbar-brand mt-0" href="/home"><img src="{{asset('img/mob.jpg')}}" alt=""></a>
         
         <a class="nav-link links" href="/create"><i id="icon" class="fa fa-plus fa-lg icon" aria-hidden="true" class = "icon"></i> Create</a>
         <a class="nav-link links" href="/home"><i id="icon" class="fa fa-home fa-lg icon" aria-hidden="true" class = "icon"></i> Home</a>
