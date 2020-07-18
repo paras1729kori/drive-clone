@@ -39,3 +39,23 @@ Route::get('folders/download/{id}', 'FoldersController@download')->name('downloa
 
 Auth::routes();
 // Route::get('/', 'HomeController@index')->name('home');
+
+//Admin Middleware Controller Routes
+Route::group(['middleware' => ['auth', 'admin']], function(){
+    Route::get('/dashboard', function () {
+        return view('admin.dashboard');
+    });
+    Route::get('/dashboard','Admin\AdminController@index');
+    Route::get('/registerrole','Admin\AdminController@register');
+    Route::get('/registeredit/{id}','Admin\AdminController@registeredit');
+    Route::put('/registerupdate/{id}','Admin\AdminController@registerupdate');
+    Route::delete('/registerdelete/{id}','Admin\AdminController@registerdelete');
+
+    Route::get('/tasks','Admin\TasksController@index');
+    Route::post('/savetasks','Admin\TasksController@store');
+    Route::get('/tasks/{id}','Admin\TasksController@edit');
+    Route::put('/tasksupdate/{id}','Admin\TasksController@update');
+    Route::delete('/tasksdelete/{id}','Admin\TasksController@delete');
+
+
+});
