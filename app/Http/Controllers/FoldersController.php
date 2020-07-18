@@ -52,7 +52,7 @@ class FoldersController extends Controller
         //flash message
         Session::flash('success', 'Folder Created Successully');
         
-        return back();
+        return redirect('/home');
     }
 
     public function edit($id) {

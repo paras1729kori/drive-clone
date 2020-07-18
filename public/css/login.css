@@ -1,0 +1,29 @@
+.tom{
+    color:#08417a;
+}
+
+/* for MOBILE VIEW */
+@media(max-width: 767px) { 
+    .jerry{
+        width:100%;
+        height: 50%;
+    }
+
+    .imglogo{
+        width:75%;
+    }
+
+  }
+
+
+/* PC VIEW */
+@media(min-width: 768px){
+    .jerry{
+        width:50%;
+        height:50%;
+    }
+
+    .imglogo{
+        width:60%;
+    }
+}

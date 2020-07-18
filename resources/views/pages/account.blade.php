@@ -5,8 +5,14 @@
     <ul class="nav navbar-nav navbar-right">
         <!-- Authentication Links -->
         @if (Auth::guest())
-            <li><a href="{{ route('login') }}">Login</a></li>
-            <li><a href="{{ route('register') }}">Register</a></li>
+        <div class="row text-center mt-5">
+            <div class="col-sm-6">
+                <li><a href="{{ route('login') }}" class="btn btn-lg font-weight-bolder">Login</a></li>
+            </div>
+            <div class="col-sm-6">
+                <li><a href="{{ route('register') }}" class="btn btn-lg font-weight-bolder">Register</a></li>
+            </div>
+        </div>
         @else
             <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">

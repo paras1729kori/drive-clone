@@ -43,11 +43,11 @@
 
 <div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog"
      aria-labelledby="mySmallModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-sm">
+  <div class="modal-dialog modal-dialog-centered modal-sm">
     <div class="modal-content">
       <form class="form-inline" action="/search" method="GET">
-        <input class="form-control" name="searching" type="text" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-primary ml-auto" style="width: 115px" type="submit">Search</button>
+        <input class="form-control" name="searching" style="width:242px;" type="text" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-primary mx-auto" style="width: 100px" type="submit">Search</button>
       </form>
     </div>
   </div>

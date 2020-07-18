@@ -31,31 +31,32 @@ class FilesController extends Controller
         //validator
         $this->validate($request, [
             'parentid' =>'nullable',
-            'file' => 'required',
         ]);
 
-        $filename = $request->file->getClientOriginalName();
-        $filesize = $request->file->getSize();
-        //Storing files in Laravel
-        $request->file->storeAs('public/files', $filename);
+        foreach ($request->file as $file) {
+            $filename = $file->getClientOriginalName();
+            $filesize = $file->getSize();
+            //Storing files in Laravel
+            $file->storeAs('public/files', $filename);
 
-        //Creating File
-        $file = new File;
-        $file->name = $filename;
-        if($request->input('parentid') == 'nullable'){
-            $file->parent_folder = null;
+            //Creating File
+            $fileModel = new File;
+            $fileModel->name = $filename;
+            if($request->input('parentid') == 'nullable'){
+                $fileModel->parent_folder = null;
+            }
+            else{
+                $fileModel->parent_folder = $request->input('parentid');
+            }
+            $fileModel->size = $filesize;
+            $fileModel->created_by = auth()->user()->id;  
+            $fileModel->save();
         }
-        else{
-            $file->parent_folder = $request->input('parentid');
-        }
-        $file->size = $filesize;
-        $file->created_by = auth()->user()->id;  
-        $file->save();
 
         //Flash Messages for the requests
         Session::flash('success', 'File Created Successfully');
 
-        return back();
+        return redirect('/home');
     }
 
     public function destroy($id) {

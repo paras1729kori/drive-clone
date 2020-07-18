@@ -16,7 +16,7 @@
             <div class="card-body">
               {!! Form::open(['action' => 'FilesController@store', 'method' => 'POST', 'enctype' => 'multipart/form-data']) !!}
               <div class="form-group">
-                {{ Form::file('file') }}
+                <input type="file" name="file[]" multiple>
               </div>
               <div class="form-group">
                 {{Form::label('parentid', 'Parent Folder')}}
