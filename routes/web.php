@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 // PAGES ROUTES
-Route::get('/home', 'PagesController@index')->name('pages.dash');
+// Route::get('/home', 'PagesController@index')->name('pages.dash');
 Route::get('/create', 'PagesController@create')->name('pages.create');
 Route::get('/', 'PagesController@acc')->name('pages.account');
 Route::get('/search', 'PagesController@search');
@@ -22,7 +22,7 @@ Route::get('download/{id}', 'PagesController@download')->name('downloadfileindas
 
 
 // File Controller Routes
-// Route::get('files/{id}', 'FilesController@index');
+Route::get('/home', 'FilesController@index');
 Route::post('files/store', 'FilesController@store');
 Route::delete('files/{id}/destroy', 'FilesController@destroy');
 

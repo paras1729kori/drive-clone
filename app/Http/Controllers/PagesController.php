@@ -14,14 +14,7 @@ class PagesController extends Controller
     {
         $this->middleware('auth', ['except' => ['acc']]);
     }
-
-    public function index() {
-        $title = 'Home';
-        $fils = File::where('parent_folder', '=', null)->get();
-        $fols = Folder::where('parent_folder', '=', null)->get();
-
-        return view('pages.dash',['title' => $title,'fils' => $fils, 'fols' =>$fols]);
-    }
+    
     public function create() {
         $title = 'Create';
         $fols = Folder::all();
@@ -38,9 +31,10 @@ class PagesController extends Controller
     }
 
     public function search(Request $request) {
+        $title = 'Search Results';
         $search = $request->get('searching');
         $fils = File::where('name','like','%'.$search.'%')->get();
         $fols = Folder::where('name','like','%'.$search.'%')->get();
-        return view('pages.search', ['fils' => $fils, 'fols'=>$fols]);
+        return view('pages.search', ['fils' => $fils, 'fols'=>$fols, 'title'=>$title]);
     }
 }

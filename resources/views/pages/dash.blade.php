@@ -48,6 +48,37 @@
                 <tbody>
                     <tr id="table_mobile">
                         <td><a href="{{ route('downloadfileindash', $fil->id) }}" style="text-decoration: none;">{{$fil->name}}</a></td>
+                            <td class="text-center">
+                                <!-- Button trigger modal -->
+                                <button type="button" class="btn" data-toggle="modal" data-target="#exampleModal">
+                                    <i id="icon" style="font-size: 30px;" class="fa fa-info-circle fa-lg icon" aria-hidden="true" class = "icon"></i>
+                                </button>
+                                
+                                <!-- Modal -->
+                                <div class="modal" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">{{$fil->name}}</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            {{$fil->userfils->name}}<br>
+                                            {{$fil->updated_at}} <br>
+                                            {{$fil->size}}                                      
+                                            {!! Form::open(['action' => ['FilesController@destroy', $fil->id], 'method' => 'DELETE']) !!}
+                                                <button class="btn btn-sm btn-danger" type="submit">Delete</button>
+                                            {!! Form::close() !!}                                            
+                                        </div>
+                                    </div>
+                                    </div>
+                                </div>
+                            </td>
+
+
+                        {{-- <td><a href="{{ route('downloadfileindash', $fil->id) }}" style="text-decoration: none;">{{$fil->name}}</a></td>
                         <td class="text-center">
                             <!-- Button trigger modal -->
                             <button type="button" class="btn" data-toggle="modal" data-target="#exampleModal">
@@ -75,7 +106,7 @@
                                 </div>
                                 </div>
                             </div>
-                        </td>
+                        </td> --}}
                     </tr>
                     </tbody>
                 @endforeach

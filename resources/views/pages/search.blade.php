@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container">
-      <h4 class="font-weight-bold">Folders</h4>
+        <h4 class="font-weight-bold">Folders</h4>
         <div class="row text-center" style="font-size: 30px ;">
             @if (count($fols) > 0)
             @foreach ($fols as $fol) 
@@ -10,6 +10,8 @@
                 <a href="/folders/{{$fol->id}}" style="color: #08417a;"><i class="fa fa-folder pr-2" aria-hidden="true"></i>{{$fol->name}}</a>
                 </div>
             @endforeach
+            @else
+                <h6 class="pl-3">No Folders Found</h6>
         @endif
         </div>
         <br><br>
@@ -81,6 +83,8 @@
                     </tbody>
                 @endforeach
           </table>
+          @else
+            <p>No Files Found</p>
           @endif
     </div>
     

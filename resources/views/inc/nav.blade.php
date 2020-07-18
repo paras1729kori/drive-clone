@@ -17,10 +17,10 @@
           <a class="nav-link link" href="/create"><i id="icon" class="fa fa-plus fa-lg icon" aria-hidden="true" class = "icon"></i> Create</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link link" href="/home"><i id="icon" class="fa fa-home fa-lg icon" aria-hidden="true" class = "icon"></i> Dashboard</a>
+          <a class="nav-link link" href="/home"><i id="icon" class="fa fa-home fa-lg icon" aria-hidden="true" class = "icon"></i> Home</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link link" href="/"><i id="icon" class="fa fa-user fa-lg icon" aria-hidden="true" class = "icon"></i> Account</a>
+          <a class="nav-link link" href="/"><i id="icon" class="fa fa-user fa-lg icon" aria-hidden="true" class = "icon"></i> Dashboard</a>
         </li>
       </ul>
       <form class="form-inline mt-2 mt-md-0" action="/search" method="GET">
@@ -45,8 +45,8 @@
      aria-labelledby="mySmallModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-sm">
     <div class="modal-content">
-      <form class="form-inline">
-        <input class="form-control" type="text" placeholder="Search" aria-label="Search">
+      <form class="form-inline" action="/search" method="GET">
+        <input class="form-control" name="searching" type="text" placeholder="Search" aria-label="Search">
         <button class="btn btn-outline-primary ml-auto" style="width: 115px" type="submit">Search</button>
       </form>
     </div>

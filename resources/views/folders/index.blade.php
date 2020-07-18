@@ -6,7 +6,7 @@
         <div class="row text-center" style="font-size: 25px ;">
             @if (count($fols) > 0)
                 @foreach ($fols as $fol)
-                        <div class="col-sm-1" id="fold_on_dash">
+                        <div class="col-4" id="fold_on_dash">
                         <a href="/folders/{{$fol->id}}" style="color: #08417a;"><i class="fa fa-folder pr-2" aria-hidden="true"></i>{{$fol->name}}</a>
                         <br>
                         <a class="nav-link link" href="/folders/{{$fol->id}}/edit"><i id="icon" class="fa fa-pencil icon" aria-hidden="true" class = "icon"></i></a>
@@ -16,10 +16,9 @@
                         <br>
                     </div>
                 @endforeach
-            @else
-                <a href="/create"><button class="btn btn-success">Create Folder</button></a>
             @endif
         </div>
+        <a href="/create"><button class="btn btn-success">Create Folders</button></a>
         <br><br>
         <h4 class="font-weight-bold">Files</h4>
         @if (count($fils) > 0)
@@ -41,7 +40,7 @@
                     <tbody>
                         <tr id="table_pc">
                         <td><a href="{{ route('downloadfileinfols', $fil->id) }}" style="text-decoration: none;">{{$fil->name}}</a></td>
-                        <td>{{$fil->created_by}}</td>
+                        <td>{{$fil->userfils->name}}</td>
                         <td>{{$fil->updated_at}}</td>
                         <td>{{$fil->size}}</td>
                         <td>
@@ -73,9 +72,9 @@
                                         </button>
                                         </div>
                                         <div class="modal-body">
-                                            Created By: {{$fil->created_by}} <br>
-                                            last Modified at: {{$fil->updated_at}} <br>
-                                            Size: {{$fil->size}}                                      
+                                            {{$fil->userfils->name}}<br>
+                                            {{$fil->updated_at}} <br>
+                                            {{$fil->size}}                                      
                                             {!! Form::open(['action' => ['FilesController@destroy', $fil->id], 'method' => 'DELETE']) !!}
                                                 <button class="btn btn-sm btn-danger" type="submit">Delete</button>
                                             {!! Form::close() !!}                                            
@@ -86,8 +85,6 @@
                             </td>
                         </tr>
                         </tbody>
-
-
                 @endforeach
           </table>  
         @endif

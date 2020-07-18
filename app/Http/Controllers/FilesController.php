@@ -15,6 +15,14 @@ class FilesController extends Controller
         $this->middleware('auth');
     }
 
+    // Index for pushing data specially for homepage
+    public function index() {
+        $title = 'Home';
+        $fils = File::where('parent_folder', '=', null)->get();
+        $fols = Folder::where('parent_folder', '=', null)->get();
+        return view('pages.dash',['title' => $title,'fils' => $fils, 'fols' =>$fols]);
+    }
+
     public function create($id) {
         return view('pages.create');
     }
