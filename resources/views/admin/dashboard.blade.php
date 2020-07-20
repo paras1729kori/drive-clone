@@ -25,6 +25,7 @@
                 <th>Name</th>
                 <th>Email</th>
                 <th>UserType</th>
+                <th>Status</th>
               </thead>
               <tbody>
                   @foreach ($users as $user)
@@ -33,6 +34,7 @@
                         <td>{{$user->name}}</td>
                         <td>{{$user->email}}</td>
                         <td>{{$user->usertype}}</td>
+                        <td>{{$user->status}}</td>
                     </tr>
                   @endforeach
                   

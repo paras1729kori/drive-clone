@@ -14,7 +14,7 @@ class AddColToUsers extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->enum('status', [0,1]);
+            $table->enum('status', array('active', 'disabled'))->default('active');
         });
     }
 
