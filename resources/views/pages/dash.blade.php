@@ -21,7 +21,7 @@
         <table class="table table-borderless table-hover" id="tdata">
             <thead>
               <tr id="table_pc">
-                <th><input type="checkbox" class="selectall"></th>
+                <th>#</th>
                 <th>File Name</th>
                 <th>Created By</th>
                 <th>last Modified at</th>
