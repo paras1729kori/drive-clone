@@ -32,8 +32,9 @@ class FilesController extends Controller
         //validator
         $this->validate($request, [
             'parentid' =>'nullable',
+            'file' => 'required|max:1000000'  //value is in kb i.e. max limit is 1GB
         ]);
-
+        
         foreach ($request->file as $file) {
             $filename = $file->getClientOriginalName();
             $filesize = $file->getSize();

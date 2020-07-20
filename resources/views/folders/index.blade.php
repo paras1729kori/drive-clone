@@ -10,15 +10,14 @@
                         <a href="/folders/{{$fol->id}}" style="color: #08417a;"><i class="fa fa-folder pr-2" aria-hidden="true"></i>{{$fol->name}}</a>
                         <div class="row no-gutters">
                             <div class="col-xs-6">
-                                <a class="nav-link link" href="/folders/{{$fol->id}}/edit"><i id="icon" class="fa fa-pencil icon" aria-hidden="true" class = "icon"></i></a>
+                                <a class="nav-link link" href="/folders/{{$fol->id}}/edit"><i id="icon" class="fa fa-pencil-square icon" aria-hidden="true" class = "icon"></i></a>
                             </div>
                             <div class="col-xs-6">
                                 {!!Form::open(['action' => ['FoldersController@destroy', $fol->id], 'method' => 'DELETE'])!!}
-                                    <button type="submit" style="border: 0px; background-color:white;"><i id="icon" class="fa fa-trash icon" aria-hidden="true" class = "icon"></i></button>
+                                    <button type="submit" style="border: 0px; background-color:white; padding-top:6px;"><i id="icon" class="fa fa-trash icon" aria-hidden="true" class = "icon"></i></button>
                                 {!!Form::close()!!}
                             </div>
                         </div>
-                        <br>
                     </div>
                 @endforeach
             @endif

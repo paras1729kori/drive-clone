@@ -32,6 +32,14 @@
                             {{ csrf_field() }}
                         </form>
                     </li>
+                    <hr>
+                    <li>
+                        @if (Route::has('password.request'))
+                            <a class="btn btn-link" href="{{ route('password.request') }}">
+                                {{ __('Forgot Your Password?') }}
+                            </a>
+                        @endif
+                    </li>
                 </ul>
             </li>
             <div class="row justify-content-center mt-5">
