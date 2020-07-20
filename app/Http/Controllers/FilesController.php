@@ -88,8 +88,15 @@ class FilesController extends Controller
 
     public function deleteAll(Request $request){
         $ids = $request->get('ids');
+
         if($ids > 0){
-            $dbs = DB::delete('delete from files where id in ('.implode(",",$ids).')');
+            foreach($ids as $id) {
+                $filename = File::find($id);
+                Storage::delete('public/files/'.$filename->name);
+                $filename->delete();
+            }
+            //Flash Messages for the requests
+            Session::flash('success', 'Files Deleted Successfully');
             return back();
         }
         else{

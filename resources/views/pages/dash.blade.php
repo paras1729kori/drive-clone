@@ -16,8 +16,8 @@
         <form method="POST">
           @csrf
           @method('DELETE')
-          <button formaction="/deleteall" type="submit" class="btn btn-danger" style="font-size:12px;">Delete All Selected</button>
         @if (count($fils) > 0)
+        <button id="table_pc" formaction="/deleteall" type="submit" class="btn btn-danger" style="font-size:12px;">Delete All Selected</button>
         <table class="table table-borderless table-hover" id="tdata">
             <thead>
               <tr id="table_pc">
@@ -26,7 +26,6 @@
                 <th>Created By</th>
                 <th>last Modified at</th>
                 <th>Size</th>
-                <th>Delete</th>
               </tr>
               {{-- <tr id="table_mobile">
                 <th>File Name</th>
@@ -41,11 +40,6 @@
                         <td>{{$fil->userfils->name}}</td>
                         <td>{{$fil->updated_at}}</td>
                         <td>{{$fil->size}}</td>
-                        <td>
-                            {!! Form::open(['action' => ['FilesController@destroy', $fil->id], 'method' => 'DELETE']) !!}
-                              <button class="btn btn-sm btn-danger" type="submit">Delete</button>
-                            {!! Form::close() !!}
-                        </td>
                     </tr>
                     </tbody>
                 <tbody>
@@ -79,7 +73,6 @@
                 @endforeach
           </table>
           @endif
-          <br>
           <a href="/create" class="btn btn-success mt-2 mb-2">Create File</a>
         </form>
 

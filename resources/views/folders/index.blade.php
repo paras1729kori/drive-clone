@@ -29,8 +29,8 @@
         <form method="POST">
           @csrf
           @method('DELETE')
-          <button formaction="/deleteall" type="submit" class="btn btn-danger" style="font-size:12px;">Delete All Selected</button>
         @if (count($fils) > 0)
+        <button formaction="/deleteall" type="submit" class="btn btn-danger" style="font-size:12px;">Delete All Selected</button>
         <table class="table table-borderless table-hover" id="tdata">
             <thead>
               <tr id="table_pc">
