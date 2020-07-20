@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('title')
-    Edit-Registered
+    Edit-Registered Users
 @endsection
 
 @section('content')
@@ -11,7 +11,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <h3>Edit Role for Registered User</h3>
+                        <h3>Edit Role and Status for Registered User</h3>
                     </div>
                     <div class="card-body">
                         <div class="col-md-6">
@@ -29,6 +29,13 @@
                                             <option value="admin">Admin</option>
                                             <option value="user">User</option>
                                             <option value="">None</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Give Status</label>
+                                        <select name="status" class="form-control">
+                                            <option value="active">active</option>
+                                            <option value="disabled">disabled</option>
                                         </select>
                                     </div>
                                     <button type="submit" class="btn btn-success">Update</button>
