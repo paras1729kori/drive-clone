@@ -44,7 +44,7 @@
         Tip 1: You can change the color of the sidebar using: data-color="blue | green | orange | red | yellow"
     -->
       <div class="logo">
-        <a class="navbar-brand mt-0" href="/"><img src="{{asset('img/mob.jpg')}}" alt=""></a>
+        <a class="navbar-brand mt-0" href="/"><img src="{{asset('img/co.jpg')}}" alt=""></a>
       </div>
       <div class="sidebar-wrapper" id="sidebar-wrapper">
         <ul class="nav">
