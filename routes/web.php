@@ -25,6 +25,8 @@ Route::get('download/{id}', 'PagesController@download')->name('downloadfileindas
 Route::get('/home', 'FilesController@index');
 Route::post('files/store', 'FilesController@store');
 Route::delete('files/{id}/destroy', 'FilesController@destroy');
+//delete all files route
+Route::delete('/deleteall','FilesController@deleteAll');
 
 
 //Folder Controller Routes
@@ -53,6 +55,4 @@ Route::group(['middleware' => ['auth', 'admin']], function(){
     Route::get('/tasks/{id}','Admin\TasksController@edit');
     Route::put('/tasksupdate/{id}','Admin\TasksController@update');
     Route::delete('/tasksdelete/{id}','Admin\TasksController@delete');
-
-
 });

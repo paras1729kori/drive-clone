@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Session;
 use App\Folder;
 use App\File;
+use DB;
 
 class FilesController extends Controller
 {    
@@ -83,5 +84,18 @@ class FilesController extends Controller
         Session::flash('success', 'File Deleted Successfully');
 
         return back();
+    }
+
+    public function deleteAll(Request $request){
+        $ids = $request->get('ids');
+        if($ids > 0){
+            $dbs = DB::delete('delete from files where id in ('.implode(",",$ids).')');
+            return back();
+        }
+        else{
+            //Flash Messages for the requests
+            Session::flash('danger', 'No Files Selected');
+            return back();
+        }
     }
 }

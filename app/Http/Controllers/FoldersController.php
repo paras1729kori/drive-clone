@@ -96,18 +96,27 @@ class FoldersController extends Controller
 
     public function destroy($id) {
         $fol = Folder::find($id);
-        
+        $child_fols = Folder::where('parent_folder','=',$id)->count();
+        $child_fils = File::where('parent_folder','=',$id)->count();
+
         //Check if post exists before deleting
         if (!isset($fol)){
             return back();
         }
 
-        // Check for correct user
-        // if(auth()->user()->id !==$fol->created_by){
-        //     //flash message
-        //     Session::flash('danger', 'Access Denied');
-        //     return back();
-        // }
+        //Check for correct user
+        if(auth()->user()->id !==$fol->created_by){
+            //flash message
+            Session::flash('danger', 'Access Denied');
+            return back();
+        }
+
+        //Check if folder is empty
+        if($child_fols > 0 || $child_fils > 0){
+            //flash message
+            Session::flash('danger', 'Folder is not empty');
+            return back();
+        }
 
         $fol->delete();
 

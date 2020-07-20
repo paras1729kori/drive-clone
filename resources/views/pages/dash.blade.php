@@ -13,10 +13,15 @@
         </div>
         <br><br>
         <h4 class="font-weight-bold">Files</h4>
+        <form method="POST">
+          @csrf
+          @method('DELETE')
+          <button formaction="/deleteall" type="submit" class="btn btn-danger" style="font-size:12px;">Delete All Selected</button>
         @if (count($fils) > 0)
         <table class="table table-borderless table-hover" id="tdata">
             <thead>
               <tr id="table_pc">
+                <th><input type="checkbox" class="selectall"></th>
                 <th>File Name</th>
                 <th>Created By</th>
                 <th>last Modified at</th>
@@ -31,6 +36,7 @@
                 @foreach ($fils as $fil)
                     <tbody>
                     <tr id="table_pc">
+                        <td><input type="checkbox" name="ids[]" class="selectbox" value="{{ $fil->id }}"></td>
                         <td><a href="{{ route('downloadfileindash', $fil->id) }}" style="text-decoration: none;">{{$fil->name}}</a></td>
                         <td>{{$fil->userfils->name}}</td>
                         <td>{{$fil->updated_at}}</td>
@@ -73,7 +79,28 @@
                 @endforeach
           </table>
           @endif
-          <a href="/create" class="btn btn-success mb-2">Create File</a>
+          <br>
+          <a href="/create" class="btn btn-success mt-2 mb-2">Create File</a>
+        </form>
+
+        <script type="text/javascript">
+          $('.selectall').click(function(){
+            $('.selectbox').prop('checked', $(this).prop('checked'));
+          })
+          $('.selectall2').click(function(){
+            $('.selectbox').prop('checked', $(this).prop('checked'));
+            $('.selectall').prop('checked', $(this).prop('checked'));
+          })
+          $('.selectbox').change(function(){
+            var total = $('.selectbox').length;
+            var number = $('.selectbox:checked').length;
+            if(total == number){
+              $('.selectall').prop('checked', true);
+            } else{
+              $('.selectall').prop('checked', false);
+            }
+          })
+        </script>
     </div>
     
 @endsection

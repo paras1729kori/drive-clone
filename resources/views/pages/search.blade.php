@@ -24,7 +24,6 @@
                 <th>Created By</th>
                 <th>last Modified at</th>
                 <th>Size</th>
-                <th>Delete</th>
               </tr>
             </thead>
                 @foreach ($fils as $fil)
@@ -34,11 +33,6 @@
                         <td>{{$fil->userfils->name}}</td>
                         <td>{{$fil->updated_at}}</td>
                         <td>{{$fil->size}}</td>
-                        <td>
-                            {!! Form::open(['action' => ['FilesController@destroy', $fil->id], 'method' => 'DELETE']) !!}
-					            <button class="btn btn-sm btn-danger" type="submit">Delete</button>
-				            {!! Form::close() !!}
-                        </td>
                     </tr>
                     </tbody>
                     <tbody>
@@ -58,10 +52,7 @@
                                           <a href="{{ route('downloadfileindash', $fil->id) }}" style="text-decoration: none;">{{$fil->name}}</a><br>
                                           Created By: {{$fil->userfils->name}} <br>
                                           last modified at: {{$fil->updated_at}} <br>
-                                          Size: {{ ($fil->size) }}<br>
-                                          {!! Form::open(['action' => ['FilesController@destroy', $fil->id], 'method' => 'DELETE']) !!}
-                                            <button class="btn btn-sm btn-danger" type="submit">Delete</button>
-                                          {!! Form::close() !!}
+                                          Size: {{ ($fil->size) }}
                                         </div>
                                       </div>
                                     </div>
