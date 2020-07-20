@@ -28,6 +28,7 @@ class AdminController extends Controller
         $users = User::find($id);
         $users->name = $request->input('username');
         $users->usertype = $request->input('usertype');
+        $users->status = $request->input('status');
         $users->update();
 
         return redirect('/registerrole')->with('status', 'User Data is Updated Successfully');
@@ -35,7 +36,8 @@ class AdminController extends Controller
 
     public function registerdelete(Request $request , $id){
         $users = User::findorfail($id);
-        $users->delete();
+        $users->status = 'disabled';
+        $users->update();
 
         return redirect('/registerrole')->with('status','User Data is Deleted Successfully');
     }

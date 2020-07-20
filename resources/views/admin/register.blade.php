@@ -25,6 +25,7 @@
                 <th>Name</th>
                 <th>Email</th>
                 <th>UserType</th>
+                <th>Status</th>
                 <th>Edit</th>
                 <th>Delete</th>
               </thead>
@@ -35,6 +36,7 @@
                         <td>{{$user->name}}</td>
                         <td>{{$user->email}}</td>
                         <td>{{$user->usertype}}</td>
+                        <td>{{$user->status}}</td>
                         <td><a href="/registeredit/{{ $user->id }}" class="btn btn-success">EDIT</a></td>
                         <td>
                           <form action="/registerdelete/{{ $user->id }}" method="post">
