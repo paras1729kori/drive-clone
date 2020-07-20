@@ -60,8 +60,8 @@
               <p>Tasks</p>
             </a>
           </li>
-          <li class="{{'egisterrole' == request()->path() ? 'active' : ''}}">
-            <a href="/egisterrole">
+          <li class="{{'registerrole' == request()->path() ? 'active' : ''}}">
+            <a href="/registerrole">
               <i class="now-ui-icons users_single-02"></i>
               <p>User Profile</p>
             </a>
