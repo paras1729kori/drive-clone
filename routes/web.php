@@ -14,20 +14,19 @@ use Illuminate\Support\Facades\Route;
 */
 
 // PAGES ROUTES
+Route::get('/home', 'PagesController@index');
 Route::get('/create', 'PagesController@create')->name('pages.create');
 Route::get('/', 'PagesController@acc')->name('pages.account');
+// for searching files and folders
 Route::get('/search', 'PagesController@search');
 //for downloading files on home
 Route::get('download/{id}', 'PagesController@download')->name('downloadfileindash');
 
-
 // File Controller Routes
-Route::get('/home', 'FilesController@index');
 Route::post('files/store', 'FilesController@store');
 Route::delete('files/{id}/destroy', 'FilesController@destroy');
 //delete all files route
 Route::delete('/deleteall','FilesController@deleteAll');
-
 
 //Folder Controller Routes
 Route::get('folders/{id}', 'FoldersController@index')->name('folders.index');
@@ -37,6 +36,7 @@ Route::post('folders/{id}/update', 'FoldersController@update');
 Route::delete('folders/{id}/destroy', 'FoldersController@destroy');
 //for downloading files in folders
 Route::get('folders/download/{id}', 'FoldersController@download')->name('downloadfileinfols');
+
 Auth::routes();
 
 //Admin Middleware Controller Routes

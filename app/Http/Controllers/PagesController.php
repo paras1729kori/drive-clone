@@ -13,6 +13,10 @@ class PagesController extends Controller
     {
         $this->middleware('auth', ['except' => ['acc']]);
     }
+
+    public function index() {
+        return view('pages.account');
+    }
     
     public function create() {
         $title = 'Create';

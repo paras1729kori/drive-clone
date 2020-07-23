@@ -16,14 +16,6 @@ class FilesController extends Controller
         $this->middleware('auth');
     }
 
-    // Index for pushing data specially for homepage
-    public function index() {
-        $title = 'Home';
-        $fils = File::where('parent_folder', '=', null)->get();
-        $fols = Folder::where('parent_folder', '=', null)->get();
-        return view('pages.dash',['title' => $title,'fils' => $fils, 'fols' =>$fols]);
-    }
-
     public function create($id) {
         return view('pages.create');
     }
@@ -58,7 +50,7 @@ class FilesController extends Controller
         //Flash Messages for the requests
         Session::flash('success', 'File Created Successfully');
 
-        return redirect('/home');
+        return back();
     }
 
     public function destroy($id) {
@@ -88,7 +80,7 @@ class FilesController extends Controller
     }
 
     public function deleteAll(Request $request){
-        $ids = $request->get('ids');
+        $ids = $request->get('ids_todelete');
 
         if($ids > 0){
             foreach($ids as $id) {

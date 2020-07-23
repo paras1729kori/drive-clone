@@ -20,7 +20,6 @@
                 </a>
 
                 <ul class="dropdown-menu text-center" role="menu">
-                    <li><a href="/home">Home</a></li><hr>
                     <li>
                         <a href="{{ route('logout') }}"
                             onclick="event.preventDefault();
