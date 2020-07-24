@@ -14,10 +14,10 @@
     <div class="collapse navbar-collapse">
       <ul class="navbar-nav ml-auto">
         <li class="nav-item">
-          <a class="nav-link link" href="/folders/1"><i class="fa fa-folder fa-lg icon" aria-hidden="true"></i> Starred</a>
+          <a class="nav-link link" href="/folders/2"><i class="fa fa-folder fa-lg icon" aria-hidden="true"></i> Important</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link link" href="/folders/2"><i class="fa fa-folder fa-lg icon" aria-hidden="true"></i> Important</a>
+          <a class="nav-link link" href="/folders/1"><i class="fa fa-folder fa-lg icon" aria-hidden="true"></i> Starred</a>
         </li>
         <li class="nav-item">
           <a class="nav-link link" href="/folders/3"><i class="fa fa-folder fa-lg icon" aria-hidden="true"></i> Favourites</a>
