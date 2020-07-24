@@ -79,8 +79,9 @@ class FilesController extends Controller
         return back();
     }
 
+    //for deleting selected ones
     public function deleteAll(Request $request){
-        $ids = $request->get('ids_todelete');
+        $ids = $request->get('ids');
 
         if($ids > 0){
             foreach($ids as $id) {
@@ -90,6 +91,48 @@ class FilesController extends Controller
             }
             //Flash Messages for the requests
             Session::flash('success', 'Files Deleted Successfully');
+            return back();
+        }
+        else{
+            //Flash Messages for the requests
+            Session::flash('danger', 'No Files Selected');
+            return back();
+        }
+    }
+    
+    //for sharing in starred
+    public function to_starred(Request $request){
+        $ids = $request->get('ids');
+
+        if($ids > 0){
+            foreach($ids as $id) {
+                $filename = File::find($id);
+                $filename->starred = '1';
+                $filename->update();
+            }
+            //Flash Messages for the requests
+            Session::flash('success', 'Files Sent to Starred');
+            return back();
+        }
+        else{
+            //Flash Messages for the requests
+            Session::flash('danger', 'No Files Selected');
+            return back();
+        }
+    }
+
+    //for sharing in favs
+    public function to_favs(Request $request){
+        $ids = $request->get('ids');
+
+        if($ids > 0){
+            foreach($ids as $id) {
+                $filename = File::find($id);
+                $filename->favourites = '1';
+                $filename->update();
+            }
+            //Flash Messages for the requests
+            Session::flash('success', 'Files Sent to Favourites');
             return back();
         }
         else{

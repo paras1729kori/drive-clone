@@ -27,6 +27,10 @@ Route::post('files/store', 'FilesController@store');
 Route::delete('files/{id}/destroy', 'FilesController@destroy');
 //delete all files route
 Route::delete('/deleteall','FilesController@deleteAll');
+//to starred
+Route::delete('/tostarred','FilesController@to_starred');
+//to favs
+Route::delete('/tofavs','FilesController@to_favs');
 
 //Folder Controller Routes
 Route::get('folders/{id}', 'FoldersController@index')->name('folders.index');

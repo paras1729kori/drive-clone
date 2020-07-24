@@ -35,8 +35,8 @@
           </button>
           <div class="dropdown-menu dropdown-menu-right">
             <button formaction="" type="submit" class="dropdown-item">Move to Folder</button>
-            <button formaction="" type="submit" class="dropdown-item">Send to Starred</button>
-            <button formaction="" type="submit" class="dropdown-item">Send to Favourites</button>
+            <button formaction="/tostarred" type="submit" class="dropdown-item">Send to Starred</button>
+            <button formaction="/tofavs" type="submit" class="dropdown-item">Send to Favourites</button>
             <button formaction="/deleteall" type="submit" class="dropdown-item">Delete All Selected</button>
           </div>
         </div>
@@ -54,7 +54,7 @@
                 @foreach ($fils as $fil)
                     <tbody>
                     <tr id="table_pc">
-                        <td class=""><input type="checkbox" name="ids_todelete[]" class="selectbox1" value="{{ $fil->id }}"></td>
+                        <td><input type="checkbox" name="ids[]" class="selectbox1" value="{{ $fil->id }}"></td>
                         <td><a href="{{ route('downloadfileindash', $fil->id) }}" style="text-decoration: none;">{{$fil->name}}</a></td>
                         <td>{{$fil->userfils->name}}</td>
                         <td>{{$fil->p_files->name}}</td>
@@ -88,7 +88,7 @@
                                 </div>
                             </div>
                         </td>
-                    </tr>
+                      </tr>
                     </tbody>
                 @endforeach
           </table>
