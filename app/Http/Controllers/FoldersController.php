@@ -16,6 +16,7 @@ class FoldersController extends Controller
         $this->middleware('auth');
     }
 
+    //for showing specific files and folders in other folders (user_created)
     public function index($id) {
         $title = Folder::find($id);
         $title = $title->name;
@@ -23,7 +24,24 @@ class FoldersController extends Controller
         $fols = Folder::where('parent_folder', '=', $id)->get();
         return view('folders.index', ['title' => $title, 'fils' => $fils, 'fols'=> $fols]);
     }
+    
+    //for showing specific files and folders in starred
+    public function starred(){
+        $title = 'Starred';
+        $fils = File::where('starred','=','1')->get();
+        $fols = Folder::where('parent_folder','=',2)->get();
+        return view('folders.index', ['title' => $title, 'fils' => $fils, 'fols'=> $fols]);
+    }
 
+    //for showing specific files and folders in favourites
+    public function favourites(){
+        $title = 'Favourites';
+        $fils = File::where('favourites','=','1')->get();
+        $fols = Folder::where('parent_folder','=',3)->get();
+        return view('folders.index', ['title' => $title, 'fils' => $fils, 'fols'=> $fols]);
+    }
+
+    //for downloading files in folders
     public function download($id){
         $download = File::find($id);
         return response()->download('storage/files/'.$download->name);
@@ -52,7 +70,7 @@ class FoldersController extends Controller
         //flash message
         Session::flash('success', 'Folder Created Successully');
         
-        return redirect('/home');
+        return back();
     }
 
     public function edit($id) {

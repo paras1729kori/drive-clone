@@ -52,53 +52,6 @@ class FilesController extends Controller
 
         return back();
     }
-
-    public function destroy($id) {
-        $fil = File::find($id);
-        
-        //Check if post exists before deleting
-        if (!isset($fil)){
-            return back();
-        }
-
-        // Check for correct user
-        if(auth()->user()->id !== $fil->created_by){
-            //Flash Messages for the requests
-            Session::flash('danger', 'Access Denied');
-
-            return back();
-        }
-        
-        Storage::delete('public/files/'.$fil->name);
-
-        $fil->delete();
-
-        //Flash Messages for the requests
-        Session::flash('success', 'File Deleted Successfully');
-
-        return back();
-    }
-
-    //for deleting selected ones
-    public function deleteAll(Request $request){
-        $ids = $request->get('ids');
-
-        if($ids > 0){
-            foreach($ids as $id) {
-                $filename = File::find($id);
-                Storage::delete('public/files/'.$filename->name);
-                $filename->delete();
-            }
-            //Flash Messages for the requests
-            Session::flash('success', 'Files Deleted Successfully');
-            return back();
-        }
-        else{
-            //Flash Messages for the requests
-            Session::flash('danger', 'No Files Selected');
-            return back();
-        }
-    }
     
     //for sharing in starred
     public function to_starred(Request $request){
@@ -133,6 +86,54 @@ class FilesController extends Controller
             }
             //Flash Messages for the requests
             Session::flash('success', 'Files Sent to Favourites');
+            return back();
+        }
+        else{
+            //Flash Messages for the requests
+            Session::flash('danger', 'No Files Selected');
+            return back();
+        }
+    }
+
+    // single file deleting
+    public function destroy($id) {
+        $fil = File::find($id);
+        
+        //Check if post exists before deleting
+        if (!isset($fil)){
+            return back();
+        }
+
+        // Check for correct user
+        if(auth()->user()->id !== $fil->created_by){
+            //Flash Messages for the requests
+            Session::flash('danger', 'Access Denied');
+
+            return back();
+        }
+        
+        Storage::delete('public/files/'.$fil->name);
+
+        $fil->delete();
+
+        //Flash Messages for the requests
+        Session::flash('success', 'File Deleted Successfully');
+
+        return back();
+    }
+
+    //for deleting selected files
+    public function deleteAll(Request $request){
+        $ids = $request->get('ids');
+
+        if($ids > 0){
+            foreach($ids as $id) {
+                $filename = File::find($id);
+                Storage::delete('public/files/'.$filename->name);
+                $filename->delete();
+            }
+            //Flash Messages for the requests
+            Session::flash('success', 'Files Deleted Successfully');
             return back();
         }
         else{

@@ -19,16 +19,16 @@
         <div class="col-xs-4 col-xs-offset-4 jerry">
             
             <img class="mx-auto" src="{{asset('img/co.jpg')}}" alt="This is an image of logo">
-            <h4>Login</h4>
+            <h4 class="mt-2">Login</h4>
 
             <form method="POST" action="{{ route('login') }}">
                 @csrf
                 <div class="input-group w-75 ml-5">
                     {{-- Username --}}
                     <div class="input-group">
-                      <span class="input-group-text"><i class="fa fa-user fa-lg icon tom" aria-hidden="true" class = "icon"></i></span>
+                      <span class="input-group-text mt-2"><i class="fa fa-user fa-lg icon tom" aria-hidden="true" class = "icon"></i></span>
     
-                        <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+                        <input id="email" type="email" class="form-control mt-2 @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
 
                         @error('email')
                             <span class="invalid-feedback" role="alert">

@@ -31,7 +31,7 @@
         @if (count($fils) > 0)
         <div class="btn-group" id="table_pc">
           <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Submit
+            Action
           </button>
           <div class="dropdown-menu dropdown-menu-right">
             <button formaction="" type="submit" class="dropdown-item">Move to Folder</button>

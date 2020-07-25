@@ -33,7 +33,12 @@ Route::delete('/tostarred','FilesController@to_starred');
 Route::delete('/tofavs','FilesController@to_favs');
 
 //Folder Controller Routes
-Route::get('folders/{id}', 'FoldersController@index')->name('folders.index');
+//for showing specific files and folders in starred
+Route::get('folders/2', 'FoldersController@starred');
+//for showing specific files and folders in favourites
+Route::get('folders/3', 'FoldersController@favourites');
+//for showing files and folders n any other folders user_created_ones
+Route::get('folders/{id}', 'FoldersController@index');
 Route::post('folders/store', 'FoldersController@store');
 Route::get('folders/{id}/edit', 'FoldersController@edit')->name('folders.edit');
 Route::post('folders/{id}/update', 'FoldersController@update');

@@ -15,7 +15,8 @@ class PagesController extends Controller
     }
 
     public function index() {
-        return view('pages.account');
+        $title = 'Dashboard';
+        return view('pages.account', ['title' => $title]);
     }
     
     public function create() {
