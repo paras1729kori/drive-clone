@@ -7,7 +7,6 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Session;
 use App\Folder;
 use App\File;
-use DB;
 
 class FilesController extends Controller
 {    
@@ -51,6 +50,28 @@ class FilesController extends Controller
         Session::flash('success', 'File Created Successfully');
 
         return back();
+    }
+
+    //for sharing in selected folder
+    public function to_folder(Request $request){
+        return view('files.move');
+        // $ids = $request->get('ids');
+        
+        // if($ids > 0){
+        //     foreach($ids as $id) {
+        //         $filename = File::find($id);
+        //         $filename->starred = '1';
+        //         $filename->update();
+        //     }
+        //     //Flash Messages for the requests
+        //     Session::flash('success', 'Files Sent to Starred');
+        //     return back();
+        // }
+        // else{
+        //     //Flash Messages for the requests
+        //     Session::flash('danger', 'No Files Selected');
+        //     return back();
+        // }
     }
     
     //for sharing in starred

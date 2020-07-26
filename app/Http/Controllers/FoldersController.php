@@ -24,20 +24,65 @@ class FoldersController extends Controller
         $fols = Folder::where('parent_folder', '=', $id)->get();
         return view('folders.index', ['title' => $title, 'fils' => $fils, 'fols'=> $fols]);
     }
-    
+
+    //for sharing folders into a specific folder
+
+    //for sharing folders into starred
+    public function to_starred(Request $request){
+        $ids = $request->get('ids');
+
+        if($ids > 0){
+            foreach($ids as $id) {
+                $filename = Folder::find($id);
+                $filename->starred = '1';
+                $filename->update();
+            }
+            //Flash Messages for the requests
+            Session::flash('success', 'Folder Sent to Starred');
+            return back();
+        }
+        else{
+            //Flash Messages for the requests
+            Session::flash('danger', 'No Folder Selected');
+            return back();
+        }
+    }
+
+    //for sharng folders into favourites
+    public function to_favs(Request $request){
+        $ids = $request->get('ids');
+
+        if($ids > 0){
+            foreach($ids as $id) {
+                $filename = Folder::find($id);
+                $filename->favourites = '1';
+                $filename->update();
+            }
+            //Flash Messages for the requests
+            Session::flash('success', 'Folder Sent to Starred');
+            return back();
+        }
+        else{
+            //Flash Messages for the requests
+            Session::flash('danger', 'No Folder Selected');
+            return back();
+        }
+    }
+
+
     //for showing specific files and folders in starred
     public function starred(){
         $title = 'Starred';
-        $fils = File::where('starred','=','1')->get();
-        $fols = Folder::where('parent_folder','=',2)->get();
+        $fils = File::where('starred','=','1')->orWhere('parent_folder','=',2)->get();
+        $fols = Folder::where('starred','=','1')->orWhere('parent_folder','=',2)->get();
         return view('folders.index', ['title' => $title, 'fils' => $fils, 'fols'=> $fols]);
     }
 
     //for showing specific files and folders in favourites
     public function favourites(){
         $title = 'Favourites';
-        $fils = File::where('favourites','=','1')->get();
-        $fols = Folder::where('parent_folder','=',3)->get();
+        $fils = File::where('favourites','=','1')->orWhere('parent_folder','=',3)->get();
+        $fols = Folder::where('favourites','=','1')->orWhere('parent_folder','=',3)->get();
         return view('folders.index', ['title' => $title, 'fils' => $fils, 'fols'=> $fols]);
     }
 
@@ -66,7 +111,6 @@ class FoldersController extends Controller
         $folder->sub_folder = '1';
         $folder->created_by = auth()->user()->id;
         $folder->save();
-
         //flash message
         Session::flash('success', 'Folder Created Successully');
         
@@ -123,9 +167,9 @@ class FoldersController extends Controller
         }
 
         //Check for correct user
-        if(auth()->user()->id !==$fol->created_by){
+        if(auth()->user()->usertype != 'admin'){
             //flash message
-            Session::flash('danger', 'Access Denied');
+            Session::flash('danger', 'Access Denied, Only Admins can delete folders');
             return back();
         }
 
