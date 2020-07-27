@@ -13,9 +13,11 @@
 
     <div class="collapse navbar-collapse">
       <ul class="navbar-nav ml-auto">
+        @if (Auth::guest() || auth()->user()->usertype == 'admin')
           <li class="nav-item">
             <a class="nav-link link" href="/folders/1"><i id="icon" class="fa fa-folder fa-lg icon" aria-hidden="true"></i> Important</a>
           </li>
+        @endif
         <li class="nav-item">
           <a class="nav-link link" href="/folders/2"><i id="icon" class="fa fa-folder fa-lg icon" aria-hidden="true"></i> Starred</a>
         </li>

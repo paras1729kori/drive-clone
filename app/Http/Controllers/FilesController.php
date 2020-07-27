@@ -54,24 +54,17 @@ class FilesController extends Controller
 
     //for sharing in selected folder
     public function to_folder(Request $request){
-        return view('files.move');
-        // $ids = $request->get('ids');
-        
-        // if($ids > 0){
-        //     foreach($ids as $id) {
-        //         $filename = File::find($id);
-        //         $filename->starred = '1';
-        //         $filename->update();
-        //     }
-        //     //Flash Messages for the requests
-        //     Session::flash('success', 'Files Sent to Starred');
-        //     return back();
-        // }
-        // else{
-        //     //Flash Messages for the requests
-        //     Session::flash('danger', 'No Files Selected');
-        //     return back();
-        // }
+        $title = 'Move File';
+        $ids_form = $request->get('ids');
+
+        if(auth()->user()->usertype == 'admin'){
+            $fols = Folder::all();
+            return view('files.move', ['title' => $title, 'fols' => $fols, 'ids_form' => $ids_form]);
+        }
+        else{
+            $fols = Folder::all()->where('id','!=',1)->where('parent_folder','!=',1);
+            return view('files.move', ['title' => $title, 'fols' => $fols, 'ids_form' => $ids_form]);
+        }
     }
     
     //for sharing in starred
@@ -112,6 +105,26 @@ class FilesController extends Controller
         else{
             //Flash Messages for the requests
             Session::flash('danger', 'No Files Selected');
+            return back();
+        }
+    }
+
+    public function parentfiles(Request $request){
+        $ids = $request->get('result');
+        
+        if($ids > 0){
+            foreach($ids as $id) {
+                $filename = File::find($id);
+                $filename->parent_folder =  $request->input('parentid');
+                $filename->update();
+            }
+            //Flash Messages for the requests
+            Session::flash('success', 'File Moved');
+            return redirect('/');
+        }
+        else{
+            //Flash Messages for the requests
+            Session::flash('danger', 'No Folder Selected');
             return back();
         }
     }

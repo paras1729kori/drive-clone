@@ -4,7 +4,7 @@
     <div class="px-2">
     <h4 class="font-weight-bold">Folders</h4>
     @if (count($fols) > 0)
-      <form method="POST">
+      <form method="GET">
         @csrf
         <div class="btn-group" id="table_pc">
           <button type="button" class="btn btn-sm btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

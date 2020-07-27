@@ -33,23 +33,27 @@ Route::delete('/tostarredfiles','FilesController@to_starred');
 Route::delete('/tofavsfiles','FilesController@to_favs');
 //delete all files route
 Route::delete('/deleteall','FilesController@deleteAll');
+//for updating files path
+Route::post('/files/parentfiles', 'FilesController@parentfiles');
 
 //Folder Controller Routes
 //for showing specific files and folders in starred
 Route::get('folders/2', 'FoldersController@starred');
 //for showing specific files and folders in favourites
 Route::get('folders/3', 'FoldersController@favourites');
-//to selected folder
-Route::post('/tofolderfold', 'FoldersController@to_folder');
+//to move folders to selected folder
+Route::get('/tofolderfold', 'FoldersController@to_folder');
 //to starred
-Route::post('/tostarredfold','FoldersController@to_starred');
+Route::get('/tostarredfold','FoldersController@to_starred');
 //to favs
-Route::post('/tofavsfold','FoldersController@to_favs');
-//for showing files and folders n any other folders user_created_ones
+Route::get('/tofavsfold','FoldersController@to_favs');
+//for showing files and folders in any other folders user_created_ones
 Route::get('folders/{id}', 'FoldersController@index');
 Route::post('folders/store', 'FoldersController@store');
 Route::get('folders/{id}/edit', 'FoldersController@edit')->name('folders.edit');
 Route::post('folders/{id}/update', 'FoldersController@update');
+//for updating parentfolders of folders
+Route::post('folders/parentfols', 'FoldersController@parentfols');
 Route::delete('folders/{id}/destroy', 'FoldersController@destroy');
 //for downloading files in folders
 Route::get('folders/download/{id}', 'FoldersController@download')->name('downloadfileinfols');

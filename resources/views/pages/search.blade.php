@@ -2,19 +2,57 @@
 
 @section('content')
     <div class="px-2">
-        <h4 class="font-weight-bold">Folders</h4>
-        <div class="row text-center" style="font-size: 30px ;">
-          @if (count($fols) > 0)
-            @foreach ($fols as $fol) 
-                <div class="col-4 p-3" id="fold_on_dash">
-                <a href="/folders/{{$fol->id}}" style="color: #08417a;"><i class="fa fa-folder pr-2" aria-hidden="true"></i>{{$fol->name}}</a>
-                </div>
-            @endforeach
-          @else
-                <h6 class="pl-3">No Folders Found</h6>
-        @endif
+    <h4 class="font-weight-bold">Folders</h4>
+    @if (count($fols) > 0)
+      <form method="POST">
+        @csrf
+        <div class="btn-group" id="table_pc">
+          <button type="button" class="btn btn-sm btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Action
+          </button>
+          <div class="dropdown-menu dropdown-menu-right">
+            <button formaction="/tofolderfold" type="submit" class="dropdown-item">Move to Folder</button>
+            <button formaction="/tostarredfold" type="submit" class="dropdown-item">Send to Starred</button>
+            <button formaction="/tofavsfold" type="submit" class="dropdown-item">Send to Favourites</button>
+          </div>
+          <span class="font-weight-bold ml-1 mt-1">Select All <input type="checkbox" class="selectall2"></span>
         </div>
+    @endif
+        <div class="row no-gutters text-center my-2" style="font-size: 25px;">
+              @if (count($fols) > 0)
+                @foreach ($fols as $fol)
+                        <div class="col-xs-4 mr-3" id="fold_on_dash">
+                          <input type="checkbox" id="table_pc" name="ids[]" class="selectbox2" value="{{ $fol->id }}">
+                        <a href="/folders/{{$fol->id}}" style="color: #08417a;"><i class="fa fa-folder pr-2" aria-hidden="true"></i>{{$fol->name}}</a>
+                      </form>
+                        <div class="row no-gutters" style="font-size:18px;">
+                            <div class="col-xs-2 ml-2" style="margin-top:2px;">
+                                <a href="/folders/{{$fol->id}}/edit"><i id="icon" class="fa fa-pencil-square icon mt-2" aria-hidden="true" class = "icon"></i></a>
+                            </div>
+                            <div class="col-xs-4">                              
+                                {!!Form::open(['action' => ['FoldersController@destroy', $fol->id], 'method' => 'DELETE'])!!}
+                                    <button type="submit" style="border: 0px; background-color:white; padding-top:6px;"><i id="icon" class="fa fa-trash icon" aria-hidden="true" class = "icon"></i></button>
+                                {!!Form::close()!!}                            
+                            </div>
+                            <div class="col-xs-6" style="padding-top:6px;">
+                              @if($fol->starred == '1')
+                                <i style="color:red;" id="icon" class="fa fa-star icon" aria-hidden="true" class = "icon"></i>
+                              @endif
+                              @if($fol->favourites == '1')
+                                <i style="color:green;" id="icon" class="fa fa-heart icon" aria-hidden="true" class = "icon"></i>
+                              @endif
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+                @else 
+                  <h6>No Folder Found</h6>
+            @endif
+        </div>
+        <a href="/create"><button class="btn btn-success">Create Folders</button></a>
+
         <br><br>
+
         <h4 class="font-weight-bold">Files</h4>
         <form method="POST">
           @csrf
@@ -97,7 +135,10 @@
                     </tbody>
                 @endforeach
           </table>
+          @else
+            <h6>No Files Found</h6> 
           @endif
+          <a href="/create" class="btn btn-success mt-2 mb-2">Create File</a>
         </form>
     </div>
 

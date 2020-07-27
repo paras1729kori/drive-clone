@@ -12,7 +12,7 @@
             </div>
               <div id="collapseTwo" class="collapse show" role="tabpanel" aria-labelledby="headingTwo">
                 <div class="card-body">
-                    {!! Form::open(['action' => 'FilesController@parentfiles', 'method' => 'POST', 'enctype' => 'multipart/form-data']) !!}
+                    {!! Form::open(['action' => 'FoldersController@parentfols', 'method' => 'POST', 'enctype' => 'multipart/form-data']) !!}
                     {{Form::label('parentid', 'Parent Folder')}}
                         @foreach ($ids_form as $id)
                             {{Form::hidden('result[]', $id)}}

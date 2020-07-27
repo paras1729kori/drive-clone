@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Session;
 use App\Folder;
@@ -26,6 +25,18 @@ class FoldersController extends Controller
     }
 
     //for sharing folders into a specific folder
+    public function to_folder(Request $request){
+        $title = 'Move Folder';
+        $ids_form = $request->get('ids');
+        if(auth()->user()->usertype == 'admin'){
+            $fols = Folder::all();
+            return view('folders.move', ['title' => $title, 'fols' => $fols, 'ids_form' => $ids_form]);
+        }
+        else{
+            $fols = Folder::all()->where('id','!=',1)->where('parent_folder','!=',1);
+            return view('folders.move', ['title' => $title, 'fols' => $fols, 'ids_form' => $ids_form]);
+        }
+    }
 
     //for sharing folders into starred
     public function to_starred(Request $request){
@@ -59,7 +70,7 @@ class FoldersController extends Controller
                 $filename->update();
             }
             //Flash Messages for the requests
-            Session::flash('success', 'Folder Sent to Starred');
+            Session::flash('success', 'Folder Sent to Favourites');
             return back();
         }
         else{
@@ -100,8 +111,7 @@ class FoldersController extends Controller
         //Validator
         $this->validate($request, [
             'name' => 'required',
-            'parentid' => 'nullable',
-            // 'sub' => 'required|nullable',
+            'parentid' => 'required',
         ]);
         
         // Create new Folder
@@ -154,6 +164,26 @@ class FoldersController extends Controller
         Session::flash('info', 'Changes Saved Successfully');
         
         return redirect('/home');
+    }
+
+    public function parentfols(Request $request){
+        $ids = $request->get('result');
+
+        if($ids > 0){
+            foreach($ids as $id) {
+                $filename = Folder::find($id);
+                $filename->parent_folder =  $request->input('parentid');
+                $filename->update();
+            }
+            //Flash Messages for the requests
+            Session::flash('success', 'Folder Moved');
+            return redirect('/');
+        }
+        else{
+            //Flash Messages for the requests
+            Session::flash('danger', 'No Folder Selected');
+            return back();
+        }
     }
 
     public function destroy($id) {
