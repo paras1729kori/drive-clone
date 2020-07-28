@@ -71,7 +71,6 @@
                             </a>
                         @endif
                     </div>
-                    <a href="{{ route('register') }}" class="btn btn-lg font-weight-bolder">Register</a>
                 </div>
             </form>
         </div>
