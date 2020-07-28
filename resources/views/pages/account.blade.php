@@ -14,13 +14,12 @@
             </div>
         </div>
         @else
-            <li class="dropdown">
+            <li class="dropdown mb-3">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                     {{ Auth::user()->name }} <span class="caret"></span>
                 </a>
 
                 <ul class="dropdown-menu text-center" role="menu">
-                    <li><a href="/home">Home</a></li><hr>
                     <li>
                         <a href="{{ route('logout') }}"
                             onclick="event.preventDefault();
@@ -42,25 +41,44 @@
                     </li>
                 </ul>
             </li>
-            <div class="row justify-content-center mt-5">
-                <div class="col-md-8">
-                    <div class="card">
-                        <div class="card-header">{{ __('Info') }}</div>
-        
-                        <div class="card-body">
-                            @if (session('status'))
-                                <div class="alert alert-success" role="alert">
-                                    {{ session('status') }}
-                                </div>
-                            @endif
-        
-                            {{ __('You are logged in!') }}
-                        </div>
-                    </div>
-                </div>
-            </div>
         @endif
     </ul>
+    <div class="row">
+        <div class="col">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <a href="/posts/create" class="btn btn-primary mb-2">Create Messages</a>
+                    @if(count($posts) > 0)
+                        <h5 class="font-weight-bold my-2">Your Messages</h5>
+                        @foreach($posts as $post)
+                        <div class="col-sm-4 p-2">
+                            <div class="card text-light bg-dark">
+                                <div class="card-body">
+                                  <h4 class="card-title">{{$post->title}}</h4>
+                                  <h6 class="card-subtitle mb-2 text-muted"><small class="text-light">Written on {{$post->created_at}} by {{$post->user->name}}</small></h6>
+                                  <p class="card-text">
+                                    {{$post->body}}
+                                  </p>
+                                  @if(!Auth::guest())
+                                    @if(Auth::user()->id == $post->user_id)
+                                        <a href="/posts/{{$post->id}}/edit" class="btn btn-success btn-default">Edit</a>
+                    
+                                        {!!Form::open(['action' => ['PostsController@destroy', $post->id], 'method' => 'DELETE', 'class' => 'pull-right'])!!}
+                                            {{Form::submit('Delete', ['class' => 'btn btn-danger'])}}
+                                        {!!Form::close()!!}
+                                    @endif
+                                @endif
+                                </div>
+                              </div>
+                            </div> 
+                            @endforeach
+                    @else
+                        <p>You have no messages</p>
+                    @endif
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 @endsection
 

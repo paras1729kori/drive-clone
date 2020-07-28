@@ -22,7 +22,6 @@
                 {{Form::label('parentid', 'Parent Folder')}}
                   <select class="form-control opt" name="parentid" id="parentid">
                     <option>Select Folder</option>
-                    <option value="nullable">Dashboard</option>
                     @foreach ($fols as $fol)
                       <option value="{{$fol->id}}">{{ $fol->name }}</option>
                     @endforeach
@@ -57,14 +56,6 @@
               @endforeach
             </select>
           </div>
-          {{-- <div class="form-group">
-            {{Form::label('sub', 'Folder or Subfolder')}}
-            <select id="sub" class="form-control opt" name="val">
-              <option>Select Folder</option>
-                <option val=0>Folder</option>
-                <option val=1>Sub-Folder</option>
-            </select>
-          </div> --}}
             {{Form::submit('Create', ['class'=>'btn btn-primary'])}}
             {!! Form::close() !!}
           </div>

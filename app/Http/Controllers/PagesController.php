@@ -3,25 +3,41 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 use App\Folder;
 use App\File;
+use App\User;
 use DB;
 
 class PagesController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth', ['except' => ['acc']]);
+        $this->middleware('auth');
+    }
+
+    public function index() {
+        $title = 'Dashboard';
+        return view('pages.account', ['title' => $title]);
     }
     
     public function create() {
         $title = 'Create';
-        $fols = Folder::all();
-        return view('pages.create', ['title' => $title, 'fols' => $fols]);
+        if(auth()->user()->usertype == 'admin'){
+            $fols = Folder::all();
+            return view('pages.create', ['title' => $title, 'fols' => $fols]);
+        }
+        else{
+            $fols = Folder::where('id','!=',1)->where('parent_folder','!=',1)->orWhere('id','=',2)->orWhere('id','=',3)->orWhere('starred','=','1')->orWhere('favourites','=','1')->get();
+            return view('pages.create', ['title' => $title, 'fols' => $fols]);
+        }
     }
     public function acc() {
         $title = 'Dashboard';
-        return view('pages.account')->with('title', $title);
+        $user_id = auth()->user()->id;
+        $user = User::find($user_id);
+
+        return view('pages.account',['title' => $title,'posts' => $user->posts]);
     }
 
     public function download($id) {
@@ -32,8 +48,22 @@ class PagesController extends Controller
     public function search(Request $request) {
         $title = 'Search Results';
         $search = $request->get('searching');
-        $fils = File::where('name','like','%'.$search.'%')->get();
-        $fols = Folder::where('name','like','%'.$search.'%')->get();
-        return view('pages.search', ['fils' => $fils, 'fols'=>$fols, 'title'=>$title]);
+        if(isset($search)){
+            if(auth()->user()->usertype == 'admin'){
+                $fils = File::where('name','like','%'.$search.'%')->get();
+                $fols = Folder::where('name','like','%'.$search.'%')->get();
+                return view('pages.search', ['fils' => $fils, 'fols'=>$fols, 'title'=>$title]);
+            }
+            else{
+                $fils = File::where('name','like','%'.$search.'%')->where('parent_folder','!=',1)->get();
+                $fols = Folder::where('name','like','%'.$search.'%')->where('parent_folder','!=',1)->get();
+                return view('pages.search', ['fils' => $fils, 'fols'=>$fols, 'title'=>$title]);
+            }
+        }
+        else{
+            //flash message
+            Session::flash('danger', 'No search Input');
+            return back();
+        }
     }
 }

@@ -8,20 +8,36 @@
     }
 </style>
 
-<nav class="navbar navbar-expand-lg mt-2" id="navbar">
-    <a class="navbar-brand" href="/home"><img src="{{asset('img/co.jpg')}}" alt="This is an image of logo"></a>
-  
+<nav class="navbar sticky-top bg-light navbar-expand-lg mb-3" style="border-bottom: 2px solid #08417a;" id="navbar">
+    <a class="navbar-brand" href="/"><img src="{{asset('img/co.jpg')}}" style="border-radius: 8px;" alt="This is an image of logo"></a>
+
     <div class="collapse navbar-collapse">
       <ul class="navbar-nav ml-auto">
+        @if (Auth::guest() || auth()->user()->usertype == 'admin')
+          <li class="nav-item">
+            <a class="nav-link link" href="/folders/1"><i id="icon" class="fa fa-folder fa-lg icon" aria-hidden="true"></i> Important</a>
+          </li>
+        @endif
+        <li class="nav-item">
+          <a class="nav-link link" href="/folders/2"><i id="icon" class="fa fa-folder fa-lg icon" aria-hidden="true"></i> Starred</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link link" href="/folders/3"><i id="icon" class="fa fa-folder fa-lg icon" aria-hidden="true"></i> Favourites</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link link" href="/posts"><i id="icon" class="fa fa-comment fa-lg icon" aria-hidden="true" class = "icon"></i> Messages</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link link" href="/"><i id="icon" class="fa fa-user fa-lg icon" aria-hidden="true" class = "icon"></i> My Account</a>
+        </li>
         <li class="nav-item">
           <a class="nav-link link" href="/create"><i id="icon" class="fa fa-plus fa-lg icon" aria-hidden="true" class = "icon"></i> Create</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link link" href="/home"><i id="icon" class="fa fa-home fa-lg icon" aria-hidden="true" class = "icon"></i> Home</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link link" href="/"><i id="icon" class="fa fa-user fa-lg icon" aria-hidden="true" class = "icon"></i> Dashboard</a>
-        </li>
+        @if (Auth::guest() || auth()->user()->usertype == 'admin')
+          <li class="nav-item">
+            <a class="nav-link link" href="/dashboard"><i id="icon" class="fa fa-lock fa-lg icon" aria-hidden="true"></i> Dashboard</a>
+          </li>
+        @endif
       </ul>
       <form class="form-inline mt-2 mt-md-0" action="/search" method="GET">
         <input class="form-control mr-sm-2" name="searching" type="text" placeholder="Search" aria-label="Search">
@@ -29,7 +45,7 @@
       </form>
     </div>
   </nav>
-  
+  {{-- Button for side bar --}}
   <div class="d-flex flex-row">
   <button class="ml-3 mt-2" id = "sidebar-btn" onclick="openNav()"><i class="fa fa-bars fa-2x" aria-hidden="true"></i></button>
   

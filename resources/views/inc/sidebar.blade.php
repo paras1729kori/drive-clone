@@ -1,8 +1,4 @@
 <style>
-    #icon{
-        color: #08417a;
-    }
-
     .links{
         color: #08417a;
         font-size:18px;
@@ -18,12 +14,20 @@
 <div id="sidebar-wrapper">
     <div class="list-group list-group-flush" id="sidenav">
         <a href="javascript:void(0)" class="closebtn close mt-2" onclick="closeNav()">&times;</a>
-        <a class="navbar-brand mt-0" href="/home"><img src="{{asset('img/mob.jpg')}}" alt=""></a>
+        <a class="navbar-brand mt-0" href="/"><img src="{{asset('img/mob.jpg')}}" alt=""></a>
         
-        <a class="nav-link links" href="/create"><i id="icon" class="fa fa-plus fa-lg icon" aria-hidden="true" class = "icon"></i> Create</a>
-        <a class="nav-link links" href="/home"><i id="icon" class="fa fa-home fa-lg icon" aria-hidden="true" class = "icon"></i> Home</a>
-        <a class="nav-link links" href="/"><i id="icon" class="fa fa-user fa-lg icon" aria-hidden="true" class = "icon"></i> Dashboard</a>
+        @if (Auth::guest() || auth()->user()->usertype == 'admin')
+            <a class="nav-link links" href="/folders/1"><i id="icon" class="fa fa-folder fa-lg icon" aria-hidden="true"></i> Important</a>
+        @endif
+        <a class="nav-link links" href="/folders/2"><i id="icon" class="fa fa-folder fa-lg icon" aria-hidden="true"></i> Starred</a>
+        <a class="nav-link links" href="/folders/3"><i id="icon" class="fa fa-folder fa-lg icon" aria-hidden="true"></i> Favourites</a>
+        <a class="nav-link links" href="/posts"><i id="icon" class="fa fa-comment fa-lg icon" aria-hidden="true"></i> Messages</a>        
+        <a class="nav-link links" href="/"><i id="icon" class="fa fa-user fa-lg icon" aria-hidden="true"></i> My Account</a>
+        <a class="nav-link links" href="/create"><i id="icon" class="fa fa-plus fa-lg icon" aria-hidden="true"></i> Create</a>
 
+        @if (Auth::guest() || auth()->user()->usertype == 'admin')
+            <a class="nav-link links" href="/dashboard"><i id="icon" class="fa fa-lock fa-lg icon" aria-hidden="true"></i> Dashboard</a>
+        @endif
     </div>
   </div>
   <!-- /#sidebar-wrapper -->

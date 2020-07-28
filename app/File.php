@@ -19,4 +19,9 @@ class File extends Model
     public function userfils(){
         return $this->belongsTo('App\User','created_by','id');
     }
+
+    // Relationship b/w folder and file
+    public function p_files(){
+        return $this->belongsTo('App\Folder', 'parent_folder', 'id');
+    }
 }

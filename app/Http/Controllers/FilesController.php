@@ -7,21 +7,12 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Session;
 use App\Folder;
 use App\File;
-use DB;
 
 class FilesController extends Controller
 {    
     public function __construct()
     {
         $this->middleware('auth');
-    }
-
-    // Index for pushing data specially for homepage
-    public function index() {
-        $title = 'Home';
-        $fils = File::where('parent_folder', '=', null)->get();
-        $fols = Folder::where('parent_folder', '=', null)->get();
-        return view('pages.dash',['title' => $title,'fils' => $fils, 'fols' =>$fols]);
     }
 
     public function create($id) {
@@ -58,9 +49,87 @@ class FilesController extends Controller
         //Flash Messages for the requests
         Session::flash('success', 'File Created Successfully');
 
-        return redirect('/home');
+        return back();
     }
 
+    //for sharing in selected folder
+    public function to_folder(Request $request){
+        $title = 'Move File';
+        $ids_form = $request->get('ids');
+
+        if(auth()->user()->usertype == 'admin'){
+            $fols = Folder::all();
+            return view('files.move', ['title' => $title, 'fols' => $fols, 'ids_form' => $ids_form]);
+        }
+        else{
+            $fols = Folder::all()->where('id','!=',1)->where('parent_folder','!=',1);
+            return view('files.move', ['title' => $title, 'fols' => $fols, 'ids_form' => $ids_form]);
+        }
+    }
+    
+    //for sharing in starred
+    public function to_starred(Request $request){
+        $ids = $request->get('ids');
+
+        if($ids > 0){
+            foreach($ids as $id) {
+                $filename = File::find($id);
+                $filename->starred = '1';
+                $filename->update();
+            }
+            //Flash Messages for the requests
+            Session::flash('success', 'Files Sent to Starred');
+            return back();
+        }
+        else{
+            //Flash Messages for the requests
+            Session::flash('danger', 'No Files Selected');
+            return back();
+        }
+    }
+
+    //for sharing in favs
+    public function to_favs(Request $request){
+        $ids = $request->get('ids');
+
+        if($ids > 0){
+            foreach($ids as $id) {
+                $filename = File::find($id);
+                $filename->favourites = '1';
+                $filename->update();
+            }
+            //Flash Messages for the requests
+            Session::flash('success', 'Files Sent to Favourites');
+            return back();
+        }
+        else{
+            //Flash Messages for the requests
+            Session::flash('danger', 'No Files Selected');
+            return back();
+        }
+    }
+
+    public function parentfiles(Request $request){
+        $ids = $request->get('result');
+        
+        if($ids > 0){
+            foreach($ids as $id) {
+                $filename = File::find($id);
+                $filename->parent_folder =  $request->input('parentid');
+                $filename->update();
+            }
+            //Flash Messages for the requests
+            Session::flash('success', 'File Moved');
+            return redirect('/');
+        }
+        else{
+            //Flash Messages for the requests
+            Session::flash('danger', 'No Folder Selected');
+            return back();
+        }
+    }
+
+    // single file deleting
     public function destroy($id) {
         $fil = File::find($id);
         
@@ -87,6 +156,7 @@ class FilesController extends Controller
         return back();
     }
 
+    //for deleting selected files
     public function deleteAll(Request $request){
         $ids = $request->get('ids');
 

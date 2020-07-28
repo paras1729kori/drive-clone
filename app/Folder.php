@@ -19,4 +19,9 @@ class Folder extends Model
     public function userfols(){
         return $this->belongsTo('App\User','created_by','id');
     }
+
+    //Relationship for files
+    public function folders_files_rel(){
+        return $this->hasMany('App\File');
+    }
 }
