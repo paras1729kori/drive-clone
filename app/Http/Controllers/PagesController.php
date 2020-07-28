@@ -6,13 +6,14 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use App\Folder;
 use App\File;
+use App\User;
 use DB;
 
 class PagesController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth', ['except' => ['acc']]);
+        $this->middleware('auth');
     }
 
     public function index() {
@@ -27,13 +28,16 @@ class PagesController extends Controller
             return view('pages.create', ['title' => $title, 'fols' => $fols]);
         }
         else{
-            $fols = Folder::all()->where('id','!=',1);
+            $fols = Folder::where('id','!=',1)->where('parent_folder','!=',1)->orWhere('id','=',2)->orWhere('id','=',3)->orWhere('starred','=','1')->orWhere('favourites','=','1')->get();
             return view('pages.create', ['title' => $title, 'fols' => $fols]);
         }
     }
     public function acc() {
         $title = 'Dashboard';
-        return view('pages.account')->with('title', $title);
+        $user_id = auth()->user()->id;
+        $user = User::find($user_id);
+
+        return view('pages.account',['title' => $title,'posts' => $user->posts]);
     }
 
     public function download($id) {

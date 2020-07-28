@@ -46,5 +46,10 @@ class User extends Authenticatable
     public function folders(){
         return $this->hasMany('App\Folder');
     }
+
+    //Relationshipfor posts
+    public function posts(){
+        return $this->hasMany('App\Post');
+    }
 }
 

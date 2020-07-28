@@ -25,12 +25,19 @@
           <a class="nav-link link" href="/folders/3"><i id="icon" class="fa fa-folder fa-lg icon" aria-hidden="true"></i> Favourites</a>
         </li>
         <li class="nav-item">
+          <a class="nav-link link" href="/posts"><i id="icon" class="fa fa-comment fa-lg icon" aria-hidden="true" class = "icon"></i> Messages</a>
+        </li>
+        <li class="nav-item">
           <a class="nav-link link" href="/"><i id="icon" class="fa fa-user fa-lg icon" aria-hidden="true" class = "icon"></i> My Account</a>
         </li>
-
         <li class="nav-item">
           <a class="nav-link link" href="/create"><i id="icon" class="fa fa-plus fa-lg icon" aria-hidden="true" class = "icon"></i> Create</a>
         </li>
+        @if (Auth::guest() || auth()->user()->usertype == 'admin')
+          <li class="nav-item">
+            <a class="nav-link link" href="/dashboard"><i id="icon" class="fa fa-lock fa-lg icon" aria-hidden="true"></i> Dashboard</a>
+          </li>
+        @endif
       </ul>
       <form class="form-inline mt-2 mt-md-0" action="/search" method="GET">
         <input class="form-control mr-sm-2" name="searching" type="text" placeholder="Search" aria-label="Search">

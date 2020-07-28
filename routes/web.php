@@ -22,7 +22,7 @@ Route::get('/search', 'PagesController@search');
 //for downloading files on home
 Route::get('download/{id}', 'PagesController@download')->name('downloadfileindash');
 
-// File Controller Routes
+// FILE ROUTES
 Route::post('files/store', 'FilesController@store');
 Route::delete('files/{id}/destroy', 'FilesController@destroy');
 //to selected folder
@@ -36,7 +36,7 @@ Route::delete('/deleteall','FilesController@deleteAll');
 //for updating files path
 Route::post('/files/parentfiles', 'FilesController@parentfiles');
 
-//Folder Controller Routes
+//FOLDER ROUTES
 //for showing specific files and folders in starred
 Route::get('folders/2', 'FoldersController@starred');
 //for showing specific files and folders in favourites
@@ -58,6 +58,10 @@ Route::delete('folders/{id}/destroy', 'FoldersController@destroy');
 //for downloading files in folders
 Route::get('folders/download/{id}', 'FoldersController@download')->name('downloadfileinfols');
 
+//POSTS ROUTES
+Route::resource('posts', 'PostsController');
+
+//AUTH ROUTES
 Auth::routes();
 
 //Admin Middleware Controller Routes

@@ -14,11 +14,11 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="{{ asset('css/login.css') }}">
 </head>
-<body>
+<body style="background-image: url({{ asset('img/loginpage.jpg') }}); color:white;">
     <div class="container text-center" style="padding-top:150px;">
         <div class="col-xs-4 col-xs-offset-4 jerry">
             
-            <img class="mx-auto" src="{{asset('img/co.jpg')}}" alt="This is an image of logo">
+            <img class="mx-auto" style="border-radius: 10px;" src="{{asset('img/co.jpg')}}" alt="This is an image of logo">
             <h4 class="mt-2">Login</h4>
 
             <form method="POST" action="{{ route('login') }}">
