@@ -73,6 +73,7 @@
                     </div>
                 </div>
             </form>
+            <li><a href="{{ route('register') }}" class="btn btn-lg font-weight-bolder">Register</a></li>
         </div>
     </div>
 </body>
