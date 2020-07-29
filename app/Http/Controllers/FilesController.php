@@ -49,7 +49,28 @@ class FilesController extends Controller
         //Flash Messages for the requests
         Session::flash('success', 'File Created Successfully');
 
-        return back();
+        return redirect('/');
+    }
+
+    public function replace(Request $request){
+        $ids = $request->get('ids');
+        $fil = File::where('id','=',$ids)->first();
+        $parent = $fil->parent_folder;
+        $fol = Folder::where('id','=',$parent)->first();
+
+        if($ids > 0){
+            foreach($ids as $id) {
+                $filename = File::find($id);
+                Storage::delete('public/files/'.$filename->name);
+                $filename->delete();
+            }
+            return view('files.replace', ['parent' => $parent,'fol' => $fol]);
+        }
+        else{
+            //Flash Messages for the requests
+            Session::flash('danger', 'No Files Selected');
+            return back();
+        }
     }
 
     //for sharing in selected folder
@@ -121,6 +142,46 @@ class FilesController extends Controller
             //Flash Messages for the requests
             Session::flash('success', 'File Moved');
             return redirect('/');
+        }
+        else{
+            //Flash Messages for the requests
+            Session::flash('danger', 'No Folder Selected');
+            return back();
+        }
+    }
+
+    public function remove_fils_starred(Request $request){
+        $ids = $request->get('ids');
+
+        if($ids > 0){
+            foreach($ids as $id) {
+                $filename = File::find($id);
+                $filename->starred =  '0';
+                $filename->update();
+            }
+            //Flash Messages for the requests
+            Session::flash('success', 'File Moved');
+            return back();
+        }
+        else{
+            //Flash Messages for the requests
+            Session::flash('danger', 'No Folder Selected');
+            return back();
+        }
+    }
+
+    public function remove_fils_favs(Request $request){
+        $ids = $request->get('ids');
+
+        if($ids > 0){
+            foreach($ids as $id) {
+                $filename = File::find($id);
+                $filename->favourites =  '0';
+                $filename->update();
+            }
+            //Flash Messages for the requests
+            Session::flash('success', 'File Moved');
+            return back();
         }
         else{
             //Flash Messages for the requests

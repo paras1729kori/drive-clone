@@ -16,12 +16,21 @@ class FoldersController extends Controller
     }
 
     //for showing specific files and folders in other folders (user_created)
-    public function index($id) {
+    public function admin($id) {
         $title = Folder::find($id);
         $title = $title->name;
         $fils = File::where('parent_folder', '=', $id)->get();
         $fols = Folder::where('parent_folder', '=', $id)->get();
-        return view('folders.index', ['title' => $title, 'fils' => $fils, 'fols'=> $fols]);
+        return view('folders.index_admin', ['title' => $title, 'fils' => $fils, 'fols'=> $fols]);
+    }
+
+    //for showing specific files and folders in other folders (user_created)
+    public function employee($id) {
+        $title = Folder::find($id);
+        $title = $title->name;
+        $fils = File::where('parent_folder', '=', $id)->get();
+        $fols = Folder::where('parent_folder', '=', $id)->get();
+        return view('folders.index_empl', ['title' => $title, 'fils' => $fils, 'fols'=> $fols]);
     }
 
     //for sharing folders into a specific folder
@@ -80,13 +89,21 @@ class FoldersController extends Controller
         }
     }
 
+    //for imporatant
+    public function important(){
+        $title = 'Important';
+        $fils = File::where('parent_folder','=',1)->get();
+        $fols = Folder::where('parent_folder','=',1)->get();
+        return view('folders.index_admin', ['title' => $title, 'fils' => $fils, 'fols'=> $fols]);
+    }
+
 
     //for showing specific files and folders in starred
     public function starred(){
         $title = 'Starred';
         $fils = File::where('starred','=','1')->orWhere('parent_folder','=',2)->get();
         $fols = Folder::where('starred','=','1')->orWhere('parent_folder','=',2)->get();
-        return view('folders.index', ['title' => $title, 'fils' => $fils, 'fols'=> $fols]);
+        return view('folders.index_empl', ['title' => $title, 'fils' => $fils, 'fols'=> $fols]);
     }
 
     //for showing specific files and folders in favourites
@@ -94,7 +111,7 @@ class FoldersController extends Controller
         $title = 'Favourites';
         $fils = File::where('favourites','=','1')->orWhere('parent_folder','=',3)->get();
         $fols = Folder::where('favourites','=','1')->orWhere('parent_folder','=',3)->get();
-        return view('folders.index', ['title' => $title, 'fils' => $fils, 'fols'=> $fols]);
+        return view('folders.index_empl', ['title' => $title, 'fils' => $fils, 'fols'=> $fols]);
     }
 
     //for downloading files in folders
@@ -216,5 +233,45 @@ class FoldersController extends Controller
         Session::flash('success', 'Folder Deleted Successfully');
 
         return back();
+    }
+
+    public function remove_fols_starred(Request $request){
+        $ids = $request->get('ids');
+
+        if($ids > 0){
+            foreach($ids as $id) {
+                $filename = Folder::find($id);
+                $filename->starred =  '0';
+                $filename->update();
+            }
+            //Flash Messages for the requests
+            Session::flash('success', 'Folder Moved');
+            return back();
+        }
+        else{
+            //Flash Messages for the requests
+            Session::flash('danger', 'No Folder Selected');
+            return back();
+        }
+    }
+
+    public function remove_fols_favs(Request $request){
+        $ids = $request->get('ids');
+
+        if($ids > 0){
+            foreach($ids as $id) {
+                $filename = Folder::find($id);
+                $filename->favourites =  '0';
+                $filename->update();
+            }
+            //Flash Messages for the requests
+            Session::flash('success', 'Folder Moved');
+            return back();
+        }
+        else{
+            //Flash Messages for the requests
+            Session::flash('danger', 'No Folder Selected');
+            return back();
+        }
     }
 }

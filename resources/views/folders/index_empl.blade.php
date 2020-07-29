@@ -36,10 +36,10 @@
                             </div>
                             <div class="col-xs-6" style="padding-top:6px;">
                               @if($fol->starred == '1')
-                                <i style="color:red;" id="icon" class="fa fa-star icon" aria-hidden="true" class = "icon"></i>
+                                <i style="color:yellow;" id="icon" class="fa fa-star icon" aria-hidden="true" class = "icon"></i>
                               @endif
                               @if($fol->favourites == '1')
-                                <i style="color:green;" id="icon" class="fa fa-heart icon" aria-hidden="true" class = "icon"></i>
+                                <i style="color:red;" id="icon" class="fa fa-heart icon" aria-hidden="true" class = "icon"></i>
                               @endif
                             </div>
                         </div>
@@ -52,15 +52,15 @@
         <br><br>
 
         <h4 class="font-weight-bold">Files</h4>
-        <form method="POST">
+        <form method="GET">
           @csrf
-          @method('DELETE')
         @if (count($fils) > 0)
         <div class="btn-group" id="table_pc">
           <button type="button" class="btn btn-sm btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Action
           </button>
           <div class="dropdown-menu dropdown-menu-right">
+            <button formaction="/replace" type="submit" class="dropdown-item">Replace Files</button>
             <button formaction="/tofolderfiles" type="submit" class="dropdown-item">Move to Folder</button>
             <button formaction="/tostarredfiles" type="submit" class="dropdown-item">Send to Starred</button>
             <button formaction="/tofavsfiles" type="submit" class="dropdown-item">Send to Favourites</button>
@@ -85,13 +85,13 @@
                         <td><input type="checkbox" name="ids[]" class="selectbox1" value="{{ $fil->id }}"></td>
                         <td>
                           @if($fil->starred == '1')
-                            <i style="color:red;" class="fa fa-star" aria-hidden="true"></i>
+                            <i style="color:yellow;" class="fa fa-star" aria-hidden="true"></i>
                           @else
                             <i class="fa fa-star-o" aria-hidden="true"></i>
                           @endif
 
                           @if($fil->favourites == '1')
-                            <i style="color:green;" class="fa fa-heart" aria-hidden="true"></i>
+                            <i style="color:red;" class="fa fa-heart" aria-hidden="true"></i>
                           @else
                             <i class="fa fa-heart-o" aria-hidden="true"></i>
                           @endif

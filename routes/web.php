@@ -23,32 +23,46 @@ Route::get('/search', 'PagesController@search');
 Route::get('download/{id}', 'PagesController@download')->name('downloadfileindash');
 
 // FILE ROUTES
-Route::post('files/store', 'FilesController@store');
-Route::delete('files/{id}/destroy', 'FilesController@destroy');
+//replace files
+Route::get('/replace', 'FilesController@replace');
 //to selected folder
-Route::delete('/tofolderfiles', 'FilesController@to_folder');
+Route::get('/tofolderfiles', 'FilesController@to_folder');
 //to starred
-Route::delete('/tostarredfiles','FilesController@to_starred');
+Route::get('/tostarredfiles','FilesController@to_starred');
 //to favs
-Route::delete('/tofavsfiles','FilesController@to_favs');
+Route::get('/tofavsfiles','FilesController@to_favs');
+//to remove files from starred
+Route::get('/removestarred','FilesController@remove_fils_starred');
+//to remove files from favs
+Route::get('/removefavs','FilesController@remove_fils_favs');
 //delete all files route
-Route::delete('/deleteall','FilesController@deleteAll');
+Route::get('/deleteall','FilesController@deleteAll');
 //for updating files path
 Route::post('/files/parentfiles', 'FilesController@parentfiles');
+Route::post('files/store', 'FilesController@store');
+Route::delete('files/{id}/destroy', 'FilesController@destroy');
 
 //FOLDER ROUTES
+//for showing specific files and folders in important
+Route::get('important', 'FoldersController@important');
 //for showing specific files and folders in starred
-Route::get('folders/2', 'FoldersController@starred');
+Route::get('starred', 'FoldersController@starred');
 //for showing specific files and folders in favourites
-Route::get('folders/3', 'FoldersController@favourites');
+Route::get('favourites', 'FoldersController@favourites');
+//for showing files and folders for admins
+Route::get('important/{id}', 'FoldersController@admin');
+//for showing files and folders for employees
+Route::get('employees/{id}', 'FoldersController@employee');
 //to move folders to selected folder
 Route::get('/tofolderfold', 'FoldersController@to_folder');
 //to starred
 Route::get('/tostarredfold','FoldersController@to_starred');
 //to favs
 Route::get('/tofavsfold','FoldersController@to_favs');
-//for showing files and folders in any other folders user_created_ones
-Route::get('folders/{id}', 'FoldersController@index');
+//remove folder from starred
+Route::get('/removefolstar','FoldersController@remove_fols_starred');
+//remove folder from favs
+Route::get('/removefolfavs','FoldersController@remove_fols_favs');
 Route::post('folders/store', 'FoldersController@store');
 Route::get('folders/{id}/edit', 'FoldersController@edit')->name('folders.edit');
 Route::post('folders/{id}/update', 'FoldersController@update');

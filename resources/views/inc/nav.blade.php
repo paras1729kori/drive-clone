@@ -15,14 +15,14 @@
       <ul class="navbar-nav ml-auto">
         @if (Auth::guest() || auth()->user()->usertype == 'admin')
           <li class="nav-item">
-            <a class="nav-link link" href="/folders/1"><i id="icon" class="fa fa-folder fa-lg icon" aria-hidden="true"></i> Important</a>
+            <a class="nav-link link" href="/important"><i id="icon" class="fa fa-folder fa-lg icon" aria-hidden="true"></i> Important</a>
           </li>
         @endif
         <li class="nav-item">
-          <a class="nav-link link" href="/folders/2"><i id="icon" class="fa fa-folder fa-lg icon" aria-hidden="true"></i> Starred</a>
+          <a class="nav-link link" href="/starred"><i id="icon" class="fa fa-folder fa-lg icon" aria-hidden="true"></i> Starred</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link link" href="/folders/3"><i id="icon" class="fa fa-folder fa-lg icon" aria-hidden="true"></i> Favourites</a>
+          <a class="nav-link link" href="/favourites"><i id="icon" class="fa fa-folder fa-lg icon" aria-hidden="true"></i> Favourites</a>
         </li>
         <li class="nav-item">
           <a class="nav-link link" href="/posts"><i id="icon" class="fa fa-comment fa-lg icon" aria-hidden="true" class = "icon"></i> Messages</a>
@@ -35,7 +35,7 @@
         </li>
         @if (Auth::guest() || auth()->user()->usertype == 'admin')
           <li class="nav-item">
-            <a class="nav-link link" href="/dashboard"><i id="icon" class="fa fa-lock fa-lg icon" aria-hidden="true"></i> Dashboard</a>
+            <a class="nav-link link" href="/dashboard"><i id="icon" class="fa fa-lock fa-lg icon" aria-hidden="true"></i> Admin</a>
           </li>
         @endif
       </ul>
