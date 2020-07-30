@@ -145,6 +145,7 @@ class FoldersController extends Controller
     }
 
     public function edit($id) {
+        $title = 'Edit Folder';
         $fols = Folder::find($id);
         
         //Check if post exists before deleting
@@ -160,7 +161,7 @@ class FoldersController extends Controller
             Session::flash('danger', 'Access Denied');
             return back();
         }
-        return view('folders.edit',['fols'=>$fols]);
+        return view('folders.edit',['fols'=>$fols, 'title'=>$title]);
     }
 
     public function update(Request $request, $id) {
@@ -180,7 +181,7 @@ class FoldersController extends Controller
         //Flash Messages for the requests
         Session::flash('info', 'Changes Saved Successfully');
         
-        return redirect('/home');
+        return back();
     }
 
     public function parentfols(Request $request){
@@ -194,7 +195,7 @@ class FoldersController extends Controller
             }
             //Flash Messages for the requests
             Session::flash('success', 'Folder Moved');
-            return redirect('/');
+            return back();
         }
         else{
             //Flash Messages for the requests

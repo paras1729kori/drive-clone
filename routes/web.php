@@ -40,7 +40,7 @@ Route::get('/deleteall','FilesController@deleteAll');
 //for updating files path
 Route::post('/files/parentfiles', 'FilesController@parentfiles');
 Route::post('files/store', 'FilesController@store');
-Route::delete('files/{id}/destroy', 'FilesController@destroy');
+Route::get('files/{id}/destroy', 'FilesController@destroy');
 
 //FOLDER ROUTES
 //for showing specific files and folders in important
