@@ -22,9 +22,45 @@ Route::get('/search', 'PagesController@search');
 //for downloading files on home
 Route::get('download/{id}', 'PagesController@download')->name('downloadfileindash');
 
+//FOLDER ROUTES
+//for showing specific files and folders in important
+Route::get('important', 'FoldersController@important');
+//for showing specific files and folders in starred
+Route::get('starred', 'FoldersController@starred');
+//for showing specific files and folders in favourites
+Route::get('favourites', 'FoldersController@favourites');
+//to move folders to selected folder
+Route::get('/tofolderfold', 'FoldersController@to_folder');
+//to starred
+Route::get('/tostarredfold','FoldersController@to_starred');
+//to favs
+Route::get('/tofavsfold','FoldersController@to_favs');
+//remove folder from starred
+Route::get('/removefolstar','FoldersController@remove_fols_starred');
+//remove folder from favs
+Route::get('/removefolfavs','FoldersController@remove_fols_favs');
+//for create in starred or starred folders
+Route::get('starred/create/{id}', 'FoldersController@starred_create');
+//for create in favs or favs folders
+Route::get('favourites/create/{id}', 'FoldersController@favs_create');
+//for showing files and folders for admins
+Route::get('important/{id}', 'FoldersController@admin');
+//for showing files and folders for starred
+Route::get('starred/{id}', 'FoldersController@starred_folders');
+//for showing files and folders for favourites
+Route::get('favourites/{id}', 'FoldersController@favourites_folders');
+Route::get('folders/{id}/edit', 'FoldersController@edit')->name('folders.edit');
+//for updating parentfolders of folders
+Route::post('folders/parentfols', 'FoldersController@parentfols');
+//for downloading files in folders
+Route::get('folders/download/{id}', 'FoldersController@download')->name('downloadfileinfols');
+Route::post('folders/store', 'FoldersController@store');
+Route::post('folders/{id}/update', 'FoldersController@update');
+Route::delete('folders/{id}/destroy', 'FoldersController@destroy');
+
 // FILE ROUTES
 //replace files
-Route::get('/replace', 'FilesController@replace');
+Route::post('/replace', 'FilesController@replace');
 //to selected folder
 Route::get('/tofolderfiles', 'FilesController@to_folder');
 //to starred
@@ -41,36 +77,6 @@ Route::get('/deleteall','FilesController@deleteAll');
 Route::post('/files/parentfiles', 'FilesController@parentfiles');
 Route::post('files/store', 'FilesController@store');
 Route::get('files/{id}/destroy', 'FilesController@destroy');
-
-//FOLDER ROUTES
-//for showing specific files and folders in important
-Route::get('important', 'FoldersController@important');
-//for showing specific files and folders in starred
-Route::get('starred', 'FoldersController@starred');
-//for showing specific files and folders in favourites
-Route::get('favourites', 'FoldersController@favourites');
-//for showing files and folders for admins
-Route::get('important/{id}', 'FoldersController@admin');
-//for showing files and folders for employees
-Route::get('employees/{id}', 'FoldersController@employee');
-//to move folders to selected folder
-Route::get('/tofolderfold', 'FoldersController@to_folder');
-//to starred
-Route::get('/tostarredfold','FoldersController@to_starred');
-//to favs
-Route::get('/tofavsfold','FoldersController@to_favs');
-//remove folder from starred
-Route::get('/removefolstar','FoldersController@remove_fols_starred');
-//remove folder from favs
-Route::get('/removefolfavs','FoldersController@remove_fols_favs');
-Route::post('folders/store', 'FoldersController@store');
-Route::get('folders/{id}/edit', 'FoldersController@edit')->name('folders.edit');
-Route::post('folders/{id}/update', 'FoldersController@update');
-//for updating parentfolders of folders
-Route::post('folders/parentfols', 'FoldersController@parentfols');
-Route::delete('folders/{id}/destroy', 'FoldersController@destroy');
-//for downloading files in folders
-Route::get('folders/download/{id}', 'FoldersController@download')->name('downloadfileinfols');
 
 //POSTS ROUTES
 Route::resource('posts', 'PostsController');

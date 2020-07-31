@@ -19,19 +19,16 @@
                 <input type="file" name="file[]" multiple>
               </div>
               <div class="form-group">
-                {{Form::label('parentid', 'Parent Folder')}}
+                {{Form::label("parentid", "Parent Folder: $folder_name")}}
                   <select class="form-control opt" name="parentid" id="parentid">
-                    <option>Select Folder</option>
-                    @foreach ($fols as $fol)
-                      <option value="{{$fol->id}}">{{ $fol->name }}</option>
-                    @endforeach
+                      <option value="{{$folder_id}}">{{ $folder_name }}</option>
                   </select>
               </div>
-              {{Form::checkbox('starred', '1')}}
-              {{Form::label('starred', 'Mark as Starred')}} <br>
-              {{Form::checkbox('favourites', '1')}}
-              {{Form::label('favourites', 'Mark as Favourites')}}
-               <br>
+              {{Form::checkbox('starred', '1', $starred)}}
+            {{Form::label('starred', 'Mark as Starred')}} <br>
+            {{Form::checkbox('favourites', '1', $favourites)}}
+            {{Form::label('favourites', 'Mark as Favourites')}}
+            <br>
                 {{Form::submit('Upload', ['class'=>'btn btn-primary'])}}
                 {!! Form::close() !!}
             </div>
@@ -48,22 +45,20 @@
           <div id="collapseTwo" class="collapse show" role="tabpanel" aria-labelledby="headingTwo">
             <div class="card-body">
             {!! Form::open(['action' => 'FoldersController@store', 'method' => 'POST', 'enctype' => 'multipart/form-data']) !!}
-          <div class="form-group">
+                {{Form::hidden('parentid', 'folder_id')}}
+            <div class="form-group">
             {{Form::label('name', 'Name')}}
             {{Form::text('name', '', ['class' => 'form-control', 'placeholder' => 'folder name'])}}
           </div>
           <div class="form-group">
-            {{Form::label('parentid', 'Parent Folder')}}
+            {{Form::label("parentid", "Parent Folder: $folder_name")}}
             <select class="form-control opt" name="parentid" id="parentid">
-              <option>Select Folder</option>
-              @foreach ($fols as $fol)
-                <option value="{{$fol->id}}">{{ $fol->name }}</option>
-              @endforeach
+                <option value="{{$folder_id}}">{{ $folder_name }}</option>
             </select>
           </div>
-          {{Form::checkbox('starred', '1')}}
-          {{Form::label('starred', 'Mark as Starred')}} <br>
-          {{Form::checkbox('favourites', '1')}}
+          {{Form::checkbox('starred', '1', $starred)}}
+          {{Form::label('starred', 'Mark as Starred')}}<br>
+          {{Form::checkbox('favourites', '1', $favourites)}}
           {{Form::label('favourites', 'Mark as Favourites')}}
            <br>
             {{Form::submit('Create', ['class'=>'btn btn-primary'])}}

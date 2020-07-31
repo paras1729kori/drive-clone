@@ -4,25 +4,9 @@
     <div class="px-2">
     <h4 class="font-weight-bold">Folders</h4>
     @if (count($fols) > 0)
-      <form method="GET">
-        @csrf
-        <div class="btn-group" id="table_pc">
-          <button type="button" class="btn btn-sm btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Action
-          </button>
-          <div class="dropdown-menu dropdown-menu-right">
-            <button formaction="/tofolderfold" type="submit" class="dropdown-item">Move to Folder</button>
-            <button formaction="/tostarredfold" type="submit" class="dropdown-item">Send to Starred</button>
-            <button formaction="/tofavsfold" type="submit" class="dropdown-item">Send to Favourites</button>
-            <button formaction="/removefolstar" type="submit" class="dropdown-item">Remove From Starred</button>
-            <button formaction="/removefolsfavs" type="submit" class="dropdown-item">Remove From Favourites</button>
-          </div>
-        </div>
-      </form>
       <table class="table table-borderless table-hover">
         <thead id="table_pc">
           <tr>
-            <th><span class="font-weight-bold ml-1 mt-1">Select All <input type="checkbox" class="selectall2"></span></th>
             <th>Shared In</th>
             <th>Folder Name</th>
             <th>Created By</th>
@@ -33,7 +17,6 @@
       @foreach ($fols as $fol)
         <tbody>
           <tr id="table_pc">
-            <td><input type="checkbox" id="table_pc" name="ids[]" class="selectbox2" value="{{ $fol->id }}"></td>
             <td>
               @if($fol->starred == '1')
                 <i style="color:yellow;" class="fa fa-star mr-2" aria-hidden="true"></i>
@@ -92,27 +75,15 @@
         </tbody>
       @endforeach
     </table>  
+    @else
+      <p>No Folders Found</p>
   @endif
-        <a href="/create"><button class="btn btn-success">Create Folders</button></a>
-
-        <br><br>
-
+        <br>
         <h4 class="font-weight-bold">Files</h4>
-        <form method="GET">
-          @csrf
         @if (count($fils) > 0)
-        <div class="btn-group" id="table_pc">
-          <button type="button" class="btn btn-sm btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Action
-          </button>
-          <div class="dropdown-menu dropdown-menu-right">
-            <button formaction="/replace" type="submit" class="dropdown-item">Replace Files</button>
-            <button formaction="/tofolderfiles" type="submit" class="dropdown-item">Move to Folder</button>
-            <button formaction="/tostarredfiles" type="submit" class="dropdown-item">Send to Starred</button>
-            <button formaction="/tofavsfiles" type="submit" class="dropdown-item">Send to Favourites</button>
-            <button formaction="/deleteall" type="submit" class="dropdown-item">Delete All Selected</button>
-          </div>
-        </div>
+        <form method="POST">
+          @csrf
+          <button formaction="/replace" type="submit" class="btn btn-primary">Replace Files</button>
         <table class="table table-borderless table-hover" id="tdata">
             <thead>
               <tr id="table_pc">
@@ -129,6 +100,7 @@
                     <tbody>
                     <tr id="table_pc">
                         <td><input type="checkbox" name="ids[]" class="selectbox1" value="{{ $fil->id }}"></td>
+                    </form>
                         <td>
                           @if($fil->starred == '1')
                             <i style="color:yellow;" class="fa fa-star" aria-hidden="true"></i>
@@ -179,9 +151,10 @@
                     </tbody>
                 @endforeach
           </table>
+          @else
+            <p>No Files Found</p>
           @endif
-          <a href="/create" class="btn btn-success mt-2 mb-2">Create File</a>
-        </form>
+          <a href="/starred/create/{{$parent}}"><button class="btn btn-success">Create</button></a>
     </div>
 
     <script type="text/javascript">

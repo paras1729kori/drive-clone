@@ -21,22 +21,33 @@ class FoldersController extends Controller
         $title = $title->name;
         $fils = File::where('parent_folder', '=', $id)->get();
         $fols = Folder::where('parent_folder', '=', $id)->get();
-        return view('folders.index_admin', ['title' => $title, 'fils' => $fils, 'fols'=> $fols]);
+        return view('folders.important', ['title' => $title, 'fils' => $fils, 'fols'=> $fols]);
     }
 
     //for showing specific files and folders in other folders (user_created)
-    public function employee($id) {
+    public function starred_folders($id) {
+        $current = $id;
         $title = Folder::find($id);
         $title = $title->name;
         $fils = File::where('parent_folder', '=', $id)->get();
         $fols = Folder::where('parent_folder', '=', $id)->get();
-        return view('folders.index_empl', ['title' => $title, 'fils' => $fils, 'fols'=> $fols]);
+        return view('folders.starred', ['current'=>$current,'title' => $title, 'fils' => $fils, 'fols'=> $fols]);
+    }
+
+    public function favourites_folders($id) {
+        $current = $id;
+        $title = Folder::find($id);
+        $title = $title->name;
+        $fils = File::where('parent_folder', '=', $id)->get();
+        $fols = Folder::where('parent_folder', '=', $id)->get();
+        return view('folders.favs', ['current'=>$current,'title' => $title, 'fils' => $fils, 'fols'=> $fols]);
     }
 
     //for sharing folders into a specific folder
     public function to_folder(Request $request){
         $title = 'Move Folder';
         $ids_form = $request->get('ids');
+        return $ids_form;
         if(auth()->user()->usertype == 'admin'){
             $fols = Folder::all();
             return view('folders.move', ['title' => $title, 'fols' => $fols, 'ids_form' => $ids_form]);
@@ -94,30 +105,52 @@ class FoldersController extends Controller
         $title = 'Important';
         $fils = File::where('parent_folder','=',1)->get();
         $fols = Folder::where('parent_folder','=',1)->get();
-        return view('folders.index_admin', ['title' => $title, 'fils' => $fils, 'fols'=> $fols]);
+        return view('folders.important', ['title' => $title, 'fils' => $fils, 'fols'=> $fols]);
     }
 
 
     //for showing specific files and folders in starred
     public function starred(){
+        $parent = 1;
         $title = 'Starred';
         $fils = File::where('starred','=','1')->orWhere('parent_folder','=',2)->get();
         $fols = Folder::where('starred','=','1')->orWhere('parent_folder','=',2)->get();
-        return view('folders.index_empl', ['title' => $title, 'fils' => $fils, 'fols'=> $fols]);
+        return view('folders.starred', ['parent'=>$parent,'title' => $title, 'fils' => $fils, 'fols'=> $fols]);
     }
 
     //for showing specific files and folders in favourites
     public function favourites(){
+        $parent = 1;
         $title = 'Favourites';
         $fils = File::where('favourites','=','1')->orWhere('parent_folder','=',3)->get();
         $fols = Folder::where('favourites','=','1')->orWhere('parent_folder','=',3)->get();
-        return view('folders.index_empl', ['title' => $title, 'fils' => $fils, 'fols'=> $fols]);
+        return view('folders.favs', ['parent'=>$parent,'title' => $title, 'fils' => $fils, 'fols'=> $fols]);
     }
 
     //for downloading files in folders
     public function download($id){
         $download = File::find($id);
         return response()->download('storage/files/'.$download->name);
+    }
+
+    public function starred_create($id){
+        $folder = Folder::find($id);
+        $folder_id = $folder->id;
+        $folder_name = $folder->name;
+        $starred = true;
+        $favourites = false;
+
+        return view('pages.create_empl', ['folder_id'=>$folder_id, 'folder_name'=>$folder_name, 'starred'=>$starred, 'favourites'=>$favourites]);
+    }
+
+    public function favs_create($id){
+        $folder = Folder::find($id);
+        $folder_id = $folder->id;
+        $folder_name = $folder->name;
+        $starred = false;
+        $favourites = true;
+
+        return view('pages.create_empl', ['folder_id'=>$folder_id, 'folder_name'=>$folder_name, 'starred'=>$starred, 'favourites'=>$favourites]);
     }
 
     public function create() {
@@ -137,6 +170,12 @@ class FoldersController extends Controller
         $folder->parent_folder = $request->input('parentid');
         $folder->sub_folder = '1';
         $folder->created_by = auth()->user()->id;
+        if($request->starred){
+            $folder->starred = '1';
+        }
+        elseif($request->favourites){
+            $folder->favourites = '1';
+        }
         $folder->save();
         //flash message
         Session::flash('success', 'Folder Created Successully');

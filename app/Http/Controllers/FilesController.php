@@ -43,22 +43,34 @@ class FilesController extends Controller
             }
             $fileModel->size = $filesize;
             $fileModel->created_by = auth()->user()->id;  
+            if($request->starred){
+                $fileModel->starred = '1';
+            }
+            elseif($request->favourites){
+                $fileModel->favourites = '1';
+            }
             $fileModel->save();
         }
 
         //Flash Messages for the requests
         Session::flash('success', 'File Created Successfully');
 
-        return redirect('/');
+        if(auth()->user()->usertype == 'admin'){
+            return redirect('/important');
+        }
+        else{
+            return redirect('/starred');
+        }
+        
     }
 
     public function replace(Request $request){
         $ids = $request->get('ids');
-        $fil = File::where('id','=',$ids)->first();
-        $parent = $fil->parent_folder;
-        $fol = Folder::where('id','=',$parent)->first();
 
         if($ids > 0){
+            $fil = File::where('id','=',$ids)->first();
+            $parent = $fil->parent_folder;
+            $fol = Folder::where('id','=',$parent)->first();
             foreach($ids as $id) {
                 $filename = File::find($id);
                 Storage::delete('public/files/'.$filename->name);
