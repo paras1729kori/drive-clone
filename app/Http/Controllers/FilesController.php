@@ -19,6 +19,7 @@ class FilesController extends Controller
         return view('pages.create');
     }
 
+    //for updating database with data of  files
     public function store(Request $request){
         //validator
         $this->validate($request, [
@@ -64,6 +65,7 @@ class FilesController extends Controller
         
     }
 
+    //replace files with new files
     public function replace(Request $request){
         $ids = $request->get('ids');
 
@@ -142,6 +144,7 @@ class FilesController extends Controller
         }
     }
 
+    //for changing the parent folders of files
     public function parentfiles(Request $request){
         $ids = $request->get('result');
         
@@ -162,6 +165,7 @@ class FilesController extends Controller
         }
     }
 
+    //for removing files from starred
     public function remove_fils_starred(Request $request){
         $ids = $request->get('ids');
 
@@ -182,6 +186,7 @@ class FilesController extends Controller
         }
     }
 
+    //for removing files from favs
     public function remove_fils_favs(Request $request){
         $ids = $request->get('ids');
 

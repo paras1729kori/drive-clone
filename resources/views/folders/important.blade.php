@@ -2,6 +2,20 @@
 
 @section('content')
     <div class="px-2">
+      <div class="px-5">
+      {{-- BreadCrumbs --}}
+      {{-- <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          @if ($values > 0)
+            @foreach ($values as $value)
+            <li class="breadcrumb-item active" aria-current="page">{{$value}}</li>
+            @endforeach
+          @else
+            <li class="breadcrumb-item active" aria-current="page">Important</li>
+          @endif
+        </ol>
+      </nav> --}}
+    </div>
     <h4 class="font-weight-bold">Folders</h4>
     @if (count($fols) > 0)
       <form method="GET">
@@ -95,10 +109,7 @@
     @else
       <p>No Folders Found</p>
   @endif
-        <a href="/create"><button class="btn btn-success">Create Folders</button></a>
-
-        <br><br>
-
+        <br>
         <h4 class="font-weight-bold">Files</h4>
         <form method="GET">
           @csrf
@@ -183,8 +194,10 @@
                     </tbody>
                 @endforeach
           </table>
+          @else
+            <p>No Folders Found</p>
           @endif
-          <a href="/create" class="btn btn-success mt-2 mb-2">Create File</a>
+          <a href="/create" class="btn btn-success">Create</a>
         </form>
     </div>
 

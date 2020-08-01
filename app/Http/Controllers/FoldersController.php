@@ -220,7 +220,12 @@ class FoldersController extends Controller
         //Flash Messages for the requests
         Session::flash('info', 'Changes Saved Successfully');
         
-        return back();
+        if(auth()->user()->usertype == 'admin'){
+            return redirect('/important');
+        }
+        else{
+            return redirect('/starred');
+        }
     }
 
     public function parentfols(Request $request){

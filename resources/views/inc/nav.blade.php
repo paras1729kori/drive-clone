@@ -30,9 +30,9 @@
         <li class="nav-item">
           <a class="nav-link link" href="/"><i id="icon" class="fa fa-user fa-lg icon" aria-hidden="true" class = "icon"></i> My Account</a>
         </li>
-        <li class="nav-item">
+        {{-- <li class="nav-item">
           <a class="nav-link link" href="/create"><i id="icon" class="fa fa-plus fa-lg icon" aria-hidden="true" class = "icon"></i> Create</a>
-        </li>
+        </li> --}}
         @if (Auth::guest() || auth()->user()->usertype == 'admin')
           <li class="nav-item">
             <a class="nav-link link" href="/dashboard"><i id="icon" class="fa fa-lock fa-lg icon" aria-hidden="true"></i> Admin</a>

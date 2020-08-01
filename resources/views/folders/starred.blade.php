@@ -81,7 +81,7 @@
         <br>
         <h4 class="font-weight-bold">Files</h4>
         @if (count($fils) > 0)
-        <form method="POST">
+        <form method="GET">
           @csrf
           <button formaction="/replace" type="submit" class="btn btn-primary">Replace Files</button>
         <table class="table table-borderless table-hover" id="tdata">

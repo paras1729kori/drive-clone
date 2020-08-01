@@ -60,7 +60,7 @@ Route::delete('folders/{id}/destroy', 'FoldersController@destroy');
 
 // FILE ROUTES
 //replace files
-Route::post('/replace', 'FilesController@replace');
+Route::get('/replace', 'FilesController@replace');
 //to selected folder
 Route::get('/tofolderfiles', 'FilesController@to_folder');
 //to starred
