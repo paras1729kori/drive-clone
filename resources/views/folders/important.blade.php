@@ -2,22 +2,24 @@
 
 @section('content')
     <div class="px-2">
-      <div class="px-5">
-      {{-- BreadCrumbs --}}
-      {{-- <nav aria-label="breadcrumb">
-        <ol class="breadcrumb">
-          @if ($values > 0)
-            @foreach ($values as $value)
-            <li class="breadcrumb-item active" aria-current="page">{{$value}}</li>
-            @endforeach
-          @else
-            <li class="breadcrumb-item active" aria-current="page">Important</li>
-          @endif
-        </ol>
-      </nav> --}}
-    </div>
+        {{-- BreadCrumbs --}}
+        @if (auth()->user()->usertype == 'admin')
+          <div class="px-3">
+          <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="/important">Important</a></li>
+              @if (count($parents) > 0)
+              @foreach(array_combine($parents, $parent_ids) as $parent => $id)
+                <li class="breadcrumb-item"><a href="{{ $id }}">{{ $parent }}</a></li>
+              @endforeach
+              @endif
+            </ol>
+          </nav> 
+        </div>
+        @endif
+
     <h4 class="font-weight-bold">Folders</h4>
-    @if (count($fols) > 0)
+        @if (count($fols) > 0)
       <form method="GET">
         @csrf
         <div class="btn-group" id="table_pc">

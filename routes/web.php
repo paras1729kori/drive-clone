@@ -40,9 +40,9 @@ Route::get('/removefolstar','FoldersController@remove_fols_starred');
 //remove folder from favs
 Route::get('/removefolfavs','FoldersController@remove_fols_favs');
 //for create in starred or starred folders
-Route::get('starred/create/{id}', 'FoldersController@starred_create');
+Route::get('/starred/create/{id}', 'FoldersController@starred_create');
 //for create in favs or favs folders
-Route::get('favourites/create/{id}', 'FoldersController@favs_create');
+Route::get('/favourites/create/{id}', 'FoldersController@favs_create');
 //for showing files and folders for admins
 Route::get('important/{id}', 'FoldersController@admin');
 //for showing files and folders for starred

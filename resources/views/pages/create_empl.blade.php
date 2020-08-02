@@ -19,16 +19,16 @@
                 <input type="file" name="file[]" multiple>
               </div>
               <div class="form-group">
-                {{Form::label("parentid", "Parent Folder: $folder_name")}}
+                {{-- {{Form::label("parentid", "Parent Folder: $folder_name")}} --}}
                   <select class="form-control opt" name="parentid" id="parentid">
                       <option value="{{$folder_id}}">{{ $folder_name }}</option>
                   </select>
               </div>
-              {{Form::checkbox('starred', '1', $starred)}}
-            {{Form::label('starred', 'Mark as Starred')}} <br>
-            {{Form::checkbox('favourites', '1', $favourites)}}
-            {{Form::label('favourites', 'Mark as Favourites')}}
-            <br>
+              {{-- {{Form::checkbox('starred', '1', $starred)}}
+              {{Form::label('starred', 'Mark as Starred')}} <br>
+              {{Form::checkbox('favourites', '1', $favourites)}}
+              {{Form::label('favourites', 'Mark as Favourites')}}
+              <br> --}}
                 {{Form::submit('Upload', ['class'=>'btn btn-primary'])}}
                 {!! Form::close() !!}
             </div>
@@ -51,16 +51,16 @@
             {{Form::text('name', '', ['class' => 'form-control', 'placeholder' => 'folder name'])}}
           </div>
           <div class="form-group">
-            {{Form::label("parentid", "Parent Folder: $folder_name")}}
+            {{-- {{Form::label("parentid", "Parent Folder: $folder_name")}} --}}
             <select class="form-control opt" name="parentid" id="parentid">
                 <option value="{{$folder_id}}">{{ $folder_name }}</option>
             </select>
           </div>
-          {{Form::checkbox('starred', '1', $starred)}}
+          {{-- {{Form::checkbox('starred', '1', $starred)}}
           {{Form::label('starred', 'Mark as Starred')}}<br>
           {{Form::checkbox('favourites', '1', $favourites)}}
           {{Form::label('favourites', 'Mark as Favourites')}}
-           <br>
+           <br> --}}
             {{Form::submit('Create', ['class'=>'btn btn-primary'])}}
             {!! Form::close() !!}
           </div>
