@@ -18,7 +18,10 @@ class PagesController extends Controller
 
     public function index() {
         $title = 'Dashboard';
-        return view('pages.account', ['title' => $title]);
+        $user_id = auth()->user()->id;
+        $user = User::find($user_id);
+
+        return view('pages.account',['title' => $title,'posts' => $user->posts]);
     }
     
     public function create() {

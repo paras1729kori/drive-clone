@@ -4,18 +4,18 @@
     <div class="px-2">
         {{-- BreadCrumbs --}}
         @if (auth()->user()->usertype == 'admin')
+          @if (count($parents) > 0)
           <div class="px-3">
           <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
-              <li class="breadcrumb-item"><a href="/important">Important</a></li>
-              @if (count($parents) > 0)
+              {{-- <li class="breadcrumb-item"><a href="/important">Important</a></li> --}}
               @foreach(array_combine($parents, $parent_ids) as $parent => $id)
                 <li class="breadcrumb-item"><a href="{{ $id }}">{{ $parent }}</a></li>
               @endforeach
-              @endif
             </ol>
           </nav> 
         </div>
+         @endif
         @endif
 
     <h4 class="font-weight-bold">Folders</h4>

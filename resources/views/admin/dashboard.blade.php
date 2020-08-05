@@ -26,6 +26,8 @@
                 <th>Email</th>
                 <th>UserType</th>
                 <th>Status</th>
+                <th>Login_Time</th>
+                <th>Logout_Time</th>
               </thead>
               <tbody>
                   @foreach ($users as $user)
@@ -35,6 +37,20 @@
                         <td>{{$user->email}}</td>
                         <td>{{$user->usertype}}</td>
                         <td>{{$user->status}}</td>
+                        <td>
+                          @if($user->login_time == null)
+                            <p>--------</p>
+                          @else
+                            {{$user->login_time}}
+                          @endif
+                        </td>
+                        <td>
+                          @if($user->logout_time == null)
+                            <p>--------</p>
+                          @else
+                            {{$user->logout_time}}
+                          @endif
+                        </td>
                     </tr>
                   @endforeach
                   

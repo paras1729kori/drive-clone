@@ -17,6 +17,10 @@ class CreateFilesTable extends Migration
             $table->id();
             $table->string('name');
             $table->bigInteger('created_by');
+            $table->bigInteger('parent_folder')->nullable();
+            $table->string('size');
+            $table->enum('starred', [0,1])->default(0);
+            $table->enum('favourites', [0,1])->default(0);
             $table->timestamps();
         });
     }
