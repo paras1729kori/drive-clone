@@ -64,16 +64,10 @@
                         <button type="submit" class="btn btn-primary px-5 mt-4 mb-2" style="border-radius:50px; background-color: #08417a;"><i class="fa fa-sign-in fa-lg icon pr-2" aria-hidden="true" class = "icon"></i>
                             {{ __('Login') }}
                         </button>
-                        <br>
-                        @if (Route::has('password.request'))
-                            <a class="btn btn-link" href="{{ route('password.request') }}">
-                                {{ __('Forgot Your Password?') }}
-                            </a>
-                        @endif
                     </div>
                 </div>
             </form>
-            <li><a href="{{ route('register') }}" class="btn btn-lg font-weight-bolder">Register</a></li>
+            <a class="btn btn-link" href="/resetpassword">Reset Password</a>
         </div>
     </div>
 </body>

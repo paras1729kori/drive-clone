@@ -29,11 +29,11 @@ class LoginController extends Controller
      */
     //protected $redirectTo = RouteServiceProvider::HOME;
     protected function redirectTo(){
-        if(Auth::user()->usertype == 'admin' && Auth::user()->status == 'active'){
+        if(Auth::user()->status == 'active'){
             return 'dashboard';
         }
         else{
-            return 'home';
+            Auth::logout();
         }
     }
 

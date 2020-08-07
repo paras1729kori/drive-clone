@@ -7,7 +7,7 @@
       <div class="px-3">
         <nav aria-label="breadcrumb">
           <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="/starred">Starred</a></li>
+            <li class="breadcrumb-item"><a href="/{{$page[0]}}">{{$page[1]}}</a></li>
             @if (count($parents) > 0)
             @foreach(array_combine($parents, $parent_ids) as $parent => $id)
               <li class="breadcrumb-item"><a href="{{ $id }}">{{ $parent }}</a></li>
@@ -44,7 +44,7 @@
                 <i class="fa fa-heart-o" aria-hidden="true"></i>
               @endif
             </td>
-            <td><a href="/starred/{{$fol->id}}" style="color: #08417a;">{{$fol->name}}</a></td>
+            <td><a href="/{{$page[0]}}/{{$fol->id}}" style="color: #08417a;">{{$fol->name}}</a></td>
             <td>{{$fol->userfols->name}}</td>
             <td><a href="/folders/{{$fol->id}}/edit"><i id="icon" class="fa fa-pencil-square icon" aria-hidden="true" class = "icon"></i></a></td>
           </tr>

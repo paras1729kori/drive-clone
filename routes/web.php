@@ -82,7 +82,23 @@ Route::get('files/{id}/destroy', 'FilesController@destroy');
 Route::resource('posts', 'PostsController');
 
 //AUTH ROUTES
-Auth::routes();
+Route::get('/resetpassword', function () {
+    return view('users.resetpass');
+});
+
+Route::post('/reset/password', 'UsersController@ResetPass');
+Route::get('/mail/pass/{id}', 'MailsController@PassReset');
+Route::get('/reset/password/{token}', 'AuthController@ResetPass');
+Route::post('/reset', 'AuthController@ChangePass');
+
+// Route::prefix('sdl')->group(function () {
+    // Authentication Routes...
+    Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
+    Route::post('login', 'Auth\LoginController@login');
+    Route::post('logout', 'Auth\LoginController@logout')->name('logout');
+// });
+
+
 
 //Admin Middleware Controller Routes
 Route::group(['middleware' => ['auth', 'admin']], function(){

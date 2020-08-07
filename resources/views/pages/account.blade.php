@@ -9,9 +9,9 @@
             <div class="col-sm-6">
                 <li><a href="{{ route('login') }}" class="btn btn-lg font-weight-bolder">Login</a></li>
             </div>
-            <div class="col-sm-6">
+            <!-- <div class="col-sm-6">
                 <li><a href="{{ route('register') }}" class="btn btn-lg font-weight-bolder">Register</a></li>
-            </div>
+            </div> -->
         </div>
         @else
             <li class="dropdown mb-3">
@@ -33,11 +33,7 @@
                     </li>
                     <hr>
                     <li>
-                        @if (Route::has('password.request'))
-                            <a class="btn btn-link" href="{{ route('password.request') }}">
-                                {{ __('Forgot Your Password?') }}
-                            </a>
-                        @endif
+                    <a class="btn btn-link" href="/resetpassword">Reset Password</a>
                     </li>
                 </ul>
             </li>

@@ -39,7 +39,10 @@ class FoldersController extends Controller
         }
         $parent_ids = array_reverse($id_fols);
         $parents = array_reverse($par_fols);
-        return view('folders.important', ['parent_ids'=>$parent_ids,'parents'=>$parents,'title' => $title, 'fils' => $fils, 'fols'=> $fols]);
+        $page = [];
+        $page[0] = "important";
+        $page[1] = "Important";
+        return view('folders.important', ['page'=>$page, 'parent_ids'=>$parent_ids,'parents'=>$parents,'title' => $title, 'fils' => $fils, 'fols'=> $fols]);
     }
 
     //for showing specific files and folders in other folders (user_created)
@@ -66,10 +69,13 @@ class FoldersController extends Controller
         }
         $parent_ids = array_reverse($id_fols);
         $parents = array_reverse($par_fols);
+        $page = [];
+        $page[0] = "starred";
+        $page[1] = "Starred";
         if(auth()->user()->usertype == 'admin'){
-            return view('folders.important', ['parent_ids'=>$parent_ids,'parents'=>$parents,'current'=>$current,'title' => $title, 'fils' => $fils, 'fols'=> $fols]);
+            return view('folders.important', ['page'=>$page, 'parent_ids'=>$parent_ids,'parents'=>$parents,'current'=>$current,'title' => $title, 'fils' => $fils, 'fols'=> $fols]);
         }
-            return view('folders.starred', ['parent_ids'=>$parent_ids,'parents'=>$parents,'current'=>$current,'title' => $title, 'fils' => $fils, 'fols'=> $fols]);
+            return view('folders.starred', ['page'=>$page, 'parent_ids'=>$parent_ids,'parents'=>$parents,'current'=>$current,'title' => $title, 'fils' => $fils, 'fols'=> $fols]);
     }
 
     public function favourites_folders($id) {
@@ -95,10 +101,13 @@ class FoldersController extends Controller
         }
         $parent_ids = array_reverse($id_fols);
         $parents = array_reverse($par_fols);
+        $page = [];
+        $page[0] = "favourites";
+        $page[1] = "Favourites";
         if(auth()->user()->usertype == 'admin'){
-            return view('folders.important', ['parent_ids'=>$parent_ids,'parents'=>$parents,'current'=>$current,'title' => $title, 'fils' => $fils, 'fols'=> $fols]);
+            return view('folders.important', ['page'=>$page,'parent_ids'=>$parent_ids,'parents'=>$parents,'current'=>$current,'title' => $title, 'fils' => $fils, 'fols'=> $fols]);
         }
-            return view('folders.favs', ['parent_ids'=>$parent_ids,'parents'=>$parents,'current'=>$current,'title' => $title, 'fils' => $fils, 'fols'=> $fols]);
+            return view('folders.favs', ['page'=>$page,'parent_ids'=>$parent_ids,'parents'=>$parents,'current'=>$current,'title' => $title, 'fils' => $fils, 'fols'=> $fols]);
     }
 
     //for sharing folders into a specific folder
@@ -161,11 +170,14 @@ class FoldersController extends Controller
     //for imporatant
     public function important(){
         $title = 'Important';
+        $page = [];
+        $page[0] = 'important';
+        $page[1] = 'Important';
         $parents = array();
         $parent_ids = array();
         $fils = File::where('parent_folder','=',1)->get();
         $fols = Folder::where('parent_folder','=',1)->get();
-        return view('folders.important', ['parent_ids'=>$parent_ids,'parents'=>$parents,'title' => $title, 'fils' => $fils, 'fols'=> $fols]);
+        return view('folders.important', ['page'=>$page, 'parent_ids'=>$parent_ids,'parents'=>$parents,'title' => $title, 'fils' => $fils, 'fols'=> $fols]);
     }
 
 
@@ -175,13 +187,16 @@ class FoldersController extends Controller
         $parents = array();
         $parent_ids = array();
         $title = 'Starred';
+        $page = [];
+        $page[0] = 'starred';
+        $page[1] = 'Starred';
         $fils = File::where('starred','=','1')->orWhere('parent_folder','=',2)->get();
         $fols = Folder::where('starred','=','1')->orWhere('parent_folder','=',2)->get();
         if(auth()->user()->usertype == 'admin'){
-            return view('folders.important', ['parents'=>$parents,'parent_ids'=>$parent_ids,'current'=>$current,'title' => $title, 'fils' => $fils, 'fols'=> $fols]);
+            return view('folders.important', ['page'=>$page, 'parents'=>$parents,'parent_ids'=>$parent_ids,'current'=>$current,'title' => $title, 'fils' => $fils, 'fols'=> $fols]);
         }
         else{
-            return view('folders.starred', ['parents'=>$parents,'parent_ids'=>$parent_ids,'current'=>$current,'title' => $title, 'fils' => $fils, 'fols'=> $fols]);
+            return view('folders.starred', ['page'=>$page, 'parents'=>$parents,'parent_ids'=>$parent_ids,'current'=>$current,'title' => $title, 'fils' => $fils, 'fols'=> $fols]);
         }
     }
 
@@ -191,13 +206,16 @@ class FoldersController extends Controller
         $parents = array();
         $parent_ids = array();
         $title = 'Favourites';
+        $page = [];
+        $page[0] = 'favourites';
+        $page[1] = 'Favourites';
         $fils = File::where('favourites','=','1')->orWhere('parent_folder','=',3)->get();
         $fols = Folder::where('favourites','=','1')->orWhere('parent_folder','=',3)->get();
         if(auth()->user()->usertype == 'admin'){
-            return view('folders.important', ['parents'=>$parents,'parent_ids'=>$parent_ids,'current'=>$current,'title' => $title, 'fils' => $fils, 'fols'=> $fols]);
+            return view('folders.important', ['page'=>$page,'parents'=>$parents,'parent_ids'=>$parent_ids,'current'=>$current,'title' => $title, 'fils' => $fils, 'fols'=> $fols]);
         }
         else{
-            return view('folders.favs', ['parents'=>$parents,'parent_ids'=>$parent_ids,'current'=>$current,'title' => $title, 'fils' => $fils, 'fols'=> $fols]);
+            return view('folders.favs', ['page'=>$page,'parents'=>$parents,'parent_ids'=>$parent_ids,'current'=>$current,'title' => $title, 'fils' => $fils, 'fols'=> $fols]);
         }
     }
 
