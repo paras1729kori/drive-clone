@@ -43,41 +43,6 @@
             </li>
         @endif
     </ul>
-<<<<<<< HEAD
-     <div class="row">
-        <div class="col">
-            <div class="panel panel-default">
-                <div class="panel-body">
-                    <a href="/posts/create" class="btn btn-primary mb-2">Create Messages</a>
-                    @if(count($posts) > 0)
-                        <h5 class="font-weight-bold my-2">Your Messages</h5>
-                        @foreach($posts as $post)
-                        <div class="col-sm-4 p-2">
-                            <div class="card text-light bg-dark">
-                                <div class="card-body">
-                                  <h4 class="card-title">{{$post->title}}</h4>
-                                  <h6 class="card-subtitle mb-2 text-muted"><small class="text-light">Written on {{$post->created_at}} by {{$post->user->name}}</small></h6>
-                                  <p class="card-text">
-                                    {{$post->body}}
-                                  </p>
-                                  @if(!Auth::guest())
-                                    @if(Auth::user()->id == $post->user_id)
-                                        <a href="/posts/{{$post->id}}/edit" class="btn btn-success btn-default">Edit</a>
-                    
-                                        {!!Form::open(['action' => ['PostsController@destroy', $post->id], 'method' => 'DELETE', 'class' => 'pull-right'])!!}
-                                            {{Form::submit('Delete', ['class' => 'btn btn-danger'])}}
-                                        {!!Form::close()!!}
-                                    @endif
-                                @endif
-                                </div>
-                              </div>
-                            </div> 
-                            @endforeach
-                    @else
-                        <p>You have no messages</p>
-                    @endif
-                </div>
-=======
     <h4 class="font-weight-bold">Your Messages</h4>
     <a href="/posts/create" class="btn btn-primary">Create Messages</a>
     @if(count($posts) > 0)
@@ -100,7 +65,6 @@
                     {!!Form::close()!!}
                 @endif
             @endif
->>>>>>> 5ddf05bd103853a2495cfa25c763420ebebda7c0
             </div>
           </div>
         </div> 
