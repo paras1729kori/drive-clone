@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <title>Password Reset Link Generated for Sidhpura's Account</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-</head>
+    <title>Password Reset Link Generated for JJ Sanganee & Co. Account</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>    
 
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
 <body style="margin: 0; padding: 0;">
     <table border="0" cellpadding="0" cellspacing="0" width="100%"> 
         <tr>
@@ -14,7 +14,7 @@
                 <table align="center" border="1" cellpadding="0" cellspacing="0" width="600" style="border: 1px solid #cccccc; border-collapse: collapse;">
                     <tr>
                         <td align="center" bgcolor="#fff" style="padding: 40px 0 30px 0; color: #153643; font-size: 28px; font-weight: bold; font-family: Arial, sans-serif;">
-                            <img src="https://sidhpuras.co.in/images/logo.png" alt="Sidhpura's Institute For Commerce" width="100%" height="230" style="display: block;" />
+                            <img src="{{ asset('img/loginpage.jpg') }}" alt="JJ Sanganee & Co." width="100%" height="230" style="display: block;" />
                         </td>
                     </tr>
                     <tr>
@@ -22,7 +22,7 @@
                             <table border="0" cellpadding="0" cellspacing="0" width="100%">
                                 <tr>
                                     <td style="color: #153643; font-family: Arial, sans-serif; font-size: 24px;">
-                                        <b>Password Reset Link Generated for Sidhpura's Account. </b>
+                                        <b>Password Reset Link Generated for JJ Sanganee & Co. Account. </b>
                                     </td>
                                 </tr>
                                 <tr>
@@ -47,7 +47,7 @@
                             <table border="0" cellpadding="0" cellspacing="0" width="100%">
                                 <tr>
                                     <td style="color: #fff; font-family: Arial, sans-serif; font-size: 14px;" width="75%">
-                                        &reg; 2020 Sidhpura's Institute For Commerce<br/>
+                                        &reg; JJ Sanganee & Co.<br/>
                                     </td>
                                     <td align="right" width="25%">
                                         <table border="0" cellpadding="0" cellspacing="0">
