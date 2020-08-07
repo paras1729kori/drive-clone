@@ -16,18 +16,96 @@ class FoldersController extends Controller
     }
 
     //for showing specific files and folders in other folders (user_created)
-    public function index($id) {
+    public function admin($id) {
         $title = Folder::find($id);
         $title = $title->name;
         $fils = File::where('parent_folder', '=', $id)->get();
         $fols = Folder::where('parent_folder', '=', $id)->get();
-        return view('folders.index', ['title' => $title, 'fils' => $fils, 'fols'=> $fols]);
+        $parent = $id;
+        $x = 1;
+        $par_fols = array();
+        $id_fols =array();
+        while($x != 0){
+            $folder = Folder::find($id);
+            $p = $folder->parent_folder;
+            if($p != 0){
+                array_push($par_fols, $folder->name);
+                array_push($id_fols, $folder->id);
+            }
+            else{
+                break;
+            }
+            $id = $p;
+        }
+        $parent_ids = array_reverse($id_fols);
+        $parents = array_reverse($par_fols);
+        return view('folders.important', ['parent_ids'=>$parent_ids,'parents'=>$parents,'title' => $title, 'fils' => $fils, 'fols'=> $fols]);
+    }
+
+    //for showing specific files and folders in other folders (user_created)
+    public function starred_folders($id) {
+        $current = $id;
+        $title = Folder::find($id);
+        $title = $title->name;
+        $fils = File::where('parent_folder', '=', $id)->get();
+        $fols = Folder::where('parent_folder', '=', $id)->get();
+        $x = 1;
+        $par_fols = array();
+        $id_fols = array();
+        while($x != 0){
+            $folder = Folder::find($id);
+            $p = $folder->parent_folder;
+            if($p != 0){
+                array_push($par_fols, $folder->name);
+                array_push($id_fols, $folder->id);
+            }
+            else{
+                break;
+            }
+            $id = $p;
+        }
+        $parent_ids = array_reverse($id_fols);
+        $parents = array_reverse($par_fols);
+        if(auth()->user()->usertype == 'admin'){
+            return view('folders.important', ['parent_ids'=>$parent_ids,'parents'=>$parents,'current'=>$current,'title' => $title, 'fils' => $fils, 'fols'=> $fols]);
+        }
+            return view('folders.starred', ['parent_ids'=>$parent_ids,'parents'=>$parents,'current'=>$current,'title' => $title, 'fils' => $fils, 'fols'=> $fols]);
+    }
+
+    public function favourites_folders($id) {
+        $current = $id;
+        $title = Folder::find($id);
+        $title = $title->name;
+        $fils = File::where('parent_folder', '=', $id)->get();
+        $fols = Folder::where('parent_folder', '=', $id)->get();
+        $x = 1;
+        $par_fols = array();
+        $id_fols =array();
+        while($x != 0){
+            $folder = Folder::find($id);
+            $p = $folder->parent_folder;
+            if($p != 0){
+                array_push($par_fols, $folder->name);
+                array_push($id_fols, $folder->id);
+            }
+            else{
+                break;
+            }
+            $id = $p;
+        }
+        $parent_ids = array_reverse($id_fols);
+        $parents = array_reverse($par_fols);
+        if(auth()->user()->usertype == 'admin'){
+            return view('folders.important', ['parent_ids'=>$parent_ids,'parents'=>$parents,'current'=>$current,'title' => $title, 'fils' => $fils, 'fols'=> $fols]);
+        }
+            return view('folders.favs', ['parent_ids'=>$parent_ids,'parents'=>$parents,'current'=>$current,'title' => $title, 'fils' => $fils, 'fols'=> $fols]);
     }
 
     //for sharing folders into a specific folder
     public function to_folder(Request $request){
         $title = 'Move Folder';
         $ids_form = $request->get('ids');
+
         if(auth()->user()->usertype == 'admin'){
             $fols = Folder::all();
             return view('folders.move', ['title' => $title, 'fols' => $fols, 'ids_form' => $ids_form]);
@@ -80,27 +158,75 @@ class FoldersController extends Controller
         }
     }
 
+    //for imporatant
+    public function important(){
+        $title = 'Important';
+        $parents = array();
+        $parent_ids = array();
+        $fils = File::where('parent_folder','=',1)->get();
+        $fols = Folder::where('parent_folder','=',1)->get();
+        return view('folders.important', ['parent_ids'=>$parent_ids,'parents'=>$parents,'title' => $title, 'fils' => $fils, 'fols'=> $fols]);
+    }
+
 
     //for showing specific files and folders in starred
     public function starred(){
+        $current = 2;
+        $parents = array();
+        $parent_ids = array();
         $title = 'Starred';
         $fils = File::where('starred','=','1')->orWhere('parent_folder','=',2)->get();
         $fols = Folder::where('starred','=','1')->orWhere('parent_folder','=',2)->get();
-        return view('folders.index', ['title' => $title, 'fils' => $fils, 'fols'=> $fols]);
+        if(auth()->user()->usertype == 'admin'){
+            return view('folders.important', ['parents'=>$parents,'parent_ids'=>$parent_ids,'current'=>$current,'title' => $title, 'fils' => $fils, 'fols'=> $fols]);
+        }
+        else{
+            return view('folders.starred', ['parents'=>$parents,'parent_ids'=>$parent_ids,'current'=>$current,'title' => $title, 'fils' => $fils, 'fols'=> $fols]);
+        }
     }
 
     //for showing specific files and folders in favourites
     public function favourites(){
+        $current = 3;
+        $parents = array();
+        $parent_ids = array();
         $title = 'Favourites';
         $fils = File::where('favourites','=','1')->orWhere('parent_folder','=',3)->get();
         $fols = Folder::where('favourites','=','1')->orWhere('parent_folder','=',3)->get();
-        return view('folders.index', ['title' => $title, 'fils' => $fils, 'fols'=> $fols]);
+        if(auth()->user()->usertype == 'admin'){
+            return view('folders.important', ['parents'=>$parents,'parent_ids'=>$parent_ids,'current'=>$current,'title' => $title, 'fils' => $fils, 'fols'=> $fols]);
+        }
+        else{
+            return view('folders.favs', ['parents'=>$parents,'parent_ids'=>$parent_ids,'current'=>$current,'title' => $title, 'fils' => $fils, 'fols'=> $fols]);
+        }
     }
 
     //for downloading files in folders
     public function download($id){
         $download = File::find($id);
         return response()->download('storage/files/'.$download->name);
+    }
+
+    public function starred_create($id){
+        $title = 'Create';
+        $folder = Folder::find($id);
+        $folder_id = $folder->id;
+        $folder_name = $folder->name;
+        // $starred = true;
+        // $favourites = false;
+        return view('pages.create_empl', ['title'=>$title,'folder_id'=>$folder_id,'folder_name'=>$folder_name]);
+    }
+
+    public function favs_create($id){
+        $title = 'Create';
+        $folder = Folder::find($id);
+        $folder_id = $folder->id;
+        // return $folder_id;
+        $folder_name = $folder->name;
+        // return $folder_name;
+        // $starred = false;
+        // $favourites = true;
+        return view('pages.create_empl', ['title'=>$title,'folder_id'=>$folder_id, 'folder_name'=>$folder_name]);
     }
 
     public function create() {
@@ -120,14 +246,26 @@ class FoldersController extends Controller
         $folder->parent_folder = $request->input('parentid');
         $folder->sub_folder = '1';
         $folder->created_by = auth()->user()->id;
+        if($request->starred){
+            $folder->starred = '1';
+        }
+        elseif($request->favourites){
+            $folder->favourites = '1';
+        }
         $folder->save();
         //flash message
         Session::flash('success', 'Folder Created Successully');
         
-        return back();
+        if(auth()->user()->usertype == 'admin'){
+            return redirect('/important');
+        }
+        else{
+            return redirect('/starred');
+        }
     }
 
     public function edit($id) {
+        $title = 'Edit Folder';
         $fols = Folder::find($id);
         
         //Check if post exists before deleting
@@ -143,7 +281,7 @@ class FoldersController extends Controller
             Session::flash('danger', 'Access Denied');
             return back();
         }
-        return view('folders.edit',['fols'=>$fols]);
+        return view('folders.edit',['fols'=>$fols, 'title'=>$title]);
     }
 
     public function update(Request $request, $id) {
@@ -163,7 +301,12 @@ class FoldersController extends Controller
         //Flash Messages for the requests
         Session::flash('info', 'Changes Saved Successfully');
         
-        return redirect('/home');
+        if(auth()->user()->usertype == 'admin'){
+            return redirect('/important');
+        }
+        else{
+            return redirect('/starred');
+        }
     }
 
     public function parentfols(Request $request){
@@ -177,7 +320,7 @@ class FoldersController extends Controller
             }
             //Flash Messages for the requests
             Session::flash('success', 'Folder Moved');
-            return redirect('/');
+            return back();
         }
         else{
             //Flash Messages for the requests
@@ -216,5 +359,45 @@ class FoldersController extends Controller
         Session::flash('success', 'Folder Deleted Successfully');
 
         return back();
+    }
+
+    public function remove_fols_starred(Request $request){
+        $ids = $request->get('ids');
+
+        if($ids > 0){
+            foreach($ids as $id) {
+                $filename = Folder::find($id);
+                $filename->starred =  '0';
+                $filename->update();
+            }
+            //Flash Messages for the requests
+            Session::flash('success', 'Folder Moved');
+            return back();
+        }
+        else{
+            //Flash Messages for the requests
+            Session::flash('danger', 'No Folder Selected');
+            return back();
+        }
+    }
+
+    public function remove_fols_favs(Request $request){
+        $ids = $request->get('ids');
+
+        if($ids > 0){
+            foreach($ids as $id) {
+                $filename = Folder::find($id);
+                $filename->favourites =  '0';
+                $filename->update();
+            }
+            //Flash Messages for the requests
+            Session::flash('success', 'Folder Moved');
+            return back();
+        }
+        else{
+            //Flash Messages for the requests
+            Session::flash('danger', 'No Folder Selected');
+            return back();
+        }
     }
 }

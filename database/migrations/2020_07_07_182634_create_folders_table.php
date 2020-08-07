@@ -17,8 +17,14 @@ class CreateFoldersTable extends Migration
             $table->id();
             $table->string('name');
             //$table->enum('column_name', [values]);
-            $table->enum('sub_folder', [0, 1]);
+            $table->enum('sub_folder', [0, 1])->nullable();
+            $table->bigInteger('parent_folder')->nullable();
             $table->bigInteger('created_by');
+            $table->enum('starred', [0,1])->default(0);
+            $table->enum('favourites', [0,1])->default(0);
+            $table->enum('protected', [0, 1]);
+            // String is equivalent to Varchar written in documentation
+            $table->string('password', 255)->nullable();
             $table->timestamps();
         });
     }

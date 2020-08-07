@@ -16,8 +16,11 @@ class CreateFilesTable extends Migration
         Schema::create('files', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->bigInteger('folder');
             $table->bigInteger('created_by');
+            $table->bigInteger('parent_folder')->nullable();
+            $table->string('size');
+            $table->enum('starred', [0,1])->default(0);
+            $table->enum('favourites', [0,1])->default(0);
             $table->timestamps();
         });
     }

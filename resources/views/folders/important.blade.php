@@ -2,8 +2,24 @@
 
 @section('content')
     <div class="px-2">
+        {{-- BreadCrumbs --}}
+        @if (auth()->user()->usertype == 'admin')
+          @if (count($parents) > 0)
+          <div class="px-3">
+          <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+              {{-- <li class="breadcrumb-item"><a href="/important">Important</a></li> --}}
+              @foreach(array_combine($parents, $parent_ids) as $parent => $id)
+                <li class="breadcrumb-item"><a href="{{ $id }}">{{ $parent }}</a></li>
+              @endforeach
+            </ol>
+          </nav> 
+        </div>
+         @endif
+        @endif
+
     <h4 class="font-weight-bold">Folders</h4>
-    @if (count($fols) > 0)
+        @if (count($fols) > 0)
       <form method="GET">
         @csrf
         <div class="btn-group" id="table_pc">
@@ -11,59 +27,106 @@
             Action
           </button>
           <div class="dropdown-menu dropdown-menu-right">
-            <button formaction="/tofolderfold" type="submit" class="dropdown-item">Move to Folder</button>
+            <button formaction="/tofolderfold" type="submit" class="dropdown-item">Move to Other Folder</button>
             <button formaction="/tostarredfold" type="submit" class="dropdown-item">Send to Starred</button>
             <button formaction="/tofavsfold" type="submit" class="dropdown-item">Send to Favourites</button>
+            <button formaction="/removefolstar" type="submit" class="dropdown-item">Remove From Starred</button>
+            <button formaction="/removefolfavs" type="submit" class="dropdown-item">Remove From Favourites</button>
           </div>
-          <span class="font-weight-bold ml-1 mt-1">Select All <input type="checkbox" class="selectall2"></span>
         </div>
-    @endif
-        <div class="row no-gutters text-center my-2" style="font-size: 25px;">
-              @if (count($fols) > 0)
-                @foreach ($fols as $fol)
-                        <div class="col-xs-4 mr-3" id="fold_on_dash">
-                          <input type="checkbox" id="table_pc" name="ids[]" class="selectbox2" value="{{ $fol->id }}">
-                        <a href="/folders/{{$fol->id}}" style="color: #08417a;"><i class="fa fa-folder pr-2" aria-hidden="true"></i>{{$fol->name}}</a>
-                      </form>
-                        <div class="row no-gutters" style="font-size:18px;">
-                            <div class="col-xs-2 ml-2" style="margin-top:2px;">
-                                <a href="/folders/{{$fol->id}}/edit"><i id="icon" class="fa fa-pencil-square icon mt-2" aria-hidden="true" class = "icon"></i></a>
-                            </div>
-                            <div class="col-xs-4">                              
-                                {!!Form::open(['action' => ['FoldersController@destroy', $fol->id], 'method' => 'DELETE'])!!}
-                                    <button type="submit" style="border: 0px; background-color:white; padding-top:6px;"><i id="icon" class="fa fa-trash icon" aria-hidden="true" class = "icon"></i></button>
-                                {!!Form::close()!!}                            
-                            </div>
-                            <div class="col-xs-6" style="padding-top:6px;">
-                              @if($fol->starred == '1')
-                                <i style="color:red;" id="icon" class="fa fa-star icon" aria-hidden="true" class = "icon"></i>
-                              @endif
-                              @if($fol->favourites == '1')
-                                <i style="color:green;" id="icon" class="fa fa-heart icon" aria-hidden="true" class = "icon"></i>
-                              @endif
-                            </div>
-                        </div>
-                    </div>
-                @endforeach
-            @endif
-        </div>
-        <a href="/create"><button class="btn btn-success">Create Folders</button></a>
+      <table class="table table-borderless table-hover">
+        <thead id="table_pc">
+          <tr>
+            <th><span class="font-weight-bold ml-1 mt-1">Select All <input type="checkbox" class="selectall2"></span></th>
+            <th>Shared In</th>
+            <th>Folder Name</th>
+            <th>Created By</th>
+            <th>Edit</th>
+            <th>Delete</th>
+          </tr>
+        </thead>
+      @foreach ($fols as $fol)
+        <tbody>
+          <tr id="table_pc">
+            <td><input type="checkbox" id="table_pc" name="ids[]" class="selectbox2" value="{{ $fol->id }}"></td>
+          </form>
+            <td>
+              @if($fol->starred == '1')
+                <i style="color:yellow;" class="fa fa-star mr-2" aria-hidden="true"></i>
+              @else
+                <i class="fa fa-star-o mr-2" aria-hidden="true"></i>
+              @endif
 
-        <br><br>
-
+              @if($fol->favourites == '1')
+                <i style="color:red;" class="fa fa-heart" aria-hidden="true"></i>
+              @else
+                <i class="fa fa-heart-o" aria-hidden="true"></i>
+              @endif
+            </td>
+            <td><a href="/important/{{$fol->id}}" style="color: #08417a;">{{$fol->name}}</a></td>
+            <td>{{$fol->userfols->name}}</td>
+            <td><a href="/folders/{{$fol->id}}/edit"><i id="icon" class="fa fa-pencil-square icon" aria-hidden="true" class = "icon"></i></a></td>
+            <td>
+              {!!Form::open(['action' => ['FoldersController@destroy', $fol->id], 'method' => 'DELETE'])!!}
+                  <button type="submit" style="border: 0px; background-color:white;"><i id="icon" class="fa fa-trash icon" aria-hidden="true" class = "icon"></i></button>
+              {!!Form::close()!!}
+            </td>
+          </tr>
+        </tbody>
+      @endforeach
+      <thead id="table_mobile">
+        <tr>
+          <th>Folder Name</th>
+          <th>Shared In</th>
+          <th>Edit</th>
+          <th>Delete</th>
+        </tr>
+      </thead>
+      @foreach ($fols as $fol)
+        <tbody>
+          <tr id="table_mobile">
+            <td><a href="/important/{{$fol->id}}" style="color: #08417a;">{{$fol->name}}</a></td>
+            <td>
+              @if($fol->starred == '1')
+                  <i style="color:yellow;" class="fa fa-star mr-2" aria-hidden="true"></i>
+                @else
+                  <i class="fa fa-star-o mr-2" aria-hidden="true"></i>
+                @endif
+                @if($fol->favourites == '1')
+                  <i style="color:red;" class="fa fa-heart" aria-hidden="true"></i>
+                @else
+                  <i class="fa fa-heart-o" aria-hidden="true"></i>
+                @endif
+            </td>
+            <td><a href="/folders/{{$fol->id}}/edit"><i id="icon" class="fa fa-pencil-square icon" aria-hidden="true" class = "icon"></i></a></td>
+            <td>
+              {!!Form::open(['action' => ['FoldersController@destroy', $fol->id], 'method' => 'DELETE'])!!}
+                  <button type="submit" style="border: 0px; background-color:white;"><i id="icon" class="fa fa-trash icon" aria-hidden="true" class = "icon"></i></button>
+              {!!Form::close()!!}
+            </td>
+          </tr>
+        </tbody>
+      @endforeach
+    </table>  
+    @else
+      <p>No Folders Found</p>
+  @endif
+        <br>
         <h4 class="font-weight-bold">Files</h4>
-        <form method="POST">
+        <form method="GET">
           @csrf
-          @method('DELETE')
         @if (count($fils) > 0)
         <div class="btn-group" id="table_pc">
           <button type="button" class="btn btn-sm btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Action
           </button>
           <div class="dropdown-menu dropdown-menu-right">
-            <button formaction="/tofolderfiles" type="submit" class="dropdown-item">Move to Folder</button>
+            <button formaction="/replace" type="submit" class="dropdown-item">Replace Files</button>
+            <button formaction="/tofolderfiles" type="submit" class="dropdown-item">Move to Other Folder</button>
             <button formaction="/tostarredfiles" type="submit" class="dropdown-item">Send to Starred</button>
             <button formaction="/tofavsfiles" type="submit" class="dropdown-item">Send to Favourites</button>
+            <button formaction="/removestarred" type="submit" class="dropdown-item">Remove From Starred</button>
+            <button formaction="/removefavs" type="submit" class="dropdown-item">Remove From Favourites</button>
             <button formaction="/deleteall" type="submit" class="dropdown-item">Delete All Selected</button>
           </div>
         </div>
@@ -85,13 +148,13 @@
                         <td><input type="checkbox" name="ids[]" class="selectbox1" value="{{ $fil->id }}"></td>
                         <td>
                           @if($fil->starred == '1')
-                            <i style="color:red;" class="fa fa-star" aria-hidden="true"></i>
+                            <i style="color:yellow;" class="fa fa-star mr-2" aria-hidden="true"></i>
                           @else
-                            <i class="fa fa-star-o" aria-hidden="true"></i>
+                            <i class="fa fa-star-o mr-2" aria-hidden="true"></i>
                           @endif
 
                           @if($fil->favourites == '1')
-                            <i style="color:green;" class="fa fa-heart" aria-hidden="true"></i>
+                            <i style="color:red;" class="fa fa-heart" aria-hidden="true"></i>
                           @else
                             <i class="fa fa-heart-o" aria-hidden="true"></i>
                           @endif
@@ -133,8 +196,10 @@
                     </tbody>
                 @endforeach
           </table>
+          @else
+            <p>No Folders Found</p>
           @endif
-          <a href="/create" class="btn btn-success mt-2 mb-2">Create File</a>
+          <a href="/create" class="btn btn-success">Create</a>
         </form>
     </div>
 

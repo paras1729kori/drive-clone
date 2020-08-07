@@ -2,6 +2,21 @@
 
 @section('content')
     <div class="px-2">
+
+      {{-- BreadCrumbs --}}
+      <div class="px-3">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/favourites">Favourites</a></li>
+            @if (count($parents) > 0)
+            @foreach(array_combine($parents, $parent_ids) as $parent => $id)
+              <li class="breadcrumb-item"><a href="{{ $id }}">{{ $parent }}</a></li>
+            @endforeach
+            @endif
+          </ol>
+        </nav> 
+      </div>
+
     <h4 class="font-weight-bold">Folders</h4>
     @if (count($fols) > 0)
       <table class="table table-borderless table-hover">
@@ -11,7 +26,6 @@
             <th>Folder Name</th>
             <th>Created By</th>
             <th>Edit</th>
-            <th>Delete</th>
           </tr>
         </thead>
       @foreach ($fols as $fol)
@@ -30,14 +44,9 @@
                 <i class="fa fa-heart-o" aria-hidden="true"></i>
               @endif
             </td>
-            <td><a href="/important/{{$fol->id}}" style="color: #08417a;">{{$fol->name}}</a></td>
+            <td><a href="/favourites/{{$fol->id}}" style="color: #08417a;">{{$fol->name}}</a></td>
             <td>{{$fol->userfols->name}}</td>
             <td><a href="/folders/{{$fol->id}}/edit"><i id="icon" class="fa fa-pencil-square icon" aria-hidden="true" class = "icon"></i></a></td>
-            <td>
-              {!!Form::open(['action' => ['FoldersController@destroy', $fol->id], 'method' => 'DELETE'])!!}
-                  <button type="submit" style="border: 0px; background-color:white;"><i id="icon" class="fa fa-trash icon" aria-hidden="true" class = "icon"></i></button>
-              {!!Form::close()!!}
-            </td>
           </tr>
         </tbody>
       @endforeach
@@ -46,13 +55,12 @@
           <th>Folder Name</th>
           <th>Shared In</th>
           <th>Edit</th>
-          <th>Delete</th>
         </tr>
       </thead>
       @foreach ($fols as $fol)
         <tbody>
           <tr id="table_mobile">
-            <td><a href="/important/{{$fol->id}}" style="color: #08417a;">{{$fol->name}}</a></td>
+            <td><a href="/favourites/{{$fol->id}}" style="color: #08417a;">{{$fol->name}}</a></td>
             <td>
               @if($fol->starred == '1')
                   <i style="color:yellow;" class="fa fa-star mr-2" aria-hidden="true"></i>
@@ -66,17 +74,12 @@
                 @endif
             </td>
             <td><a href="/folders/{{$fol->id}}/edit"><i id="icon" class="fa fa-pencil-square icon" aria-hidden="true" class = "icon"></i></a></td>
-            <td>
-              {!!Form::open(['action' => ['FoldersController@destroy', $fol->id], 'method' => 'DELETE'])!!}
-                  <button type="submit" style="border: 0px; background-color:white;"><i id="icon" class="fa fa-trash icon" aria-hidden="true" class = "icon"></i></button>
-              {!!Form::close()!!}
-            </td>
           </tr>
         </tbody>
       @endforeach
-    </table>  
+    </table>
     @else
-      <p>No Folders Found</p>
+      <p>No Folders Found</p>  
   @endif
         <br>
         <h4 class="font-weight-bold">Files</h4>
@@ -100,7 +103,7 @@
                     <tbody>
                     <tr id="table_pc">
                         <td><input type="checkbox" name="ids[]" class="selectbox1" value="{{ $fil->id }}"></td>
-                    </form>
+                      </form>
                         <td>
                           @if($fil->starred == '1')
                             <i style="color:yellow;" class="fa fa-star" aria-hidden="true"></i>
@@ -138,10 +141,7 @@
                                       <a href="{{ route('downloadfileindash', $fil->id) }}" style="text-decoration: none;">{{$fil->name}}</a><br>
                                       Created By: {{$fil->userfils->name}} <br>
                                       last modified at: {{$fil->updated_at}} <br>
-                                      Size: {{ ($fil->size) }}<br>
-                                      {!! Form::open(['action' => ['FilesController@destroy', $fil->id], 'method' => 'DELETE']) !!}
-                                        <button class="btn btn-sm btn-danger" type="submit">Delete</button>
-                                      {!! Form::close() !!}
+                                      Size: {{ ($fil->size) }}
                                     </div>
                                   </div>
                                 </div>
@@ -154,6 +154,7 @@
           @else
             <p>No Files Found</p>
           @endif
+          <a href="/favourites/create/{{ $current }}"><button class="btn btn-success">Create</button></a>
     </div>
 
     <script type="text/javascript">

@@ -18,19 +18,16 @@ class PagesController extends Controller
 
     public function index() {
         $title = 'Dashboard';
-        return view('pages.account', ['title' => $title]);
+        $user_id = auth()->user()->id;
+        $user = User::find($user_id);
+
+        return view('pages.account',['title' => $title,'posts' => $user->posts]);
     }
     
     public function create() {
         $title = 'Create';
-        if(auth()->user()->usertype == 'admin'){
-            $fols = Folder::all();
-            return view('pages.create', ['title' => $title, 'fols' => $fols]);
-        }
-        else{
-            $fols = Folder::where('id','!=',1)->where('parent_folder','!=',1)->orWhere('id','=',2)->orWhere('id','=',3)->orWhere('starred','=','1')->orWhere('favourites','=','1')->get();
-            return view('pages.create', ['title' => $title, 'fols' => $fols]);
-        }
+        $fols = Folder::all();
+        return view('pages.create', ['title' => $title, 'fols' => $fols]);
     }
     public function acc() {
         $title = 'Dashboard';

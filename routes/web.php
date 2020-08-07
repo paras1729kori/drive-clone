@@ -22,41 +22,61 @@ Route::get('/search', 'PagesController@search');
 //for downloading files on home
 Route::get('download/{id}', 'PagesController@download')->name('downloadfileindash');
 
-// FILE ROUTES
-Route::post('files/store', 'FilesController@store');
-Route::delete('files/{id}/destroy', 'FilesController@destroy');
-//to selected folder
-Route::delete('/tofolderfiles', 'FilesController@to_folder');
-//to starred
-Route::delete('/tostarredfiles','FilesController@to_starred');
-//to favs
-Route::delete('/tofavsfiles','FilesController@to_favs');
-//delete all files route
-Route::delete('/deleteall','FilesController@deleteAll');
-//for updating files path
-Route::post('/files/parentfiles', 'FilesController@parentfiles');
-
 //FOLDER ROUTES
+//for showing specific files and folders in important
+Route::get('important', 'FoldersController@important');
 //for showing specific files and folders in starred
-Route::get('folders/2', 'FoldersController@starred');
+Route::get('starred', 'FoldersController@starred');
 //for showing specific files and folders in favourites
-Route::get('folders/3', 'FoldersController@favourites');
+Route::get('favourites', 'FoldersController@favourites');
 //to move folders to selected folder
 Route::get('/tofolderfold', 'FoldersController@to_folder');
 //to starred
 Route::get('/tostarredfold','FoldersController@to_starred');
 //to favs
 Route::get('/tofavsfold','FoldersController@to_favs');
-//for showing files and folders in any other folders user_created_ones
-Route::get('folders/{id}', 'FoldersController@index');
-Route::post('folders/store', 'FoldersController@store');
+//remove folder from starred
+Route::get('/removefolstar','FoldersController@remove_fols_starred');
+//remove folder from favs
+Route::get('/removefolfavs','FoldersController@remove_fols_favs');
+//for create in starred or starred folders
+Route::get('/starred/create/{id}', 'FoldersController@starred_create');
+//for create in favs or favs folders
+Route::get('/favourites/create/{id}', 'FoldersController@favs_create');
+//for showing files and folders for admins
+Route::get('important/{id}', 'FoldersController@admin');
+//for showing files and folders for starred
+Route::get('starred/{id}', 'FoldersController@starred_folders');
+//for showing files and folders for favourites
+Route::get('favourites/{id}', 'FoldersController@favourites_folders');
 Route::get('folders/{id}/edit', 'FoldersController@edit')->name('folders.edit');
-Route::post('folders/{id}/update', 'FoldersController@update');
 //for updating parentfolders of folders
 Route::post('folders/parentfols', 'FoldersController@parentfols');
-Route::delete('folders/{id}/destroy', 'FoldersController@destroy');
 //for downloading files in folders
 Route::get('folders/download/{id}', 'FoldersController@download')->name('downloadfileinfols');
+Route::post('folders/store', 'FoldersController@store');
+Route::post('folders/{id}/update', 'FoldersController@update');
+Route::delete('folders/{id}/destroy', 'FoldersController@destroy');
+
+// FILE ROUTES
+//replace files
+Route::get('/replace', 'FilesController@replace');
+//to selected folder
+Route::get('/tofolderfiles', 'FilesController@to_folder');
+//to starred
+Route::get('/tostarredfiles','FilesController@to_starred');
+//to favs
+Route::get('/tofavsfiles','FilesController@to_favs');
+//to remove files from starred
+Route::get('/removestarred','FilesController@remove_fils_starred');
+//to remove files from favs
+Route::get('/removefavs','FilesController@remove_fils_favs');
+//delete all files route
+Route::get('/deleteall','FilesController@deleteAll');
+//for updating files path
+Route::post('/files/parentfiles', 'FilesController@parentfiles');
+Route::post('files/store', 'FilesController@store');
+Route::get('files/{id}/destroy', 'FilesController@destroy');
 
 //POSTS ROUTES
 Route::resource('posts', 'PostsController');

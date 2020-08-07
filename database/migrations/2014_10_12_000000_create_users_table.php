@@ -14,6 +14,7 @@ class CreateUsersTable extends Migration
     public function up()
     {
         Schema::create('users', function (Blueprint $table) {
+            //Predefined
             $table->id();
             $table->string('name');
             $table->string('email')->unique();
@@ -21,6 +22,12 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
+
+            //User defined
+            $table->enum('status', array('active', 'disabled'))->default('active');
+            $table->string('usertype')->nullable()->default('user');
+            $table->dateTime('login_time', 0)->nullable();
+            $table->dateTime('logout_time', 0)->nullable();
         });
     }
 
