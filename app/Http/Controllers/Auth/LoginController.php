@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Auth;
+use App\User;
+use Carbon\Carbon;
 
 class LoginController extends Controller
 {
@@ -30,6 +32,9 @@ class LoginController extends Controller
     //protected $redirectTo = RouteServiceProvider::HOME;
     protected function redirectTo(){
         if(Auth::user()->status == 'active'){
+            $user = User::find(auth()->user()->id);
+            $user->login_time = Carbon::now();
+            $user->save();
             return 'dashboard';
         }
         else{

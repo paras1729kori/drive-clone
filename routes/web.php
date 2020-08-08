@@ -117,3 +117,5 @@ Route::group(['middleware' => ['auth', 'admin']], function(){
     Route::put('/tasksupdate/{id}','Admin\TasksController@update');
     Route::delete('/tasksdelete/{id}','Admin\TasksController@delete');
 });
+
+Route::post('/session/logout', 'UsersController@EndSession');

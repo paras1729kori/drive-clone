@@ -6,9 +6,20 @@ use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\User;
 use App\PassReset;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 
 class UsersController extends Controller
 {
+    public function EndSession(Request $request)
+    {
+        $user = User::find(auth()->user()->id);
+        $user->logout_time = Carbon::now();
+        $user->save();
+        Auth::logout();
+        return redirect('/login');
+    }
+
     public function ResetPass(Request $request)
     {
         $this->validate($request, [
