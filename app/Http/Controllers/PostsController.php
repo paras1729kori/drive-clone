@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Post;
+use App\User;
 
 class PostsController extends Controller
 {
@@ -20,8 +21,9 @@ class PostsController extends Controller
     public function index()
     {   
         $title = 'Messages';
-        $posts = Post::orderBy('created_at','desc')->paginate(10);
-        return view('posts.index',['posts' => $posts, 'title' => $title]);
+        $posts = Post::where('general','=','1')->get();
+        $per_posts = Post::where('reciever','=',auth()->user()->id)->orWhere('user_id','=',auth()->user()->id)->get();
+        return view('posts.index',['per_posts'=>$per_posts, 'posts' => $posts, 'title' => $title]);
     }
 
     /**
@@ -31,8 +33,9 @@ class PostsController extends Controller
      */
     public function create()
     {
+        $users = User::all();
         $title = 'Create Message';
-        return view('posts.create', ['title' => $title]);
+        return view('posts.create', ['users'=>$users,'title' => $title]);
     }
 
     /**
@@ -53,7 +56,11 @@ class PostsController extends Controller
          $post->title = $request->input('title');
          $post->body = $request->input('body');
          $post->user_id = auth()->user()->id;
-         $post->save();
+         if($request->general){
+            $post->general = '1';
+        }
+        $post->reciever = $request->input('reciever');
+        $post->save();
  
          return redirect('/posts')->with('success', 'Message Created');
     }
@@ -105,7 +112,7 @@ class PostsController extends Controller
     {
         $this->validate($request, [
             'title' => 'required',
-            'body' => 'required'
+            'body' => 'required',
         ]);
 
         $post = Post::find($id);

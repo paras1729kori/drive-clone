@@ -10,9 +10,22 @@
             </div>
             <div class="form-group">
                 {{Form::label('body', 'Body')}}
-                {{Form::textarea('body', '', ['id' => 'article-ckeditor', 'class' => 'form-control', 'placeholder' => 'Body Text'])}}
+                {{Form::textarea('body', '', ['class' => 'form-control', 'placeholder' => 'Body Text'])}}
             </div>
-            {{Form::submit('Submit', ['class'=>'btn btn-primary'])}}
+            <div class="form-group">
+                {{Form::checkbox('general', '1')}}
+                {{Form::label('general', 'General Message')}}
+            </div>
+            <div class="form-group">
+                {{Form::label('reciever', 'Personal')}}
+                <select class="form-control opt" name="reciever" id="reciever">
+                    <option>Select Folder</option>
+                    @foreach ($users as $user)
+                      <option value="{{$user->id}}">{{ $user->name }}</option>
+                    @endforeach
+                  </select>
+            </div>
+            {{Form::submit('Submit', ['class'=>'btn btn-primary mb-2'])}}
         {!! Form::close() !!}
     </div>
 @endsection

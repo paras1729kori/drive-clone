@@ -44,8 +44,8 @@
         <div class="col-sm-4 p-2">
         <div class="card text-light bg-dark">
             <div class="card-body">
-                <h4 class="card-title d-inline">{{$post->title}} <h5 class="d-inline">by {{$post->user->name}}</h5></h4>
-              <h6 class="card-subtitle mb-1 text-muted"><small class="text-light">Written on {{$post->created_at}}</small></h6>
+                <h4><a href="/posts/{{$post->id}}">{{$post->title}}</a></h4>
+              <h6>Written on {{$post->created_at}} by {{$post->user->name}}</h6>
               <p class="card-text">
                 {{$post->body}}
               </p>

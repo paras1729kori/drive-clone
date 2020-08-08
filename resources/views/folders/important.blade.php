@@ -12,12 +12,11 @@
               @foreach(array_combine($parents, $parent_ids) as $parent => $id)
                 <li class="breadcrumb-item"><a href="{{ $id }}">{{ $parent }}</a></li>
               @endforeach
+              @endif
             </ol>
           </nav> 
         </div>
-         @endif
-        @endif
-     </div>   
+        @endif  
 
     <h4 class="font-weight-bold">Folders</h4>
         @if (count($fols) > 0)
