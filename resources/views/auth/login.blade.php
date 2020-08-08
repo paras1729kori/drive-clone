@@ -19,7 +19,7 @@
         <div class="col-xs-4 col-xs-offset-4 jerry">
             
             <img class="mx-auto" style="border-radius: 10px;" src="{{asset('img/co.jpg')}}" alt="This is an image of logo">
-            <h4 class="mt-2">Login</h4>
+            <h4 class="mt-2 header">Login</h4>
 
             <form method="POST" action="{{ route('login') }}">
                 @csrf
