@@ -60,7 +60,7 @@
       @foreach ($fols as $fol)
         <tbody>
           <tr id="table_mobile">
-            <td><a href="/favourites/{{$fol->id}}" style="color: #08417a;">{{$fol->name}}</a></td>
+            <td><a href="/{{$page[0]}}/{{$fol->id}}" style="color: #08417a;">{{$fol->name}}</a></td>
             <td>
               @if($fol->starred == '1')
                   <i style="color:yellow;" class="fa fa-star mr-2" aria-hidden="true"></i>

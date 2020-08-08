@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="px-2">
+  <div class="px-2">
 
       {{-- BreadCrumbs --}}
       <div class="px-3">
@@ -60,7 +60,7 @@
       @foreach ($fols as $fol)
         <tbody>
           <tr id="table_mobile">
-            <td><a href="/starred/{{$fol->id}}" style="color: #08417a;">{{$fol->name}}</a></td>
+            <td><a href="/{{$page[0]}}/{{$fol->id}}" style="color: #08417a;">{{$fol->name}}</a></td>
             <td>
               @if($fol->starred == '1')
                   <i style="color:yellow;" class="fa fa-star mr-2" aria-hidden="true"></i>
@@ -80,7 +80,7 @@
     </table>  
     @else
       <p>No Folders Found</p>
-  @endif
+    @endif
         <br>
         <h4 class="font-weight-bold">Files</h4>
         @if (count($fils) > 0)

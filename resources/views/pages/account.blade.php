@@ -9,9 +9,6 @@
             <div class="col-sm-6">
                 <li><a href="{{ route('login') }}" class="btn btn-lg font-weight-bolder">Login</a></li>
             </div>
-            <!-- <div class="col-sm-6">
-                <li><a href="{{ route('register') }}" class="btn btn-lg font-weight-bolder">Register</a></li>
-            </div> -->
         </div>
         @else
             <li class="dropdown mb-3">
