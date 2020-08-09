@@ -34,7 +34,7 @@
       @endif
       <br>
       {{-- For Private Messages --}}
-      <h4 class="font-weight-bold">Recieved Private Messages</h4>
+      <h4 class="font-weight-bold">Private Messages</h4>
       @if(count($per_posts) > 0)
       <div class="row px-2">
         @foreach($per_posts as $post)
@@ -72,8 +72,9 @@
         <p class="pt-1">No messages found</p>
     @endif
     </div>
+    @if (Auth::guest() || auth()->user()->usertype == 'admin')
     <div class="col-2">
-      {!! Form::open() !!}
+      {!! Form::open(['action' => 'PostsController@filter', 'method' => 'GET']) !!}
         <div class="form-group">
           {{Form::label('filter_by_id', 'Filter by Name')}}
           <select class="form-control opt" name="filter_name" id="filter_name">
@@ -83,9 +84,10 @@
               @endforeach
             </select>
         </div>
-        <a href="/posts/filter" class="btn btn-primary float-right">Submit</a>
+        <button class="btn btn-primary">Submit</button>
       {!! Form::close() !!}
     </div>
+    @endif
   </div>
   <a href="/posts/create" class="btn btn-primary mt-5">Messages</a>
 </div>

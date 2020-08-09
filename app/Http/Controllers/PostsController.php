@@ -23,7 +23,12 @@ class PostsController extends Controller
         $title = 'Messages';
         $users = User::all();
         $posts = Post::where('general','=','1')->get();
-        $per_posts = Post::where('reciever','=',auth()->user()->id)->get();
+        if(auth()->user()->usertype != 'admin'){
+            $per_posts = Post::where('reciever','=',auth()->user()->id)->orWhere('user_id','=',auth()->user()->id)->orderBy('user_id','ASC')->get();
+        }
+        else{
+            $per_posts = Post::where('general','!=','1')->orderBy('user_id','ASC')->get(); 
+        }
         return view('posts.index',['users'=>$users,'per_posts'=>$per_posts, 'posts' => $posts, 'title' => $title]);
     }
 
@@ -77,9 +82,16 @@ class PostsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function filter()
+
+    public function show($id){
+        return "Show";
+    }
+
+    public function filter(Request $request)
     {
-       return "Done";
+       $id = $request->filter_name;
+       $posts = Post::where('user_id','=',$id)->orWhere('reciever','=',$id)->orderBy('updated_at', 'DESC')->get();
+       return view('posts.show', ['posts' => $posts]);
     }
 
     /**
