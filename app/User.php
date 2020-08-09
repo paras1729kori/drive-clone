@@ -53,9 +53,18 @@ class User extends Authenticatable
     }
 
     //For resetting passwords
-    public function passreset()
-    {
+    public function passreset(){
         return $this->hasMany('App\PassReset');
     }
+
+    // // Relationship for User
+    // public function friends(){
+    //     return $this->belongsToMany('App\User','users','id');
+    // }
+
+    // //User to User
+    // public function addFriend(User $user){
+    //     $this->friends()->attach($user->id);
+    // }
 }
 

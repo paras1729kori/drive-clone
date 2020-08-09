@@ -87,6 +87,8 @@ Route::get('/resetpassword', function () {
     return view('users.resetpass');
 });
 
+Route::get('/registeruser', 'UsersController@registeruser');
+Route::post('/registerstore','UsersController@registerstore');
 Route::post('/reset/password', 'UsersController@ResetPass');
 Route::get('/mail/pass/{id}', 'MailsController@PassReset');
 Route::get('/reset/password/{token}', 'AuthController@ResetPass');
@@ -111,12 +113,6 @@ Route::group(['middleware' => ['auth', 'admin']], function(){
     Route::get('/registeredit/{id}','Admin\AdminController@registeredit');
     Route::put('/registerupdate/{id}','Admin\AdminController@registerupdate');
     Route::delete('/registerdelete/{id}','Admin\AdminController@registerdelete');
-
-    Route::get('/tasks','Admin\TasksController@index');
-    Route::post('/savetasks','Admin\TasksController@store');
-    Route::get('/tasks/{id}','Admin\TasksController@edit');
-    Route::put('/tasksupdate/{id}','Admin\TasksController@update');
-    Route::delete('/tasksdelete/{id}','Admin\TasksController@delete');
 });
 
 Route::post('/session/logout', 'UsersController@EndSession');

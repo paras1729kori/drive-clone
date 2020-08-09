@@ -12,7 +12,7 @@
           <div class="col-sm-3 px-2">
             <div class="card text-light" style="background-color: rgb(71, 32, 71)">
               <div class="card-body">
-                <h4><a href="/posts/{{$post->id}}">{{$post->title}}</a></h4>
+                <h4>{{$post->title}}</h4>
                 <h6>Written on {{$post->created_at}} by {{$post->user->name}}</h6>
                 <p class="card-text">
                   {{$post->body}}
@@ -40,17 +40,19 @@
         @foreach($per_posts as $post)
           <div class="col-sm-3 px-2">
             @php
-                if($post->reciever = auth()->user()->id){
+                if($post->reciever == auth()->user()->id){
                   $color = '#82262a';
                 }
-                elseif($post->user_id = auth()->user()->id){
-                  $color = '#252e22';
+                elseif($post->user_id == auth()->user()->id){
+                  $color = '#212529';
                 }
             @endphp
             <div class="card text-light" style="background-color:{{$color}}">
               <div class="card-body">
-                <h4><a href="/posts/{{$post->id}}">{{$post->title}}</a></h4>
-                <h6>Written on {{$post->created_at}} by {{$post->user->name}}</h6>
+                <h4>{{$post->title}}</h4>
+                <h6>From: {{$post->user->name}}</h6>
+                <h6>To: </h6>
+                <small>Written on {{$post->created_at}}</small>
                 <p class="card-text">
                   {{$post->body}}
                 </p>

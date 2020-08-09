@@ -89,9 +89,10 @@ class PostsController extends Controller
 
     public function filter(Request $request)
     {
+       $title = 'Filter';
        $id = $request->filter_name;
-       $posts = Post::where('user_id','=',$id)->orWhere('reciever','=',$id)->orderBy('updated_at', 'DESC')->get();
-       return view('posts.show', ['posts' => $posts]);
+       $posts = Post::where('user_id','=',$id)->orWhere('reciever','=',$id)->orderBy('created_at', 'DESC')->get();
+       return view('posts.show', ['title'=>$title,'posts' => $posts]);
     }
 
     /**

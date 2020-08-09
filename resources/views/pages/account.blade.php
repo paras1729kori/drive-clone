@@ -41,10 +41,12 @@
       <div class="row p-2">
         @foreach($posts as $post)
         <div class="col-sm-4 p-2">
-        <div class="card text-light bg-dark">
+        <div class="card text-light" style="background-color: #212529">
             <div class="card-body">
-                <h4><a href="/posts/{{$post->id}}">{{$post->title}}</a></h4>
-              <h6>Written on {{$post->created_at}} by {{$post->user->name}}</h6>
+                <h4>{{$post->title}}</h4>
+                <h6>From: {{$post->user->name}}</h6>
+                <h6>To: </h6>
+                <small>Written on {{$post->created_at}}</small>
               <p class="card-text">
                 {{$post->body}}
               </p>

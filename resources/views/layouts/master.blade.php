@@ -55,9 +55,9 @@
             </a>
           </li>
           <li class="{{'tasks' == request()->path() ? 'active' : ''}}">
-            <a href="/tasks">
+            <a href="/registeruser">
               <i class="now-ui-icons ui-1_bell-53"></i>
-              <p>Tasks</p>
+              <p>Register</p>
             </a>
           </li>
           <li class="{{'registerrole' == request()->path() ? 'active' : ''}}">

@@ -8,9 +8,46 @@ use App\User;
 use App\PassReset;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Hash;
 
 class UsersController extends Controller
 {
+    //For taking inputs for Creating User
+    public function registeruser(){
+        return view('admin.registeruser');
+    }
+
+    //For creating/registering users
+    public function registerstore(Request $request){
+        //validator
+        $this->validate($request, [
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users',
+            'password' => 'required|string|min:8|confirmed'
+        ]);
+
+        if(auth()->user()->usertype == 'admin'){
+            $user = new User;
+            $user->name = $request->input('name');
+            $user->email = $request->input('email');
+            $pass = $request->input('password');
+            $user->password = Hash::make('pass');
+            $user->status = 'active';
+            $user->usertype = 'user';
+            $user->save();
+
+            //flash message
+            Session::flash('success', 'User Created Successfully');
+            return redirect('/dashboard')->with('status', 'User Created Successfully');
+        }
+        else{
+            //flash message
+            Session::flash('danger', 'Access Denied');
+            return redirect('/');
+        }
+    }
+
     public function EndSession(Request $request)
     {
         $user = User::find(auth()->user()->id);
