@@ -21,9 +21,10 @@ class PostsController extends Controller
     public function index()
     {   
         $title = 'Messages';
+        $users = User::all();
         $posts = Post::where('general','=','1')->get();
-        $per_posts = Post::where('reciever','=',auth()->user()->id)->orWhere('user_id','=',auth()->user()->id)->get();
-        return view('posts.index',['per_posts'=>$per_posts, 'posts' => $posts, 'title' => $title]);
+        $per_posts = Post::where('reciever','=',auth()->user()->id)->get();
+        return view('posts.index',['users'=>$users,'per_posts'=>$per_posts, 'posts' => $posts, 'title' => $title]);
     }
 
     /**
@@ -59,7 +60,12 @@ class PostsController extends Controller
          if($request->general){
             $post->general = '1';
         }
-        $post->reciever = $request->input('reciever');
+        if($request->input('reciever') == 'nullable'){
+            $post->reciever = null;
+        }
+        else{
+            $post->reciever = $request->input('reciever');
+        }
         $post->save();
  
          return redirect('/posts')->with('success', 'Message Created');
@@ -71,11 +77,10 @@ class PostsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    // public function show($id)
-    // {
-    //     $post = Post::find($id);
-    //     return view('posts.show')->with('post', $post);
-    // }
+    public function filter()
+    {
+       return "Done";
+    }
 
     /**
      * Show the form for editing the specified resource.

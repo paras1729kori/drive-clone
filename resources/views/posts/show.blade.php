@@ -1,21 +1,35 @@
-{{-- @extends('layouts.app')
+@extends('layouts.app')
 
 @section('content')
-    <a href="/posts" class="btn btn-default">Go Back</a>
-    <h1>{{$post->title}}</h1>
-    <div>
-        {!!$post->body!!}
-    </div>
-    <hr>
-    <small>Written on {{$post->created_at}} by {{$post->user->name}}</small>
-    <hr>
-    @if(!Auth::guest())
-        @if(Auth::user()->id == $post->user_id)
-            <a href="/posts/{{$post->id}}/edit" class="btn btn-default">Edit</a>
+    <div class="p-2">
+        <h4 class="font-weight-bold">Filtered Messages</h4>
+        @if(count($posts) > 0)
+        <div class="row px-2">
+            @foreach($posts as $post)
+            <div class="col-sm-3 px-2">
+                <div class="card text-light" style="background-color: rgb(71, 32, 71)">
+                <div class="card-body">
+                    <h4><a href="/posts/{{$post->id}}">{{$post->title}}</a></h4>
+                    <h6>Written on {{$post->created_at}} by {{$post->user->name}}</h6>
+                    <p class="card-text">
+                    {{$post->body}}
+                    </p>
+                    @if(!Auth::guest())
+                    @if(Auth::user()->id == $post->user_id)
+                        <a href="/posts/{{$post->id}}/edit" class="btn btn-success btn-default">Edit</a>
 
-            {!!Form::open(['action' => ['PostsController@destroy', $post->id], 'method' => 'DELETE', 'class' => 'pull-right'])!!}
-                {{Form::submit('Delete', ['class' => 'btn btn-danger'])}}
-            {!!Form::close()!!}
+                        {!!Form::open(['action' => ['PostsController@destroy', $post->id], 'method' => 'DELETE', 'class' => 'pull-right'])!!}
+                            {{Form::submit('Delete', ['class' => 'btn btn-danger'])}}
+                        {!!Form::close()!!}
+                    @endif
+                    @endif
+                </div>
+                </div>
+            </div> 
+            @endforeach
+        </div>
+        @else
+            <p>No Messages Found</p>
         @endif
-    @endif
-@endsection --}}
+    </div>
+@endsection

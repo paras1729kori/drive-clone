@@ -19,7 +19,7 @@
             <div class="form-group">
                 {{Form::label('reciever', 'Personal')}}
                 <select class="form-control opt" name="reciever" id="reciever">
-                    <option>Select Folder</option>
+                    <option value="nullable">Select Folder</option>
                     @foreach ($users as $user)
                       <option value="{{$user->id}}">{{ $user->name }}</option>
                     @endforeach

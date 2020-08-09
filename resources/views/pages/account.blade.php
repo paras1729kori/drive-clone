@@ -36,8 +36,7 @@
             </li>
         @endif
     </ul>
-    <h4 class="font-weight-bold">Your Messages</h4>
-    <a href="/posts/create" class="btn btn-primary">Create Messages</a>
+    <h4 class="font-weight-bold">Sent Messages</h4>
     @if(count($posts) > 0)
       <div class="row p-2">
         @foreach($posts as $post)
@@ -66,6 +65,7 @@
     @else
         <p>No messages found</p>
     @endif
+    <a href="/posts/create" class="btn btn-primary">Create Messages</a>
 </div>
 @endsection
 

@@ -80,6 +80,7 @@ Route::get('files/{id}/destroy', 'FilesController@destroy');
 
 //POSTS ROUTES
 Route::resource('posts', 'PostsController');
+Route::get('posts/filter', 'PostsController@filter');
 
 //AUTH ROUTES
 Route::get('/resetpassword', function () {
