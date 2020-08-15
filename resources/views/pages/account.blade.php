@@ -28,10 +28,10 @@
                             {{ csrf_field() }}
                         </form>
                     </li>
-                    <hr>
+                    {{-- <hr>
                     <li>
                     <a class="btn btn-link" href="/resetpassword">Reset Password</a>
-                    </li>
+                    </li> --}}
                 </ul>
             </li>
         @endif
@@ -40,34 +40,58 @@
     @if(count($posts) > 0)
       <div class="row p-2">
         @foreach($posts as $post)
-        <div class="col-sm-4 p-2">
-        <div class="card text-light" style="background-color: #212529">
-            <div class="card-body">
-                <h4>{{$post->title}}</h4>
-                <h6>From: {{$post->user->name}}</h6>
-                <h6>To: </h6>
-                <small>Written on {{$post->created_at}}</small>
-              <p class="card-text">
-                {{$post->body}}
-              </p>
-              @if(!Auth::guest())
-                @if(Auth::user()->id == $post->user_id)
-                    <a href="/posts/{{$post->id}}/edit" class="btn btn-success btn-default">Edit</a>
+        @if($post->general == '0')
+            <div class="col-sm-4 p-2">
+            <div class="card text-light" style="background-color: #212529">
+                <div class="card-body">
+                    <h4>{{$post->title}}</h4>
+                    <h6>From: {{$post->user->name}}</h6>
+                    <h6>To: </h6>
+                    <small>Written on {{$post->created_at}}</small>
+                <p class="card-text font-italic">
+                    {{$post->body}}
+                </p>
+                @if(!Auth::guest())
+                    @if(Auth::user()->id == $post->user_id)
+                        <a href="/posts/{{$post->id}}/edit" class="btn btn-success btn-default">Edit</a>
 
-                    {!!Form::open(['action' => ['PostsController@destroy', $post->id], 'method' => 'DELETE', 'class' => 'pull-right'])!!}
-                        {{Form::submit('Delete', ['class' => 'btn btn-danger'])}}
-                    {!!Form::close()!!}
+                        {!!Form::open(['action' => ['PostsController@destroy', $post->id], 'method' => 'DELETE', 'class' => 'pull-right'])!!}
+                            {{Form::submit('Delete', ['class' => 'btn btn-danger'])}}
+                        {!!Form::close()!!}
+                    @endif
                 @endif
-            @endif
+                </div>
             </div>
-          </div>
-        </div> 
+            </div> 
+        @else
+        <div class="col-sm-4 p-2">
+            <div class="card text-light" style="background-color: #212529">
+                <div class="card-body">
+                    <h4>{{$post->title}}</h4>
+                    <h6>{{$post->user->name}}</h6>
+                    <small>Written on {{$post->created_at}}</small>
+                <p class="card-text font-italic">
+                    {{$post->body}}
+                </p>
+                @if(!Auth::guest())
+                    @if(Auth::user()->id == $post->user_id)
+                        <a href="/posts/{{$post->id}}/edit" class="btn btn-success btn-default">Edit</a>
+
+                        {!!Form::open(['action' => ['PostsController@destroy', $post->id], 'method' => 'DELETE', 'class' => 'pull-right'])!!}
+                            {{Form::submit('Delete', ['class' => 'btn btn-danger'])}}
+                        {!!Form::close()!!}
+                    @endif
+                @endif
+                </div>
+            </div>
+            </div> 
+            @endif
         @endforeach
       </div>
     @else
         <p>No messages found</p>
     @endif
-    <a href="/posts/create" class="btn btn-primary">Create Messages</a>
+    <a href="/posts/create" class="btn btn-primary mb-2">Messages</a>
 </div>
 @endsection
 

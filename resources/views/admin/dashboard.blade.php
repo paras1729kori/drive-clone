@@ -18,9 +18,9 @@
                     @endif
         </div>
         <div class="card-body">
-          <div class="table-responsive">
+          <div class="table-responsive" id="table_pc">
             <table class="table">
-              <thead class=" text-primary">
+              <thead class="text-primary">
                 <th>Id</th>
                 <th>Name</th>
                 <th>Email</th>
@@ -56,6 +56,26 @@
                   
               </tbody>
             </table>
+          </div>
+          <div class="table-responsive" id="table_mobile">
+            <table class="table">
+            <thead class="text-primary">
+              <th>Name</th>
+              <th>UserType</th>
+              <th>Status</th>
+            </thead>
+            <tbody>
+              @foreach ($users as $user)
+                <tr>
+                    <td>{{$user->name}}</td> 
+                    <td>{{$user->usertype}}</td>
+                    <td>{{$user->status}}</td>
+                </tr>
+              @endforeach
+              
+           </tbody>
+            </table>
+            <p>Switch to Destop View to access all the details of a user</p>
           </div>
         </div>
       </div>

@@ -78,6 +78,7 @@ class FoldersController extends Controller
             return view('folders.starred', ['page'=>$page, 'parent_ids'=>$parent_ids,'parents'=>$parents,'current'=>$current,'title' => $title, 'fils' => $fils, 'fols'=> $fols]);
     }
 
+    //for showing specific files and folders in other folders (user_created)
     public function favourites_folders($id) {
         $current = $id;
         $title = Folder::find($id);
@@ -225,6 +226,7 @@ class FoldersController extends Controller
         return response()->download('storage/files/'.$download->name);
     }
 
+    //for creating files and folders in starred
     public function starred_create($id){
         $title = 'Create';
         $folder = Folder::find($id);
@@ -235,13 +237,12 @@ class FoldersController extends Controller
         return view('pages.create_empl', ['title'=>$title,'folder_id'=>$folder_id,'folder_name'=>$folder_name]);
     }
 
+    //for creating files and folders in favourites
     public function favs_create($id){
         $title = 'Create';
         $folder = Folder::find($id);
         $folder_id = $folder->id;
-        // return $folder_id;
         $folder_name = $folder->name;
-        // return $folder_name;
         // $starred = false;
         // $favourites = true;
         return view('pages.create_empl', ['title'=>$title,'folder_id'=>$folder_id, 'folder_name'=>$folder_name]);

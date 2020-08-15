@@ -57,14 +57,14 @@ class User extends Authenticatable
         return $this->hasMany('App\PassReset');
     }
 
-    // // Relationship for User
-    // public function friends(){
-    //     return $this->belongsToMany('App\User','users','id');
+    // //User to User
+    // public function addFriend(){
+    //     $this->hasMany('App\User');
     // }
 
-    // //User to User
-    // public function addFriend(User $user){
-    //     $this->friends()->attach($user->id);
+    // // Relationship for User
+    // public function friends(){
+    //     return $this->belongsToMany('App\User','id');
     // }
 }
 

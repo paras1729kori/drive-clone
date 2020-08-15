@@ -35,6 +35,9 @@
   <!-- CSS Just for demo purpose, don't include it in your project -->
   <link href="../assets/demo/demo.css" rel="stylesheet" />
   <link rel="stylesheet" href="{{ asset('assets/css/dataTables.min.css') }}">
+
+  {{-- Custom CSS --}}
+  <link rel="stylesheet" href="{{asset('css/create.css')}}">
 </head>
 
 <body class="">

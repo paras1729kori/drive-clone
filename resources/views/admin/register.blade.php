@@ -18,7 +18,7 @@
                     @endif
         </div>
         <div class="card-body">
-          <div class="table-responsive">
+          <div class="table-responsive" id="table_pc">
             <table class="table">
               <thead class=" text-primary">
                 <th>Id</th>
@@ -50,6 +50,25 @@
                   
               </tbody>
             </table>
+          </div>
+          <div class="table-responsive" id="table_mobile">
+            <table class="table">
+              <thead class=" text-primary">
+                <th>Name</th>
+                <th>UserType</th>
+                <th>Status</th>
+              </thead>
+              <tbody>
+                @foreach ($users as $user)
+                  <tr>
+                      <td>{{$user->name}}</td>
+                      <td>{{$user->usertype}}</td>
+                      <td>{{$user->status}}</td>
+                  </tr>
+                @endforeach 
+            </tbody>
+          </table>
+          <p>To Edit or Delete a User switch to Desktop View</p>
           </div>
         </div>
       </div>

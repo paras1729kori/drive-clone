@@ -24,10 +24,10 @@ class PostsController extends Controller
         $users = User::all();
         $posts = Post::where('general','=','1')->get();
         if(auth()->user()->usertype != 'admin'){
-            $per_posts = Post::where('reciever','=',auth()->user()->id)->orWhere('user_id','=',auth()->user()->id)->orderBy('user_id','ASC')->get();
+            $per_posts = Post::where('reciever','=',auth()->user()->id)->orWhere('user_id','=',auth()->user()->id)->orderBy('created_at','DESC')->get();
         }
         else{
-            $per_posts = Post::where('general','!=','1')->orderBy('user_id','ASC')->get(); 
+            $per_posts = Post::where('general','!=','1')->orderBy('created_at','DESC')->get(); 
         }
         return view('posts.index',['users'=>$users,'per_posts'=>$per_posts, 'posts' => $posts, 'title' => $title]);
     }

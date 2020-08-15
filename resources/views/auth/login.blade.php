@@ -61,13 +61,13 @@
 
                     {{-- Login button and Forgot Password --}}
                     <div class="form-check">
-                        <button type="submit" class="btn btn-primary px-5 mt-4 mb-2" style="border-radius:50px; background-color: #08417a;"><i class="fa fa-sign-in fa-lg icon pr-2" aria-hidden="true" class = "icon"></i>
+                        <button type="submit" class="btn btn-primary px-5 mt-4 mb-2" style="border-radius:50px; background-color: #08417a;"><i class="fa fa-sign-in fa-lg icon mr-1" aria-hidden="true" class = "icon"></i>
                             {{ __('Login') }}
                         </button>
                     </div>
                 </div>
             </form>
-            <a class="btn btn-link" href="/resetpassword">Reset Password</a>
+            {{-- <a class="btn btn-link" href="/resetpassword">Reset Password</a> --}}
         </div>
     </div>
 </body>

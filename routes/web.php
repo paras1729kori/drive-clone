@@ -39,10 +39,6 @@ Route::get('/tofavsfold','FoldersController@to_favs');
 Route::get('/removefolstar','FoldersController@remove_fols_starred');
 //remove folder from favs
 Route::get('/removefolfavs','FoldersController@remove_fols_favs');
-//for create in starred or starred folders
-Route::get('/starred/create/{id}', 'FoldersController@starred_create');
-//for create in favs or favs folders
-Route::get('/favourites/create/{id}', 'FoldersController@favs_create');
 //for showing files and folders for admins
 Route::get('important/{id}', 'FoldersController@admin');
 //for showing files and folders for starred
@@ -57,6 +53,10 @@ Route::get('folders/download/{id}', 'FoldersController@download')->name('downloa
 Route::post('folders/store', 'FoldersController@store');
 Route::post('folders/{id}/update', 'FoldersController@update');
 Route::delete('folders/{id}/destroy', 'FoldersController@destroy');
+//for create in starred or starred folders
+Route::get('/starred/create/{id}', 'FoldersController@starred_create');
+//for create in favs or favs folders
+Route::get('/favourites/create/{id}', 'FoldersController@favs_create');
 
 // FILE ROUTES
 //replace files
@@ -83,16 +83,16 @@ Route::get('/posts/filter', 'PostsController@filter');
 Route::resource('posts', 'PostsController');
 
 //AUTH ROUTES
-Route::get('/resetpassword', function () {
-    return view('users.resetpass');
-});
+// Route::get('/resetpassword', function () {
+//     return view('users.resetpass');
+// });
 
 Route::get('/registeruser', 'UsersController@registeruser');
 Route::post('/registerstore','UsersController@registerstore');
-Route::post('/reset/password', 'UsersController@ResetPass');
-Route::get('/mail/pass/{id}', 'MailsController@PassReset');
-Route::get('/reset/password/{token}', 'AuthController@ResetPass');
-Route::post('/reset', 'AuthController@ChangePass');
+// Route::post('/reset/password', 'UsersController@ResetPass');
+// Route::get('/mail/pass/{id}', 'MailsController@PassReset');
+// Route::get('/reset/password/{token}', 'AuthController@ResetPass');
+// Route::post('/reset', 'AuthController@ChangePass');
 
 // Route::prefix('sdl')->group(function () {
     // Authentication Routes...
