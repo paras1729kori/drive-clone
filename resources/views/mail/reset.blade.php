@@ -33,7 +33,7 @@
                                 <tr style="text-align: center; font-weight: 700; font-size: 24px;">
                                     
                                 </tr>
-                                <tr>Please <a href="https://sidhpuras.co.in/sdl/reset/password/{{$data['token']}}">click here</a> to reset your password.</tr>
+                                <tr>Please <a href="https://sidhpuras.co.in/sdl/reset/password/{{$details['token']}}">click here</a> to reset your password.</tr>
                                 <tr>
                                     <td style="padding: 20px 0 30px 0; color: #153643; font-family: Arial, sans-serif; font-size: 16px; line-height: 20px;">
                                         Link is valid for 24 hours only. Please ignore if you haven't made the request.
