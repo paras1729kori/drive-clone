@@ -22,6 +22,8 @@ class PostsController extends Controller
     {   
         $title = 'Messages';
         $users = User::all();
+        $user_names = User::pluck('name','id');
+        // return $user_names;
         $posts = Post::where('general','=','1')->get();
         if(auth()->user()->usertype != 'admin'){
             $per_posts = Post::where('reciever','=',auth()->user()->id)->orWhere('user_id','=',auth()->user()->id)->orderBy('created_at','DESC')->get();
@@ -29,7 +31,7 @@ class PostsController extends Controller
         else{
             $per_posts = Post::where('general','!=','1')->orderBy('created_at','DESC')->get(); 
         }
-        return view('posts.index',['users'=>$users,'per_posts'=>$per_posts, 'posts' => $posts, 'title' => $title]);
+        return view('posts.index',['user_names'=>$user_names,'users'=>$users,'per_posts'=>$per_posts, 'posts' => $posts, 'title' => $title]);
     }
 
     /**

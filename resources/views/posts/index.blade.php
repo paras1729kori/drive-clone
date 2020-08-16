@@ -9,7 +9,7 @@
     @if(count($posts) > 0)
       <div class="row px-2">
         @foreach($posts as $post)
-          <div class="col-sm-3 px-2">
+          <div class="col-sm-2 px-2">
             <div class="card text-light" style="background-color: rgb(71, 32, 71)">
               <div class="card-body">
                 <h4>{{$post->title}}</h4>
@@ -38,7 +38,7 @@
       @if(count($per_posts) > 0)
       <div class="row px-2">
         @foreach($per_posts as $post)
-          <div class="col-sm-3 px-2">
+          <div class="col-sm-2 px-2">
             @php
                 if($post->reciever == auth()->user()->id){
                   $color = '#82262a';
@@ -51,7 +51,7 @@
               <div class="card-body">
                 <h4>{{$post->title}}</h4>
                 <h6>From: {{$post->user->name}}</h6>
-                <h6>To: {{$post->reciver}}</h6>
+                <h6>To: {{$user_names[$post->reciever]}}</h6>
                 <small>Written on {{$post->created_at}}</small>
                 <p class="card-text font-italic">
                   {{$post->body}}
@@ -102,7 +102,7 @@
     @if(count($posts) > 0)
       <div class="row px-2">
         @foreach($posts as $post)
-          <div class="col-sm-3 px-2">
+          <div class="col-sm-3 px-2 py-1">
             <div class="card text-light" style="background-color: rgb(71, 32, 71)">
               <div class="card-body">
                 <h4>{{$post->title}}</h4>
@@ -131,7 +131,7 @@
       @if(count($per_posts) > 0)
       <div class="row px-2">
         @foreach($per_posts as $post)
-          <div class="col-sm-3 px-2">
+          <div class="col-sm-3 px-2 py-1">
             @php
                 if($post->reciever == auth()->user()->id){
                   $color = '#82262a';
@@ -144,7 +144,7 @@
               <div class="card-body">
                 <h4>{{$post->title}}</h4>
                 <h6>From: {{$post->user->name}}</h6>
-                <h6>To: {{$post->reciver}}</h6>
+                <h6>To: {{$user_names[$post->reciever]}}</h6>
                 <small>Written on {{$post->created_at}}</small>
                 <p class="card-text font-italic">
                   {{$post->body}}
@@ -184,6 +184,6 @@
     </div>
     @endif --}}
   </div>
-  <a href="/posts/create" class="btn btn-primary mt-5">Messages</a>
+  <a href="/posts/create" class="btn btn-primary mt-3">Messages</a>
 </div>
 @endsection

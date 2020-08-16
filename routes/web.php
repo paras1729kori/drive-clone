@@ -86,7 +86,7 @@ Route::resource('posts', 'PostsController');
 // Route::get('/resetpassword', function () {
 //     return view('users.resetpass');
 // });
-
+//For registering new Users
 Route::get('/registeruser', 'UsersController@registeruser');
 Route::post('/registerstore','UsersController@registerstore');
 // Route::post('/reset/password', 'UsersController@ResetPass');

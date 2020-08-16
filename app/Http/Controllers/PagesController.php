@@ -20,7 +20,6 @@ class PagesController extends Controller
         $title = 'Dashboard';
         $user_id = auth()->user()->id;
         $user = User::find($user_id);
-
         return view('pages.account',['title' => $title,'posts' => $user->posts]);
     }
     
@@ -33,8 +32,9 @@ class PagesController extends Controller
         $title = 'Dashboard';
         $user_id = auth()->user()->id;
         $user = User::find($user_id);
+        $user_names = User::pluck('name','id');
 
-        return view('pages.account',['title' => $title,'posts' => $user->posts]);
+        return view('pages.account',['user_names'=>$user_names,'title' => $title,'posts' => $user->posts]);
     }
 
     public function download($id) {
