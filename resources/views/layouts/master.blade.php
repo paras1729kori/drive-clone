@@ -38,6 +38,11 @@
 
   {{-- Custom CSS --}}
   <link rel="stylesheet" href="{{asset('css/create.css')}}">
+  <style>
+    body {
+    padding-bottom: 16px;
+}
+  </style>
 </head>
 
 <body class="">

@@ -80,7 +80,7 @@
         <div class="form-group">
           {{Form::label('filter_by_id', 'Filter by Name')}}
           <select class="form-control opt" name="filter_name" id="filter_name">
-              <option value="nullable">Select Folder</option>
+              <option value="nullable">Select User</option>
               @foreach ($users as $user)
                 <option value="{{$user->id}}">{{ $user->name }}</option>
               @endforeach
@@ -173,7 +173,7 @@
         <div class="form-group">
           {{Form::label('filter_by_id', 'Filter by Name')}}
           <select class="form-control opt" name="filter_name" id="filter_name">
-              <option value="nullable">Select Folder</option>
+              <option value="nullable">Select User</option>
               @foreach ($users as $user)
                 <option value="{{$user->id}}">{{ $user->name }}</option>
               @endforeach

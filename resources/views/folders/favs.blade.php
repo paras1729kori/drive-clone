@@ -154,7 +154,7 @@
           @else
             <p>No Files Found</p>
           @endif
-          <a href="/favourites/create/{{ $current }}"><button class="btn btn-success">Create</button></a>
+          <a href="/favourites/create/{{ $current }}" class="btn btn-success">Create</a>
     </div>
 
     <script type="text/javascript">

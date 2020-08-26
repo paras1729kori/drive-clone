@@ -35,7 +35,14 @@ class LoginController extends Controller
             $user = User::find(auth()->user()->id);
             $user->login_time = Carbon::now();
             $user->save();
-            return 'dashboard';
+            if (Auth::user()->usertype == 'admin')
+            {
+                return 'important';
+            }
+            else{
+                return 'starred';
+            }
+            
         }
         else{
             Auth::logout();

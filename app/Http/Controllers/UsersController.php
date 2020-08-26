@@ -18,6 +18,26 @@ class UsersController extends Controller
         return view('admin.registeruser');
     }
 
+    public function ChangePassView()
+    {
+        return view('users.changepass');
+    }
+
+    public function SaveNewPass(Request $request)
+    {
+        $this->validate($request, [
+            'password' => 'required|string|min:8|confirmed'
+        ]);
+
+        $user = User::find(auth()->user()->id);
+        $pass = $request->input('password');
+        $user->password = Hash::make($pass);
+        $user->save();
+
+        // Session::flash('success', 'User Created Successfully');
+        return redirect('/')->with('status', 'Password Updated Successfully');
+    }
+
     //For creating/registering users
     public function registerstore(Request $request){
         //validator

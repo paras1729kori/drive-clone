@@ -93,8 +93,11 @@ class PostsController extends Controller
     {
        $title = 'Filter';
        $id = $request->filter_name;
-       $posts = Post::where('user_id','=',$id)->orWhere('reciever','=',$id)->orderBy('created_at', 'DESC')->get();
-       return view('posts.show', ['title'=>$title,'posts' => $posts]);
+       $posts = Post::where('general','=','1')->get();
+       $per_posts = Post::where('user_id','=',$id)->orWhere('reciever','=',$id)->orderBy('created_at', 'DESC')->get();
+       $users = User::all();
+       $user_names = User::pluck('name','id');
+       return view('posts.show', ['title'=>$title,'per_posts' => $per_posts, 'posts'=>$posts, 'users'=>$users, 'user_names'=>$user_names]);
     }
 
     /**

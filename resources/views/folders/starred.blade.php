@@ -154,7 +154,8 @@
           @else
             <p>No Files Found</p>
           @endif
-          <a href="/starred/create/{{ $current }}"><button class="btn btn-success">Create</button></a>
+          <!-- <a href="/starred/create/{{ $current }}"><button class="">Create</button></a> -->
+          <a href="/starred/create/{{$current}}" class="btn btn-success">Create New</a>
     </div>
 
     <script type="text/javascript">

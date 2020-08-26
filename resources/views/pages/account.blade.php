@@ -28,10 +28,10 @@
                             {{ csrf_field() }}
                         </form>
                     </li>
-                    {{-- <hr>
+                    <hr>
                     <li>
-                    <a class="btn btn-link" href="/resetpassword">Reset Password</a>
-                    </li> --}}
+                    <a class="btn btn-link" href="/changepassword/user">Reset Password</a>
+                    </li>
                 </ul>
             </li>
         @endif

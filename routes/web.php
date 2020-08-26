@@ -13,6 +13,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('/starred/create/{id}', 'FoldersController@starred_create');
+// Route::get('/starred/create/{id}', function() {
+//     echo "Hello World";
+// });
+Route::get('/changepassword/user', 'UsersController@ChangePassView');
+Route::post('/changepassword/user', 'UsersController@SaveNewPass');
+
+//for create in favs or favs folders
+Route::get('/favourites/create/{id}', 'FoldersController@favs_create');
+
 // PAGES ROUTES
 Route::get('/home', 'PagesController@index');
 Route::get('/create', 'PagesController@create')->name('pages.create');
@@ -54,9 +64,7 @@ Route::post('folders/store', 'FoldersController@store');
 Route::post('folders/{id}/update', 'FoldersController@update');
 Route::delete('folders/{id}/destroy', 'FoldersController@destroy');
 //for create in starred or starred folders
-Route::get('/starred/create/{id}', 'FoldersController@starred_create');
-//for create in favs or favs folders
-Route::get('/favourites/create/{id}', 'FoldersController@favs_create');
+
 
 // FILE ROUTES
 //replace files

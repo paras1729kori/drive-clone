@@ -25,7 +25,11 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="{{asset('css/nav.css')}}">
     <link rel="stylesheet" href="{{asset('css/create.css')}}">
-
+    <style>
+        body {
+    padding-bottom: 16px;
+}
+    </style>
 </head>
 <body style="background-color: white">
     @include('inc.nav')

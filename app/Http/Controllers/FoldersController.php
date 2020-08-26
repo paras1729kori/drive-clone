@@ -262,7 +262,21 @@ class FoldersController extends Controller
         // Create new Folder
         $folder = new Folder;
         $folder->name = $request->input('name');
-        $folder->parent_folder = $request->input('parentid');
+        if ($request->input('parentid') == 2)
+        {
+            $folder->parent_folder = 1;
+            $folder->starred = '1';
+        }
+        else if ($request->input('parentid') == 3)
+        {
+            $folder->parent_folder = 1;
+            $folder->favourites = '1';
+        }
+        else 
+        {
+            $folder->parent_folder = $request->input('parentid');
+        }
+
         $folder->sub_folder = '1';
         $folder->created_by = auth()->user()->id;
         if($request->starred){

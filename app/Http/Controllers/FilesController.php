@@ -36,10 +36,24 @@ class FilesController extends Controller
             //Creating File
             $fileModel = new File;
             $fileModel->name = $filename;
-            if($request->input('parentid') == 'nullable'){
-                $fileModel->parent_folder = null;
+            // if($request->input('parentid') == 'nullable'){
+            //     $fileModel->parent_folder = null;
+            // }
+            // else{
+            //     $fileModel->parent_folder = $request->input('parentid');
+            // }
+            if ($request->input('parentid') == 2)
+            {
+                $fileModel->parent_folder = 1;
+                $fileModel->starred = '1';
             }
-            else{
+            else if ($request->input('parentid') == 3)
+            {
+                $fileModel->parent_folder = 1;
+                $fileModel->favourites = '1';
+            }
+            else 
+            {
                 $fileModel->parent_folder = $request->input('parentid');
             }
             $fileModel->size = $filesize;
