@@ -155,7 +155,7 @@
             <p>No Files Found</p>
           @endif
           <!-- <a href="/starred/create/{{ $current }}"><button class="">Create</button></a> -->
-          <a href="/starred/create/{{$current}}" class="btn btn-success">Create New</a>
+          <a href="/starred/create/{{$current}}" class="btn btn-success">Create</a>
     </div>
 
     <script type="text/javascript">

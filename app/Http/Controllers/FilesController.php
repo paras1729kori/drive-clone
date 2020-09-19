@@ -92,6 +92,8 @@ class FilesController extends Controller
                 Storage::delete('public/files/'.$filename->name);
                 $filename->delete();
             }
+            //flash message
+            Session::flash('info', 'Previous file deleted for prevention of dulpication');
             return view('files.replace', ['parent' => $parent,'fol' => $fol]);
         }
         else{

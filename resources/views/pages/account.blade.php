@@ -56,7 +56,7 @@
                     <h6>From: {{$post->user->name}}</h6>
                     <h6>To: {{$user_names[$post->reciever]}}</h6>
                     <small>Written on {{$post->created_at}}</small>
-                <p class="card-text font-italic">
+                <p class="card-text">
                     {{$post->body}}
                 </p>
                 @if(!Auth::guest())

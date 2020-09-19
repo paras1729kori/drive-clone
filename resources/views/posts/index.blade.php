@@ -14,7 +14,7 @@
               <div class="card-body">
                 <h4>{{$post->title}}</h4>
                 <h6>Written on {{$post->created_at}} by {{$post->user->name}}</h6>
-                <p class="card-text font-italic">
+                <p class="card-text">
                   {{$post->body}}
                 </p>
                 @if(!Auth::guest())
@@ -53,7 +53,7 @@
                 <h6>From: {{$post->user->name}}</h6>
                 <h6>To: {{$user_names[$post->reciever]}}</h6>
                 <small>Written on {{$post->created_at}}</small>
-                <p class="card-text font-italic">
+                <p class="card-text">
                   {{$post->body}}
                 </p>
                 @if(!Auth::guest())
@@ -82,7 +82,9 @@
           <select class="form-control opt" name="filter_name" id="filter_name">
               <option value="nullable">Select User</option>
               @foreach ($users as $user)
-                <option value="{{$user->id}}">{{ $user->name }}</option>
+              @if($user->id != auth()->user()->id)
+              <option value="{{$user->id}}">{{ $user->name }}</option>
+              @endif
               @endforeach
             </select>
         </div>
@@ -107,7 +109,7 @@
               <div class="card-body">
                 <h4>{{$post->title}}</h4>
                 <h6>Written on {{$post->created_at}} by {{$post->user->name}}</h6>
-                <p class="card-text font-italic">
+                <p class="card-text">
                   {{$post->body}}
                 </p>
                 @if(!Auth::guest())
@@ -146,7 +148,7 @@
                 <h6>From: {{$post->user->name}}</h6>
                 <h6>To: {{$user_names[$post->reciever]}}</h6>
                 <small>Written on {{$post->created_at}}</small>
-                <p class="card-text font-italic">
+                <p class="card-text">
                   {{$post->body}}
                 </p>
                 @if(!Auth::guest())

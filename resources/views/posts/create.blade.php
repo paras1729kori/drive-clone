@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="px-4">
-        <h1>Create Mesages</h1>
+        <h1>Create Messages</h1>
         {!! Form::open(['action' => 'PostsController@store', 'method' => 'POST', 'enctype' => 'multipart/form-data']) !!}
             <div class="form-group">
                 {{Form::label('title', 'Title')}}
@@ -21,7 +21,9 @@
                 <select class="form-control opt" name="reciever" id="reciever">
                     <option value="nullable">Select Folder</option>
                     @foreach ($users as $user)
+                    @if($user->id != auth()->user()->id)
                       <option value="{{$user->id}}">{{ $user->name }}</option>
+                    @endif
                     @endforeach
                   </select>
             </div>
