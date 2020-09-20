@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Post;
 use App\User;
+use DB;
 
 class PostsController extends Controller
 {
@@ -23,13 +24,14 @@ class PostsController extends Controller
         $title = 'Messages';
         $users = User::all();
         $user_names = User::pluck('name','id');
-        // return $user_names;
         $posts = Post::where('general','=','1')->get();
+        // return $posts;
         if(auth()->user()->usertype != 'admin'){
-            $per_posts = Post::where('reciever','=',auth()->user()->id)->orWhere('user_id','=',auth()->user()->id)->orderBy('created_at','DESC')->get();
+            $per_posts = Post::where(array(['general','!=','1'],['user_id','=',auth()->user()->id]))->orWhere(array(['general','!=','1'],['reciever','=',auth()->user()->id]))->orderBy('created_at','DESC')->get();
         }
         else{
             $per_posts = Post::where('general','!=','1')->orderBy('created_at','DESC')->get(); 
+            // return $per_posts;
         }
         return view('posts.index',['user_names'=>$user_names,'users'=>$users,'per_posts'=>$per_posts, 'posts' => $posts, 'title' => $title]);
     }
@@ -59,12 +61,12 @@ class PostsController extends Controller
             'body' => 'required',
         ]);
 
-         // Create Post
-         $post = new Post;
-         $post->title = $request->input('title');
-         $post->body = $request->input('body');
-         $post->user_id = auth()->user()->id;
-         if($request->general){
+        // Create Post
+        $post = new Post;
+        $post->title = $request->input('title');
+        $post->body = $request->input('body');
+        $post->user_id = auth()->user()->id;
+        if($request->general){
             $post->general = '1';
         }
         if($request->input('reciever') == 'nullable'){
@@ -93,8 +95,8 @@ class PostsController extends Controller
     {
        $title = 'Filter';
        $id = $request->filter_name;
-       $posts = Post::where('general','=','1')->get();
-       $per_posts = Post::where('user_id','=',$id)->orWhere('reciever','=',$id)->orderBy('created_at', 'DESC')->get();
+       $posts = Post::where('general','=','1')->where('user_id','=',$id)->get();
+       $per_posts = Post::where(array(['general','!=','1'],['user_id','=',$id]))->orWhere(array(['general','!=','1'],['reciever','=',$id]))->orderBy('created_at','DESC')->get();
        $users = User::all();
        $user_names = User::pluck('name','id');
        return view('posts.show', ['title'=>$title,'per_posts' => $per_posts, 'posts'=>$posts, 'users'=>$users, 'user_names'=>$user_names]);

@@ -31,6 +31,8 @@
           </div> 
         @endforeach
       </div>
+      @else
+        <p class="pt-1">No messages found</p>
       @endif
       <br>
       {{-- For Private Messages --}}
@@ -40,6 +42,7 @@
         @foreach($per_posts as $post)
           <div class="col-sm-2 px-2">
             @php
+                $color = '#5823EB';
                 if($post->reciever == auth()->user()->id){
                   $color = '#82262a';
                 }
@@ -50,7 +53,7 @@
             <div class="card text-light" style="background-color:{{$color}}">
               <div class="card-body">
                 <h4>{{$post->title}}</h4>
-                <h6>From: {{$post->user->name}}</h6>
+                <h6>From: {{$user_names[$post->user_id]}}</h6>
                 <h6>To: {{$user_names[$post->reciever]}}</h6>
                 <small>Written on {{$post->created_at}}</small>
                 <p class="card-text">
@@ -135,6 +138,7 @@
         @foreach($per_posts as $post)
           <div class="col-sm-3 px-2 py-1">
             @php
+              $color = '#5823EB';
                 if($post->reciever == auth()->user()->id){
                   $color = '#82262a';
                 }

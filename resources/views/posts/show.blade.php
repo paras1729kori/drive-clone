@@ -32,6 +32,8 @@
           </div> 
         @endforeach
       </div>
+      @else
+        <p class="pt-1">No messages found</p>
       @endif
       <br>
       {{-- For Private Messages --}}
@@ -41,6 +43,7 @@
         @foreach($per_posts as $post)
           <div class="col-sm-2 px-2">
             @php
+                $color = '#5823EB';
                 if($post->reciever == auth()->user()->id){
                   $color = '#82262a';
                 }
@@ -134,6 +137,7 @@
         @foreach($per_posts as $post)
           <div class="col-sm-3 px-2 py-1">
             @php
+            $color = '#5823EB';
                 if($post->reciever == auth()->user()->id){
                   $color = '#82262a';
                 }

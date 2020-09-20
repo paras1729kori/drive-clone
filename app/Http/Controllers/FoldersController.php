@@ -282,7 +282,7 @@ class FoldersController extends Controller
         if($request->starred){
             $folder->starred = '1';
         }
-        elseif($request->favourites){
+        if($request->favourites){
             $folder->favourites = '1';
         }
         $folder->save();
